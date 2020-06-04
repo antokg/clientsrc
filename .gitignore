@@ -1,0 +1,10 @@
+bin/
+*.obj
+*.exe
+*.tlog
+.vs/
+obj/
+Release/
+Debug/
+*.sbr
+*.sdf

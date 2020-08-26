@@ -1,5 +1,8 @@
 #include <math.h>
 #include "ItemCSVReader.h"
+#include <string>
+#include <sstream>
+#include <vector>
 
 
 
@@ -48,81 +51,100 @@ static string* StringSplit(string strOrigin, string strTok)
     return strResult;  //결과return
 }
 
-
-
 int get_Item_Type_Value(string inputString)
 {
-	string arType[] = {"ITEM_NONE", "ITEM_WEAPON",
-		"ITEM_ARMOR", "ITEM_USE", 
+	string arType[] = { "ITEM_NONE", "ITEM_WEAPON",
+		"ITEM_ARMOR", "ITEM_USE",
 		"ITEM_AUTOUSE", "ITEM_MATERIAL",
-		"ITEM_SPECIAL", "ITEM_TOOL", 
-		"ITEM_LOTTERY", "ITEM_ELK",					//10개
+		"ITEM_SPECIAL", "ITEM_TOOL",
+		"ITEM_LOTTERY", "ITEM_ELK",					//9개
 
-		"ITEM_METIN", "ITEM_CONTAINER", 
-		"ITEM_FISH", "ITEM_ROD", 
+		"ITEM_METIN", "ITEM_CONTAINER",
+		"ITEM_FISH", "ITEM_ROD",
 		"ITEM_RESOURCE", "ITEM_CAMPFIRE",
-		"ITEM_UNIQUE", "ITEM_SKILLBOOK", 
-		"ITEM_QUEST", "ITEM_POLYMORPH",				//20개
+		"ITEM_UNIQUE", "ITEM_SKILLBOOK",
+		"ITEM_QUEST", "ITEM_POLYMORPH",				//19개
 
 		"ITEM_TREASURE_BOX", "ITEM_TREASURE_KEY",
-		"ITEM_SKILLFORGET", "ITEM_GIFTBOX", 
-		"ITEM_PICK", "ITEM_HAIR", 
-		"ITEM_TOTEM", "ITEM_BLEND", 
-		"ITEM_COSTUME", "ITEM_DS",					//30개
-	
-		"ITEM_SPECIAL_DS",	"ITEM_EXTRACT",
-		"ITEM_SECONDARY_COIN",						//33개
+		"ITEM_SKILLFORGET", "ITEM_GIFTBOX",
+		"ITEM_PICK", "ITEM_HAIR",
+		"ITEM_TOTEM", "ITEM_BLEND",
+		"ITEM_COSTUME", "ITEM_DS",					//31개
 
-		"ITEM_RING",
-		"ITEM_BELT",								//35개 (EItemTypes 값으로 치면 34)
+		"ITEM_SPECIAL_DS",	"ITEM_EXTRACT",
+		"ITEM_SECONDARY_COIN",						//32개
+
+		"ITEM_RING",								//33
+		"ITEM_BELT",								//34
+
+		"ITEM_PET",									//35
+		"ITEM_MEDIUM",								//36
+		"ITEM_GACHA",								//37
+		"ITEM_SOUL",		//38
 	};
 
-	
+
 	int retInt = -1;
 	//cout << "Type : " << typeStr << " -> ";
-	for (int j=0;j<sizeof(arType)/sizeof(arType[0]);j++) {
+	for (int j = 0; j < sizeof(arType) / sizeof(arType[0]); j++) {
 		string tempString = arType[j];
-		if	(inputString.find(tempString)!=string::npos && tempString.find(inputString)!=string::npos) {
+		if (inputString.find(tempString) != string::npos && tempString.find(inputString) != string::npos) {
 			//cout << j << " ";
-			retInt =  j;
+			retInt = j;
 			break;
 		}
 	}
 	//cout << endl;
 
 	return retInt;
-
 }
 
-int get_Item_SubType_Value(int type_value, string inputString) 
+int get_Item_SubType_Value(int type_value, string inputString)
 {
 	static string arSub1[] = { "WEAPON_SWORD", "WEAPON_DAGGER", "WEAPON_BOW", "WEAPON_TWO_HANDED",
-				"WEAPON_BELL", "WEAPON_FAN", "WEAPON_ARROW", "WEAPON_MOUNT_SPEAR", "WEAPON_CLAW"};
+				"WEAPON_BELL", "WEAPON_FAN", "WEAPON_ARROW", "WEAPON_MOUNT_SPEAR", "WEAPON_CLAW",
+				"WEAPON_QUIVER", "WEAPON_BOUQUET" };
 	static string arSub2[] = { "ARMOR_BODY", "ARMOR_HEAD", "ARMOR_SHIELD", "ARMOR_WRIST", "ARMOR_FOOTS",
-				"ARMOR_NECK", "ARMOR_EAR", "ARMOR_NUM_TYPES"};
+				"ARMOR_NECK", "ARMOR_EAR", "ARMOR_PENDANT" };
 	static string arSub3[] = { "USE_POTION", "USE_TALISMAN", "USE_TUNING", "USE_MOVE", "USE_TREASURE_BOX", "USE_MONEYBAG", "USE_BAIT",
 				"USE_ABILITY_UP", "USE_AFFECT", "USE_CREATE_STONE", "USE_SPECIAL", "USE_POTION_NODELAY", "USE_CLEAR",
 				"USE_INVISIBILITY", "USE_DETACHMENT", "USE_BUCKET", "USE_POTION_CONTINUE", "USE_CLEAN_SOCKET",
 				"USE_CHANGE_ATTRIBUTE", "USE_ADD_ATTRIBUTE", "USE_ADD_ACCESSORY_SOCKET", "USE_PUT_INTO_ACCESSORY_SOCKET",
-				"USE_ADD_ATTRIBUTE2", "USE_RECIPE", "USE_CHANGE_ATTRIBUTE2", "USE_BIND", "USE_UNBIND", "USE_TIME_CHARGE_PER", "USE_TIME_CHARGE_FIX", "USE_PUT_INTO_BELT_SOCKET", "USE_PUT_INTO_RING_SOCKET"};
-	static string arSub4[] = { "AUTOUSE_POTION", "AUTOUSE_ABILITY_UP", "AUTOUSE_BOMB", "AUTOUSE_GOLD", "AUTOUSE_MONEYBAG", "AUTOUSE_TREASURE_BOX"};
-	static string arSub5[] = { "MATERIAL_LEATHER", "MATERIAL_BLOOD", "MATERIAL_ROOT", "MATERIAL_NEEDLE", "MATERIAL_JEWEL", 
-		"MATERIAL_DS_REFINE_NORMAL", "MATERIAL_DS_REFINE_BLESSED", "MATERIAL_DS_REFINE_HOLLY"};
-	static string arSub6[] = { "SPECIAL_MAP", "SPECIAL_KEY", "SPECIAL_DOC", "SPECIAL_SPIRIT"};
+				"USE_ADD_ATTRIBUTE2", "USE_RECIPE", "USE_CHANGE_ATTRIBUTE2", "USE_BIND", "USE_UNBIND", "USE_TIME_CHARGE_PER",
+				"USE_TIME_CHARGE_FIX", "USE_PUT_INTO_BELT_SOCKET", "USE_PUT_INTO_RING_SOCKET",
+				"USE_CHANGE_COSTUME_ATTR", "USE_RESET_COSTUME_ATTR", "", "USE_SELECT_ATTRIBUTE", "USE_FLOWER",
+				"USE_EMOTION_PACK", "USE_ELEMENT_UPGRADE", "USE_ELEMENT_DOWNGRADE", "USE_ELEMENT_CHANGE", "USE_UNK40" };
+	static string arSub4[] = { "AUTOUSE_POTION", "AUTOUSE_ABILITY_UP", "AUTOUSE_BOMB", "AUTOUSE_GOLD", "AUTOUSE_MONEYBAG", "AUTOUSE_TREASURE_BOX" };
+	static string arSub5[] = { "MATERIAL_LEATHER", "MATERIAL_BLOOD", "MATERIAL_ROOT", "MATERIAL_NEEDLE", "MATERIAL_JEWEL",
+								"MATERIAL_DS_REFINE_NORMAL", "MATERIAL_DS_REFINE_BLESSED", "MATERIAL_DS_REFINE_HOLLY",
+								"MATERIAL_DS_CHANGE_ATTR", };
+	static string arSub6[] = { "SPECIAL_MAP", "SPECIAL_KEY", "SPECIAL_DOC", "SPECIAL_SPIRIT" };
 	static string arSub7[] = { "TOOL_FISHING_ROD" };
 	static string arSub8[] = { "LOTTERY_TICKET", "LOTTERY_INSTANT" };
 	static string arSub10[] = { "METIN_NORMAL", "METIN_GOLD" };
-	static string arSub12[] = { "FISH_ALIVE", "FISH_DEAD"};
+	static string arSub12[] = { "FISH_ALIVE", "FISH_DEAD" };
 	static string arSub14[] = { "RESOURCE_FISHBONE", "RESOURCE_WATERSTONEPIECE", "RESOURCE_WATERSTONE", "RESOURCE_BLOOD_PEARL",
 						"RESOURCE_BLUE_PEARL", "RESOURCE_WHITE_PEARL", "RESOURCE_BUCKET", "RESOURCE_CRYSTAL", "RESOURCE_GEM",
-						"RESOURCE_STONE", "RESOURCE_METIN", "RESOURCE_ORE" };
+						"RESOURCE_STONE", "RESOURCE_METIN", "RESOURCE_ORE", "RESOURCE_AURA" };
 	static string arSub16[] = { "UNIQUE_NONE", "UNIQUE_BOOK", "UNIQUE_SPECIAL_RIDE", "UNIQUE_3", "UNIQUE_4", "UNIQUE_5",
-					"UNIQUE_6", "UNIQUE_7", "UNIQUE_8", "UNIQUE_9", "USE_SPECIAL"};
-	static string arSub28[] = { "COSTUME_BODY", "COSTUME_HAIR" };
+					"UNIQUE_6", "UNIQUE_7", "UNIQUE_8", "UNIQUE_9", "USE_SPECIAL" };
+	static string arSub28[] = { "COSTUME_BODY", "COSTUME_HAIR", "COSTUME_MOUNT", "COSTUME_ACCE", "COSTUME_WEAPON", "COSTUME_AURA" };
 	static string arSub29[] = { "DS_SLOT1", "DS_SLOT2", "DS_SLOT3", "DS_SLOT4", "DS_SLOT5", "DS_SLOT6" };
 	static string arSub31[] = { "EXTRACT_DRAGON_SOUL", "EXTRACT_DRAGON_HEART" };
-	
-	static string* arSubType[] = {0,	//0
+
+	static string arSub35[] = { "PET_EGG","PET_UPBRINGING","PET_BAG",
+								"PET_FEEDSTUFF","PET_SKILL","PET_SKILL_DEL_BOOK",
+								"PET_NAME_CHANGE","PET_EXPFOOD","PET_SKILL_ALL_DEL_BOOK",
+								"PET_EXPFOOD_PER","PET_ATTR_DETERMINE","PET_ATTR_CHANGE",
+								"PET_PAY","PET_PRIMIUM_FEEDSTUFF" };
+
+	static string arSub36[] = { "MEDIUM_MOVE_COSTUME_ATTR", "MEDIUM_MOVE_ACCE_ATTR" };
+
+	static string arSub37[] = { "USE_GACHA", "GEM_LUCKY_BOX_GACHA", "SPECIAL_LUCKY_BOX_GACHA" };
+
+	static string arSub38[] = { "SOUL_RED", "SOUL_BLUE" };
+
+	static string* arSubType[] = { 0,	//0
 		arSub1,		//1
 		arSub2,	//2
 		arSub3,	//3
@@ -155,27 +177,31 @@ int get_Item_SubType_Value(int type_value, string inputString)
 		arSub29,	//30
 		arSub31,	//31
 		0,			//32
+		0,			//33 반지
+		0,			//34 벨트
+		arSub35,
+		arSub36,	//36
+		arSub37,	//37
+		arSub38,
 	};
-	static int arNumberOfSubtype[33] = {
+	static int arNumberOfSubtype[_countof(arSubType)] = {
 		0,
-		sizeof(arSub1)/sizeof(arSub1[0]),
-		sizeof(arSub2)/sizeof(arSub2[0]),
-		sizeof(arSub3)/sizeof(arSub3[0]),
-		sizeof(arSub4)/sizeof(arSub4[0]),
-		sizeof(arSub5)/sizeof(arSub5[0]),
-		sizeof(arSub6)/sizeof(arSub6[0]),
-		sizeof(arSub7)/sizeof(arSub7[0]),
-		sizeof(arSub8)/sizeof(arSub8[0]),
+		sizeof(arSub1) / sizeof(arSub1[0]),
+		sizeof(arSub2) / sizeof(arSub2[0]),
+		sizeof(arSub3) / sizeof(arSub3[0]),
+		sizeof(arSub4) / sizeof(arSub4[0]),
+		sizeof(arSub5) / sizeof(arSub5[0]),
+		sizeof(arSub6) / sizeof(arSub6[0]),
+		sizeof(arSub7) / sizeof(arSub7[0]),
+		sizeof(arSub8) / sizeof(arSub8[0]),
 		0,
-		sizeof(arSub10)/sizeof(arSub10[0]),
+		sizeof(arSub10) / sizeof(arSub10[0]),
 		0,
-		sizeof(arSub12)/sizeof(arSub12[0]),
+		sizeof(arSub12) / sizeof(arSub12[0]),
 		0,
-		sizeof(arSub14)/sizeof(arSub14[0]),
+		sizeof(arSub14) / sizeof(arSub14[0]),
 		0,
-		sizeof(arSub16)/sizeof(arSub16[0]),
-		0,
-		0,
+		sizeof(arSub16) / sizeof(arSub16[0]),
 		0,
 		0,
 		0,
@@ -185,30 +211,36 @@ int get_Item_SubType_Value(int type_value, string inputString)
 		0,
 		0,
 		0,
-		sizeof(arSub28)/sizeof(arSub28[0]),
-		sizeof(arSub29)/sizeof(arSub29[0]),
-		sizeof(arSub29)/sizeof(arSub29[0]),
-		sizeof(arSub31)/sizeof(arSub31[0]),
+		0,
+		0,
+		sizeof(arSub28) / sizeof(arSub28[0]),
+		sizeof(arSub29) / sizeof(arSub29[0]),
+		sizeof(arSub29) / sizeof(arSub29[0]),
+		sizeof(arSub31) / sizeof(arSub31[0]),
 		0, // 32
+		0, // 33 반지
+		0, // 34 벨트
+		sizeof(arSub35) / sizeof(arSub35[0]),
+		sizeof(arSub36) / sizeof(arSub36[0]),
+		sizeof(arSub37) / sizeof(arSub37[0]),
+		sizeof(arSub38) / sizeof(arSub38[0]),
 	};
-	
-
 
 	//아이템 타입의 서브타입 어레이가 존재하는지 알아보고, 없으면 0 리턴
-	if (arSubType[type_value]==0) {
+	if (arSubType[type_value] == 0) {
 		return 0;
 	}
 	//
 
 	int retInt = -1;
 	//cout << "SubType : " << subTypeStr << " -> ";
-	for (int j=0;j<arNumberOfSubtype[type_value];j++) {
+	for (int j = 0; j < arNumberOfSubtype[type_value]; j++) {
 		string tempString = arSubType[type_value][j];
 		string tempInputString = trim(inputString);
-		if	(tempInputString.compare(tempString)==0)
+		if (tempInputString.compare(tempString) == 0)
 		{
 			//cout << j << " ";
-			retInt =  j;
+			retInt = j;
 			break;
 		}
 	}
@@ -217,16 +249,125 @@ int get_Item_SubType_Value(int type_value, string inputString)
 	return retInt;
 }
 
+int get_Item_Mask_Type_Value(string inputString)
+{
+	string arTypeMask[] = { "MASK_ITEM_NONE","MASK_ITEM_MOUNT_PET","MASK_ITEM_EQUIPMENT_WEAPON",
+									"MASK_ITEM_EQUIPMENT_ARMOR","MASK_ITEM_EQUIPMENT_JEWELRY","MASK_ITEM_TUNING",
+									"MASK_ITEM_POTION","MASK_ITEM_FISHING_PICK","MASK_ITEM_DRAGON_STONE",
+									"MASK_ITEM_COSTUMES","MASK_ITEM_SKILL","MASK_ITEM_UNIQUE","MASK_ITEM_ETC" };
+
+	int retInt = -1;
+
+	for (int j = 0; j < sizeof(arTypeMask) / sizeof(arTypeMask[0]); j++) {
+		string tempString = arTypeMask[j];
+		if (inputString.find(tempString) != string::npos && tempString.find(inputString) != string::npos) {
+			retInt = j;
+			break;
+		}
+	}
+
+	return retInt;
+}
+
+int get_Item_Mask_SubType_Value(int type_value, string inputString)
+{
+	static string arSub1[] = { "MASK_MOUNT_PET_MOUNT","MASK_MOUNT_PET_CHARGED_PET","MASK_MOUNT_PET_FREE_PET","MASK_MOUNT_PET_EGG" };
+
+	static string arSub2[] = { "MASK_EQUIPMENT_WEAPON_SWORD","MASK_EQUIPMENT_WEAPON_DAGGER","MASK_EQUIPMENT_WEAPON_BOW",
+										"MASK_EQUIPMENT_WEAPON_TWO_HANDED","MASK_EQUIPMENT_WEAPON_BELL","MASK_EQUIPMENT_WEAPON_CLAW",
+										"MASK_EQUIPMENT_WEAPON_FAN","MASK_EQUIPMENT_WEAPON_MOUNT_SPEAR","MASK_EQUIPMENT_WEAPON_ARROW" };
+
+	static string arSub3[] = { "MASK_EQUIPMENT_ARMOR_BODY","MASK_EQUIPMENT_ARMOR_HEAD","MASK_EQUIPMENT_ARMOR_SHIELD" };
+
+	static string arSub4[] = { "MASK_EQUIPMENT_JEWELRY_ARMOR_WRIST","MASK_EQUIPMENT_JEWELRY_ARMOR_FOOTS","MASK_EQUIPMENT_JEWELRY_ARMOR_NECK",
+										"MASK_EQUIPMENT_JEWELRY_ARMOR_EAR","MASK_EQUIPMENT_JEWELRY_ITEM_BELT","MASK_EQUIPMENT_JEWELRY_ARMOR_PENDANT" };
+
+	static string arSub5[] = { "MASK_TUNING_RESOURCE","MASK_TUNING_STONE","MASK_TUNING_ETC" };
+
+	static string arSub6[] = { "MASK_POTION_ABILITY","MASK_POTION_HAIRDYE","MASK_POTION_ETC" };
+
+	static string arSub7[] = { "MASK_FISHING_PICK_FISHING_POLE","MASK_FISHING_PICK_EQUIPMENT_PICK","MASK_FISHING_PICK_FOOD",
+										 "MASK_FISHING_PICK_STONE","MASK_FISHING_PICK_ETC" };
+
+	static string arSub8[] = { "MASK_DRAGON_STONE_DRAGON_DIAMOND","MASK_DRAGON_STONE_DRAGON_RUBY","MASK_DRAGON_STONE_DRAGON_JADE",
+										"MASK_DRAGON_STONE_DRAGON_SAPPHIRE","MASK_DRAGON_STONE_DRAGON_GARNET","MASK_DRAGON_STONE_DRAGON_ONYX",
+										"MASK_DRAGON_STONE_ETC" };
+
+	static string arSub9[] = { "MASK_COSTUMES_COSTUME_WEAPON","MASK_COSTUMES_COSTUME_BODY","MASK_COSTUMES_COSTUME_HAIR",
+										"MASK_COSTUMES_SASH","MASK_COSTUMES_AURA","MASK_COSTUMES_ETC" };
+
+	static string arSub10[] = { "MASK_SKILL_PAHAE","MASK_SKILL_SKILL_BOOK","MASK_SKILL_BOOK_OF_OBLIVION","MASK_SKILL_ETC" };
+
+	static string arSub11[] = { "MASK_UNIQUE_ABILITY","MASK_UNIQUE_ETC" };
+
+	static string arSub12[] = { "MASK_ETC_GIFTBOX","MASK_ETC_MATRIMORY","MASK_ETC_EVENT",
+											"MASK_ETC_SEAL","MASK_ETC_PARTI","MASK_ETC_POLYMORPH",
+											"MASK_ETC_RECIPE","MASK_ETC_ETC" };
 
 
+	static string* arMaskSubType[] = {
+		0,	//0
+		arSub1,		//1
+		arSub2,	//2
+		arSub3,	//3
+		arSub4,	//4
+		arSub5,	//5
+		arSub6,	//6
+		arSub7,	//7
+		arSub8,	//8
+		arSub9,			//9
+		arSub10,	//10
+		arSub11,			//11
+		arSub12,	//12
+	};
 
+	static int arNumberOfMaskSubtype[_countof(arMaskSubType)] = {
+		0,
+		sizeof(arSub1) / sizeof(arSub1[0]),
+		sizeof(arSub2) / sizeof(arSub2[0]),
+		sizeof(arSub3) / sizeof(arSub3[0]),
+		sizeof(arSub4) / sizeof(arSub4[0]),
+		sizeof(arSub5) / sizeof(arSub5[0]),
+		sizeof(arSub6) / sizeof(arSub6[0]),
+		sizeof(arSub7) / sizeof(arSub7[0]),
+		sizeof(arSub8) / sizeof(arSub8[0]),
+		sizeof(arSub9) / sizeof(arSub9[0]),
+		sizeof(arSub10) / sizeof(arSub10[0]),
+		sizeof(arSub11) / sizeof(arSub11[0]),
+		sizeof(arSub12) / sizeof(arSub12[0]),
+	};
+
+	//아이템 타입의 서브타입 어레이가 존재하는지 알아보고, 없으면 0 리턴
+	if (arMaskSubType[type_value] == 0) {
+		return 0;
+	}
+	//
+
+	int retInt = -1;
+	//cout << "SubType : " << subTypeStr << " -> ";
+	for (int j = 0; j < arNumberOfMaskSubtype[type_value]; j++) {
+		string tempString = arMaskSubType[type_value][j];
+		string tempInputString = trim(inputString);
+		if (tempInputString.compare(tempString) == 0)
+		{
+			//cout << j << " ";
+			retInt = j;
+			break;
+		}
+	}
+	//cout << endl;
+
+	return retInt;
+}
 
 int get_Item_AntiFlag_Value(string inputString) 
 {
 
-	string arAntiFlag[] = {"ANTI_FEMALE", "ANTI_MALE", "ANTI_MUSA", "ANTI_ASSASSIN", "ANTI_SURA", "ANTI_MUDANG",
+	string arAntiFlag[] = { "ANTI_FEMALE", "ANTI_MALE", "ANTI_MUSA", "ANTI_ASSASSIN", "ANTI_SURA", "ANTI_MUDANG",
 							"ANTI_GET", "ANTI_DROP", "ANTI_SELL", "ANTI_EMPIRE_A", "ANTI_EMPIRE_B", "ANTI_EMPIRE_C",
-							"ANTI_SAVE", "ANTI_GIVE", "ANTI_PKDROP", "ANTI_STACK", "ANTI_MYSHOP", "ANTI_SAFEBOX", "ANTI_WOLFMAN"};
+							"ANTI_SAVE", "ANTI_GIVE", "ANTI_PKDROP", "ANTI_STACK", "ANTI_MYSHOP", "ANTI_SAFEBOX",
+							"ANTI_WOLFMAN", "ANTI_PET", "ANTI_QUICKSLOT", "ANTI_CHANGELOOK", "ANTI_REINFORCE",
+							"ANTI_ENCHANT", "ANTI_PETFEED", "ANTI_ENERGY", "ANTI_APPLY", "ANTI_ACCE", "ANTI_MAIL" };
 
 
 	int retValue = 0;
@@ -377,7 +518,11 @@ int get_Item_ApplyType_Value(string inputString)
 			"APPLY_EXTRACT_HP_PCT", "APPLY_RESIST_WARRIOR", "APPLY_RESIST_ASSASSIN", "APPLY_RESIST_SURA", "APPLY_RESIST_SHAMAN",
 			"APPLY_ENERGY",	"APPLY_DEF_GRADE", "APPLY_COSTUME_ATTR_BONUS", "APPLY_MAGIC_ATTBONUS_PER", "APPLY_MELEE_MAGIC_ATTBONUS_PER",
 			"APPLY_RESIST_ICE", "APPLY_RESIST_EARTH", "APPLY_RESIST_DARK", "APPLY_ANTI_CRITICAL_PCT", "APPLY_ANTI_PENETRATE_PCT",
-			"APPLY_ATTBONUS_WOLFMAN", "APPLY_RESIST_WOLFMAN", "APPLY_RESIST_CLAW",
+			"APPLY_BLEEDING_REDUCE", "APPLY_BLEEDING_PCT", "APPLY_ATTBONUS_WOLFMAN", "APPLY_RESIST_WOLFMAN", "APPLY_RESIST_CLAW",
+			"APPLY_ACCEDRAIN_RATE", "APPLY_RESIST_MAGIC_REDUCTION", "APPLY_ENCHANT_ELECT", "APPLY_ENCHANT_FIRE", "APPLY_ENCHANT_ICE",
+			"APPLY_ENCHANT_WIND", "APPLY_ENCHANT_EARTH", "APPLY_ENCHANT_DARK", "APPLY_ATTBONUS_CZ", "APPLY_ATTBONUS_INSECT",
+			"APPLY_ATTBONUS_DESERT", "APPLY_ATTBONUS_SWORD", "APPLY_ATTBONUS_TWOHAND", "APPLY_ATTBONUS_DAGGER", "APPLY_ATTBONUS_BELL",
+			"APPLY_ATTBONUS_FAN", "APPLY_ATTBONUS_BOW", "APPLY_ATTBONUS_CLAW", "APPLY_RESIST_HUMAN", "APPLY_RESIST_MOUNT_FALL", "", "APPLY_MOUNT",
 	};
 
 	int retInt = -1;

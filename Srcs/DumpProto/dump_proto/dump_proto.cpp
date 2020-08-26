@@ -139,11 +139,11 @@ int m_iMobTableSize = 0;
 
 enum EItemMisc
 {
-	ITEM_NAME_MAX_LEN			= 24,
+	ITEM_NAME_MAX_LEN			= 32,
 	ITEM_VALUES_MAX_NUM			= 6,
 	ITEM_SMALL_DESCR_MAX_LEN	= 256,
 	ITEM_LIMIT_MAX_NUM			= 2,
-	ITEM_APPLY_MAX_NUM			= 3,
+	ITEM_APPLY_MAX_NUM			= 4,
 	ITEM_SOCKET_MAX_NUM			= 3,
 	ITEM_MAX_COUNT				= 200,
 	ITEM_ATTRIBUTE_MAX_NUM		= 7,
@@ -180,6 +180,9 @@ typedef struct
 	BYTE	bType;
 	BYTE	bSubType;
 
+	BYTE	bMaskedType;
+	BYTE	bMaskedSubType;
+
 	BYTE        bWeight;
 	BYTE	bSize;
 
@@ -197,6 +200,9 @@ typedef struct
 	long	alSockets[ITEM_SOCKET_MAX_NUM];
 	DWORD	dwRefinedVnum;
 	WORD	wRefineSet;
+
+	DWORD dw67Material;
+
 	BYTE	bAlterToMagicItemPct;
 	BYTE	bSpecular;
 	BYTE	bGainSocketPct;
@@ -692,6 +698,8 @@ bool Set_Proto_Item_Table(TClientItemTable *itemTable, cCsvTable &csvTable, std:
 	}
 	itemTable->bType = get_Item_Type_Value(csvTable.AsStringByIndex(col++));
 	itemTable->bSubType = get_Item_SubType_Value(itemTable->bType, csvTable.AsStringByIndex(col++));
+	itemTable->bMaskedType = get_Item_Mask_Type_Value(csvTable.AsStringByIndex(col++));
+	itemTable->bMaskedSubType = get_Item_Mask_SubType_Value(itemTable->bMaskedType, csvTable.AsStringByIndex(col++));
 	itemTable->bSize = atoi(csvTable.AsStringByIndex(col++));
 	itemTable->dwAntiFlags = get_Item_AntiFlag_Value(csvTable.AsStringByIndex(col++));
 	itemTable->dwFlags = get_Item_Flag_Value(csvTable.AsStringByIndex(col++));
@@ -701,6 +709,7 @@ bool Set_Proto_Item_Table(TClientItemTable *itemTable, cCsvTable &csvTable, std:
 	itemTable->dwShopBuyPrice = atoi(csvTable.AsStringByIndex(col++));
 	itemTable->dwRefinedVnum = atoi(csvTable.AsStringByIndex(col++));
 	itemTable->wRefineSet = atoi(csvTable.AsStringByIndex(col++));
+	itemTable->dw67Material = atoi(csvTable.AsStringByIndex(col++));
 	itemTable->bAlterToMagicItemPct = atoi(csvTable.AsStringByIndex(col++));
 
 	int i;

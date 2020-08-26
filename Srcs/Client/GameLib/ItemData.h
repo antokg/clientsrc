@@ -11,11 +11,11 @@ class CItemData
 	public:
 		enum
 		{
-			ITEM_NAME_MAX_LEN = 24,
+			ITEM_NAME_MAX_LEN = 32,
 			ITEM_LIMIT_MAX_NUM = 2,
 			ITEM_VALUES_MAX_NUM = 6,
 			ITEM_SMALL_DESCR_MAX_LEN = 256,
-			ITEM_APPLY_MAX_NUM = 3,
+			ITEM_APPLY_MAX_NUM = 4,
 			ITEM_SOCKET_MAX_NUM = 3,
 		};
 
@@ -57,6 +57,11 @@ class CItemData
 			ITEM_TYPE_RING,						//33 반지 (유니크 슬롯이 아닌 순수 반지 슬롯)
 			ITEM_TYPE_BELT,						//34 벨트
 
+			ITEM_PET,				//35
+			ITEM_MEDIUM,			//36
+			ITEM_GACHA,				//37
+			ITEM_SOUL,				//38
+
 			ITEM_TYPE_MAX_NUM,				
 		};
 
@@ -69,6 +74,12 @@ class CItemData
 			WEAPON_BELL,
 			WEAPON_FAN,
 			WEAPON_ARROW,
+
+			WEAPON_MOUNT_SPEAR,
+			WEAPON_CLAW,
+			WEAPON_QUIVER,
+			WEAPON_BOUQUET,			// 10
+
 			WEAPON_NUM_TYPES,
 
 			WEAPON_NONE = WEAPON_NUM_TYPES+1,
@@ -84,6 +95,7 @@ class CItemData
 			MATERIAL_DS_REFINE_NORMAL, 
 			MATERIAL_DS_REFINE_BLESSED, 
 			MATERIAL_DS_REFINE_HOLLY,
+			MATERIAL_DS_CHANGE_ATTR,
 		};
 
 		enum EArmorSubTypes
@@ -95,6 +107,7 @@ class CItemData
 			ARMOR_FOOTS,
 		    ARMOR_NECK,
 			ARMOR_EAR,
+			ARMOR_PENDANT,
 			ARMOR_NUM_TYPES
 		};
 
@@ -102,6 +115,10 @@ class CItemData
 		{
 			COSTUME_BODY,				//0	갑옷(main look)
 			COSTUME_HAIR,				//1	헤어(탈착가능)
+			COSTUME_MOUNT,
+			COSTUME_ACCE,
+			COSTUME_WEAPON,
+			COSTUME_AURA,
 			COSTUME_NUM_TYPES,
 		};
 
@@ -138,6 +155,19 @@ class CItemData
 			USE_TIME_CHARGE_FIX,				// 28
 			USE_PUT_INTO_BELT_SOCKET,			// 29 벨트 소켓에 사용할 수 있는 아이템 
 			USE_PUT_INTO_RING_SOCKET,			// 30 반지 소켓에 사용할 수 있는 아이템 (유니크 반지 말고, 새로 추가된 반지 슬롯)
+
+			USE_CHANGE_COSTUME_ATTR,			// 31
+			USE_RESET_COSTUME_ATTR,				// 32
+
+			USE_SELECT_ATTRIBUTE = 34,			// 34
+			USE_FLOWER,							// 35
+			USE_EMOTION_PACK,					// 36
+
+			USE_ELEMENT_UPGRADE,				// 37
+			USE_ELEMENT_DOWNGRADE,				// 38
+			USE_ELEMENT_CHANGE,					// 39
+
+			USE_UNK40,						// 40
 		};
 
 		enum EDragonSoulSubType
@@ -156,6 +186,170 @@ class CItemData
 			METIN_NORMAL,
 			METIN_GOLD,
 		};
+
+
+		enum EPetSubTypes
+		{
+			PET_EGG,
+			PET_UPBRINGING,
+			PET_BAG,
+			PET_FEEDSTUFF,
+			PET_SKILL,
+			PET_SKILL_DEL_BOOK,
+			PET_NAME_CHANGE,
+			PET_EXPFOOD,
+			PET_SKILL_ALL_DEL_BOOK,
+			PET_EXPFOOD_PER,
+			PET_ATTR_DETERMINE,
+			PET_ATTR_CHANGE,
+			PET_PAY,
+			PET_PRIMIUM_FEEDSTUFF,
+		};
+
+		enum EMediumSubTypes
+		{
+			MEDIUM_MOVE_COSTUME_ATTR,
+			MEDIUM_MOVE_ACCE_ATTR,
+		};
+
+		enum EGachaSubTypes
+		{
+			USE_GACHA,
+			GEM_LUCKY_BOX_GACHA,
+			SPECIAL_LUCKY_BOX_GACHA,
+		};
+
+		enum ESoulSubTypes
+		{
+			SOUL_RED,
+			SOUL_BLUE,
+		};
+
+		enum EItemMaskTypes
+		{
+			MASK_ITEM_NONE,
+			MASK_ITEM_MOUNT_PET,
+			MASK_ITEM_EQUIPMENT_WEAPON,
+			MASK_ITEM_EQUIPMENT_ARMOR,
+			MASK_ITEM_EQUIPMENT_JEWELRY,
+			MASK_ITEM_TUNING,
+			MASK_ITEM_POTION,
+			MASK_ITEM_FISHING_PICK,
+			MASK_ITEM_DRAGON_STONE,
+			MASK_ITEM_COSTUMES,
+			MASK_ITEM_SKILL,
+			MASK_ITEM_UNIQUE,
+			MASK_ITEM_ETC,
+		};
+
+		enum EMountPetMaskSubTypes
+		{
+			MASK_MOUNT_PET_MOUNT,
+			MASK_MOUNT_PET_CHARGED_PET,
+			MASK_MOUNT_PET_FREE_PET,
+			MASK_MOUNT_PET_EGG,
+		};
+
+		enum EWeaponMaskTypes
+		{
+			MASK_EQUIPMENT_WEAPON_SWORD,
+			MASK_EQUIPMENT_WEAPON_DAGGER,
+			MASK_EQUIPMENT_WEAPON_BOW,
+			MASK_EQUIPMENT_WEAPON_TWO_HANDED,
+			MASK_EQUIPMENT_WEAPON_BELL,
+			MASK_EQUIPMENT_WEAPON_CLAW,
+			MASK_EQUIPMENT_WEAPON_FAN,
+			MASK_EQUIPMENT_WEAPON_MOUNT_SPEAR,
+			MASK_EQUIPMENT_WEAPON_ARROW,
+		};
+
+		enum EArmorMaskSubTypes
+		{
+			MASK_EQUIPMENT_ARMOR_BODY,
+			MASK_EQUIPMENT_ARMOR_HEAD,
+			MASK_EQUIPMENT_ARMOR_SHIELD,
+		};
+
+		enum EJewelryMaskSubTypes
+		{
+			MASK_EQUIPMENT_JEWELRY_ARMOR_WRIST,
+			MASK_EQUIPMENT_JEWELRY_ARMOR_FOOTS,
+			MASK_EQUIPMENT_JEWELRY_ARMOR_NECK,
+			MASK_EQUIPMENT_JEWELRY_ARMOR_EAR,
+			MASK_EQUIPMENT_JEWELRY_ITEM_BELT,
+			MASK_EQUIPMENT_JEWELRY_ARMOR_PENDANT,
+		};
+
+		enum ETuningMaskSubTypes
+		{
+			MASK_TUNING_RESOURCE,
+			MASK_TUNING_STONE,
+			MASK_TUNING_ETC,
+		};
+
+		enum EPotionMaskSubTypes
+		{
+			MASK_POTION_ABILITY,
+			MASK_POTION_HAIRDYE,
+			MASK_POTION_ETC,
+		};
+
+		enum EFishMaskSubTypes
+		{
+			MASK_FISHING_PICK_FISHING_POLE,
+			MASK_FISHING_PICK_EQUIPMENT_PICK,
+			MASK_FISHING_PICK_FOOD,
+			MASK_FISHING_PICK_STONE,
+			MASK_FISHING_PICK_ETC,
+		};
+
+		enum EDragonSoulMaskSubTypes
+		{
+			MASK_DRAGON_STONE_DRAGON_DIAMOND,
+			MASK_DRAGON_STONE_DRAGON_RUBY,
+			MASK_DRAGON_STONE_DRAGON_JADE,
+			MASK_DRAGON_STONE_DRAGON_SAPPHIRE,
+			MASK_DRAGON_STONE_DRAGON_GARNET,
+			MASK_DRAGON_STONE_DRAGON_ONYX,
+			MASK_DRAGON_STONE_ETC,
+		};
+
+		enum ECostumeMaskSubTypes
+		{
+			MASK_COSTUMES_COSTUME_WEAPON,
+			MASK_COSTUMES_COSTUME_BODY,
+			MASK_COSTUMES_COSTUME_HAIR,
+			MASK_COSTUMES_SASH,
+			MASK_COSTUMES_AURA,
+			MASK_COSTUMES_ETC,
+		};
+
+		enum ESkillbookMaskSubTypes
+		{
+			MASK_SKILL_PAHAE,
+			MASK_SKILL_SKILL_BOOK,
+			MASK_SKILL_BOOK_OF_OBLIVION,
+			MASK_SKILL_ETC,
+		};
+
+		enum EUniqueMaskSubTypes
+		{
+			MASK_UNIQUE_ABILITY,
+			MASK_UNIQUE_ETC,
+		};
+
+		enum EETcMaskSubTypes
+		{
+			MASK_ETC_GIFTBOX,
+			MASK_ETC_MATRIMORY,
+			MASK_ETC_EVENT,
+			MASK_ETC_SEAL,
+			MASK_ETC_PARTI,
+			MASK_ETC_POLYMORPH,
+			MASK_ETC_RECIPE,
+			MASK_ETC_ETC,
+		};
+
 
 		enum ELimitTypes
 		{
@@ -202,6 +396,18 @@ class CItemData
 			ITEM_ANTIFLAG_PKDROP        = (1 << 14),	// PK시 떨어지지 않음
 			ITEM_ANTIFLAG_STACK         = (1 << 15),	// 합칠 수 없음
 			ITEM_ANTIFLAG_MYSHOP        = (1 << 16),	// 개인 상점에 올릴 수 없음
+			ITEM_ANTIFLAG_SAFEBOX		= (1 << 17), 
+			ITEM_ANTIFLAG_WOLFMAN		= (1 << 18),
+			ITEM_ANTIFLAG_PET			= (1 << 19),
+			ITEM_ANTIFLAG_QUICKSLOT		= (1 << 20),
+			ITEM_ANTIFLAG_CHANGELOOK	= (1 << 21),
+			ITEM_ANTIFLAG_REINFORCE		= (1 << 22),
+			ITEM_ANTIFLAG_ENCHANT		= (1 << 23),
+			ITEM_ANTIFLAG_PETFEED		= (1 << 24),
+			ITEM_ANTIFLAG_ENERGY		= (1 << 25),
+			ITEM_ANTIFLAG_APPLY			= (1 << 26),
+			ITEM_ANTIFLAG_ACCE			= (1 << 27),
+			ITEM_ANTIFLAG_MAIL			= (1 << 28),
 		};
 
 		enum EItemFlag
@@ -350,6 +556,39 @@ class CItemData
 			APPLY_ANTI_CRITICAL_PCT,	//90 크리티컬 저항
 			APPLY_ANTI_PENETRATE_PCT,	//91 관통타격 저항
 
+			APPLY_BLEEDING_REDUCE,		//92
+			APPLY_BLEEDING_PCT,			//93
+
+			APPLY_ATTBONUS_WOLFMAN,		// 94
+			APPLY_RESIST_WOLFMAN,		// 95
+			APPLY_RESIST_CLAW,			// 96
+			APPLY_ACCEDRAIN_RATE,		// 97
+			APPLY_RESIST_MAGIC_REDUCTION,	// 98
+
+			// ENCHANT
+			APPLY_ENCHANT_ELECT, 		// 99
+			APPLY_ENCHANT_FIRE,			// 100
+			APPLY_ENCHANT_ICE,			// 101
+			APPLY_ENCHANT_WIND,			// 102
+			APPLY_ENCHANT_EARTH,		// 103
+			APPLY_ENCHANT_DARK,			// 104
+
+			APPLY_ATTBONUS_CZ,			// 105
+			APPLY_ATTBONUS_INSECT,		// 106
+			APPLY_ATTBONUS_DESERT,		// 107
+			APPLY_ATTBONUS_SWORD,		// 108
+			APPLY_ATTBONUS_TWOHAND,		// 109
+			APPLY_ATTBONUS_DAGGER,		// 110
+			APPLY_ATTBONUS_BELL,		// 111
+			APPLY_ATTBONUS_FAN,			// 112
+			APPLY_ATTBONUS_BOW,			// 113	
+			APPLY_ATTBONUS_CLAW,		// 114
+
+			APPLY_RESIST_HUMAN,			// 115
+			APPLY_RESIST_MOUNT_FALL,	// 116
+
+			APPLY_MOUNT = 118,			// 118
+
    			MAX_APPLY_NUM,              // 
 		};
 
@@ -386,6 +625,9 @@ class CItemData
 			char        szLocaleName[ITEM_NAME_MAX_LEN + 1];
 			BYTE        bType;
 			BYTE        bSubType;
+
+			BYTE	bMaskedType;
+			BYTE	bMaskedSubType;
 			
 			BYTE        bWeight;
 			BYTE        bSize;
@@ -404,31 +646,13 @@ class CItemData
 			long        alSockets[ITEM_SOCKET_MAX_NUM];
 			DWORD       dwRefinedVnum;
 			WORD		wRefineSet;
+
+			DWORD dw67Material;
+
 			BYTE        bAlterToMagicItemPct;
 			BYTE		bSpecular;
 			BYTE        bGainSocketPct;
 		} TItemTable;
-
-//		typedef struct SItemTable
-//		{
-//			DWORD       dwVnum;
-//			char        szItemName[ITEM_NAME_MAX_LEN + 1];
-//			BYTE        bType;
-//			BYTE        bSubType;
-//			BYTE        bSize;
-//			DWORD       dwAntiFlags;
-//			DWORD       dwFlags;
-//			DWORD       dwWearFlags;
-//			DWORD       dwIBuyItemPrice;
-//			DWORD		dwISellItemPrice;
-//			TItemLimit  aLimits[ITEM_LIMIT_MAX_NUM];
-//			TItemApply  aApplies[ITEM_APPLY_MAX_NUM];
-//			long        alValues[ITEM_VALUES_MAX_NUM];
-//			long        alSockets[ITEM_SOCKET_MAX_NUM];
-//			DWORD       dwRefinedVnum;
-//			BYTE		bSpecular;
-//			DWORD		dwIconNumber;
-//		} TItemTable;
 #pragma pack(pop)
 
 	public:

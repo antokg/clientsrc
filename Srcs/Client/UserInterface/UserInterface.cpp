@@ -696,7 +696,7 @@ static void GrannyError(granny_log_message_type Type,
 	char const* Error,
 	void* UserData)
 {
-	TraceError("GRANNY: %s", Error);
+	//TraceError("GRANNY: %s", Error);
 }
 
 int Setup(LPSTR lpCmdLine)

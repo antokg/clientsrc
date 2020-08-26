@@ -246,7 +246,7 @@
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateMapFile>true</GenerateMapFile>
+      <GenerateMapFile>false</GenerateMapFile>
       <MapFileName>.\Release/metin2.map</MapFileName>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
@@ -254,6 +254,7 @@
       </LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>metin2client.exe.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>

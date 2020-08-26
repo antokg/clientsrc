@@ -55,6 +55,13 @@ const DWORD c_Equipment_Unique1	= c_Equipment_Start + 7;
 const DWORD c_Equipment_Unique2	= c_Equipment_Start + 8;
 const DWORD c_Equipment_Arrow	= c_Equipment_Start + 9;
 const DWORD c_Equipment_Shield	= c_Equipment_Start + 10;
+constexpr DWORD c_Equipment_End = c_Equipment_Shield;
+
+const DWORD c_Costume_Slot_Start = c_Equipment_End + 9;	// [주의] 숫자(19) 하드코딩 주의. 현재 서버에서 코스츔 슬롯은 19부터임. 서버 common/length.h 파일의 EWearPositions 열거형 참고.
+const DWORD	c_Costume_Slot_Body = c_Costume_Slot_Start + 0;
+const DWORD	c_Costume_Slot_Hair = c_Costume_Slot_Start + 1;
+const DWORD c_Costume_Slot_Count = 2;
+const DWORD c_Costume_Slot_End = c_Costume_Slot_Start + c_Costume_Slot_Count;
 
 // 새로 추가된 신규 반지 & 벨트
 // 장착형 아이템에 할당할 수 있는 위치가 기존 장비, 채기랍 퀘스트 보상, 코스튬 시스템 등으로 인해서 공간이 잘려있다.
@@ -63,11 +70,11 @@ const DWORD c_Equipment_Shield	= c_Equipment_Start + 10;
 // 정리하면, 기존 장비창들은 서버DB상 아이템 포지션이 90 ~ 102 이고,
 // 2013년 초에 새로 추가되는 슬롯들은 111 ~ 부터 시작한다. 착용 장비에서 최대로 사용할 수 있는 값은 121 까지이고, 122부터는 용혼석에서 사용한다.
 #ifdef ENABLE_NEW_EQUIPMENT_SYSTEM
-	const DWORD c_New_Equipment_Start = c_Equipment_Start + 21;
+	const DWORD c_New_Equipment_Start = c_Costume_Slot_End;
 	const DWORD c_New_Equipment_Count = 3;
 	const DWORD c_Equipment_Ring1 = c_New_Equipment_Start + 0;
 	const DWORD c_Equipment_Ring2 = c_New_Equipment_Start + 1;
-	const DWORD c_Equipment_Belt  = c_New_Equipment_Start + 2;;
+	const DWORD c_Equipment_Belt = c_New_Equipment_Start + 2;
 #endif
 
 enum EDragonSoulDeckType
@@ -97,14 +104,6 @@ enum EDragonSoulStepTypes
 	DRAGON_SOUL_STEP_HIGHEST,
 	DRAGON_SOUL_STEP_MAX,
 };
-
-#ifdef ENABLE_COSTUME_SYSTEM
-	const DWORD c_Costume_Slot_Start	= c_Equipment_Start + 19;	// [주의] 숫자(19) 하드코딩 주의. 현재 서버에서 코스츔 슬롯은 19부터임. 서버 common/length.h 파일의 EWearPositions 열거형 참고.
-	const DWORD	c_Costume_Slot_Body		= c_Costume_Slot_Start + 0;
-	const DWORD	c_Costume_Slot_Hair		= c_Costume_Slot_Start + 1;
-	const DWORD c_Costume_Slot_Count	= 2;
-	const DWORD c_Costume_Slot_End		= c_Costume_Slot_Start + c_Costume_Slot_Count;
-#endif
 
 
 // [주의] 숫자(32) 하드코딩 주의. 현재 서버에서 용혼석 슬롯은 32부터임. 

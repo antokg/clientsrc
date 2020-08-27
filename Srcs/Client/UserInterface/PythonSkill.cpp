@@ -915,6 +915,7 @@ CPythonSkill::CPythonSkill()
 	m_SkillTypeIndexMap.insert(std::map<std::string, DWORD>::value_type("assassin", SKILL_TYPE_ACTIVE));
 	m_SkillTypeIndexMap.insert(std::map<std::string, DWORD>::value_type("sura", SKILL_TYPE_ACTIVE));
 	m_SkillTypeIndexMap.insert(std::map<std::string, DWORD>::value_type("shaman", SKILL_TYPE_ACTIVE));
+	m_SkillTypeIndexMap.insert(std::map<std::string, DWORD>::value_type("wolfman", SKILL_TYPE_ACTIVE));
 	m_SkillTypeIndexMap.insert(std::map<std::string, DWORD>::value_type("passive", SKILL_TYPE_ACTIVE));
 
 	m_SkillAttributeIndexMap.insert(std::map<std::string, DWORD>::value_type("NEED_POISON_BOTTLE", SKILL_ATTRIBUTE_NEED_POISON_BOTTLE));
@@ -941,6 +942,7 @@ CPythonSkill::CPythonSkill()
 	m_SkillAttributeIndexMap.insert(std::map<std::string, DWORD>::value_type("ONLY_FOR_GUILD_WAR", SKILL_ATTRIBUTE_ONLY_FOR_GUILD_WAR));
 	m_SkillAttributeIndexMap.insert(std::map<std::string, DWORD>::value_type("CIRCLE_RANGE", SKILL_ATTRIBUTE_CIRCLE_RANGE));
 	m_SkillAttributeIndexMap.insert(std::map<std::string, DWORD>::value_type("SEARCH_TARGET", SKILL_ATTRIBUTE_SEARCH_TARGET));
+	m_SkillAttributeIndexMap.insert(std::map<std::string, DWORD>::value_type("IGNORE_BLOCK", SKILL_ATTRIBUTE_IGNORE_BLOCK));
 
 	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("SWORD", SKILL_NEED_WEAPON_SWORD));
 	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("DAGGER", SKILL_NEED_WEAPON_DAGGER));
@@ -950,6 +952,7 @@ CPythonSkill::CPythonSkill()
 	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("BELL", SKILL_NEED_WEAPON_BELL));
 	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("FAN", SKILL_NEED_WEAPON_FAN));
 	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("ARROW", SKILL_NEED_WEAPON_ARROW));
+	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("CLAW", SKILL_NEED_WEAPON_CLAW));
 	m_SkillNeedWeaponIndexMap.insert(std::map<std::string, DWORD>::value_type("EMPTY_HAND", SKILL_NEED_WEAPON_EMPTY_HAND));
 
 	m_SkillWeaponTypeIndexMap.insert(make_pair(std::string("SWORD"), CItemData::WEAPON_SWORD));
@@ -960,6 +963,7 @@ CPythonSkill::CPythonSkill()
 	m_SkillWeaponTypeIndexMap.insert(make_pair(std::string("BELL"), CItemData::WEAPON_BELL));
 	m_SkillWeaponTypeIndexMap.insert(make_pair(std::string("FAN"), CItemData::WEAPON_FAN));
 	m_SkillWeaponTypeIndexMap.insert(make_pair(std::string("ARROW"), CItemData::WEAPON_ARROW));
+	m_SkillWeaponTypeIndexMap.insert(make_pair(std::string("CLAW"), CItemData::WEAPON_CLAW));
 
 	SSkillData::ms_StatusNameMap.insert(make_pair(std::string("chain"), POINT_NONE));
 	SSkillData::ms_StatusNameMap.insert(make_pair(std::string("HR"), POINT_HIT_RATE));

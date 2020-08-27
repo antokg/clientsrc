@@ -113,6 +113,7 @@ class CPythonSkill : public CSingleton<CPythonSkill>
 			SKILL_ATTRIBUTE_HORSE_SKILL				= (1 << 21),
 			SKILL_ATTRIBUTE_CIRCLE_RANGE			= (1 << 22),
 			SKILL_ATTRIBUTE_SEARCH_TARGET			= (1 << 23),
+			SKILL_ATTRIBUTE_IGNORE_BLOCK			= (1 << 24),
 		};
 
 		enum
@@ -125,6 +126,7 @@ class CPythonSkill : public CSingleton<CPythonSkill>
 			SKILL_NEED_WEAPON_BELL				= (1 << CItemData::WEAPON_BELL),
 			SKILL_NEED_WEAPON_FAN				= (1 << CItemData::WEAPON_FAN),
 			SKILL_NEED_WEAPON_ARROW				= (1 << CItemData::WEAPON_ARROW),
+			SKILL_NEED_WEAPON_CLAW				= (1 << CItemData::WEAPON_CLAW),
 			SKILL_NEED_WEAPON_EMPTY_HAND		= (1 << CItemData::WEAPON_NONE),
 		};
 

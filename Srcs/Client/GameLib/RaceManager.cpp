@@ -31,21 +31,41 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 		vec_stPathes.push_back ("d:/ymir work/npc2/");
 		vec_stPathes.push_back ("d:/ymir work/monster/");
 		vec_stPathes.push_back ("d:/ymir work/monster2/");
+		vec_stPathes.push_back("d:/ymir work/npc_pet/");
+		vec_stPathes.push_back("d:/ymir work/npc_mount/");
 	}
 	else if (__IsNPCRace(race))
 	{
 		if (race >= 30000)
 		{
-			vec_stPathes.push_back ("d:/ymir work/npc2/");
-			vec_stPathes.push_back ("d:/ymir work/npc/");
-			vec_stPathes.push_back ("d:/ymir work/monster/");
-			vec_stPathes.push_back ("d:/ymir work/monster2/");
-			vec_stPathes.push_back ("d:/ymir work/guild/");
+			if (race < 34000 || race > 35000)
+			{
+				vec_stPathes.push_back("d:/ymir work/npc2/");
+				vec_stPathes.push_back("d:/ymir work/npc/");
+				vec_stPathes.push_back("d:/ymir work/monster/");
+				vec_stPathes.push_back("d:/ymir work/monster2/");
+				vec_stPathes.push_back("d:/ymir work/guild/");
+				vec_stPathes.push_back("d:/ymir work/npc_pet/");
+				vec_stPathes.push_back("d:/ymir work/npc_mount/");
+
+			}
+			else
+			{
+				vec_stPathes.push_back("d:/ymir work/npc_pet/");
+				vec_stPathes.push_back("d:/ymir work/npc_mount/");
+				vec_stPathes.push_back("d:/ymir work/npc2/");
+				vec_stPathes.push_back("d:/ymir work/npc/");
+				vec_stPathes.push_back("d:/ymir work/monster/");
+				vec_stPathes.push_back("d:/ymir work/monster2/");
+				vec_stPathes.push_back("d:/ymir work/guild/");
+			}
 		}
 		else
 		{
 			vec_stPathes.push_back ("d:/ymir work/npc/");
 			vec_stPathes.push_back ("d:/ymir work/npc2/");
+			vec_stPathes.push_back("d:/ymir work/npc_pet/");
+			vec_stPathes.push_back("d:/ymir work/npc_mount/");
 			vec_stPathes.push_back ("d:/ymir work/monster/");
 			vec_stPathes.push_back ("d:/ymir work/monster2/");
 			vec_stPathes.push_back ("d:/ymir work/guild/");
@@ -58,6 +78,8 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 		vec_stPathes.push_back ("d:/ymir work/monster/");
 		vec_stPathes.push_back ("d:/ymir work/npc/");
 		vec_stPathes.push_back ("d:/ymir work/npc2/");
+		vec_stPathes.push_back("d:/ymir work/npc_pet/");
+		vec_stPathes.push_back("d:/ymir work/npc_mount/");
 		vec_stPathes.push_back ("d:/ymir work/guild/");
 	}
 	else if (race > 8000)
@@ -66,6 +88,8 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 		vec_stPathes.push_back ("d:/ymir work/monster2/");
 		vec_stPathes.push_back ("d:/ymir work/npc/");
 		vec_stPathes.push_back ("d:/ymir work/npc2/");
+		vec_stPathes.push_back ("d:/ymir work/npc_pet/");
+		vec_stPathes.push_back ("d:/ymir work/npc_mount/");
 		vec_stPathes.push_back ("d:/ymir work/guild/");
 	}
 	else if (race > 2000)
@@ -74,6 +98,8 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 		vec_stPathes.push_back ("d:/ymir work/monster/");
 		vec_stPathes.push_back ("d:/ymir work/npc/");
 		vec_stPathes.push_back ("d:/ymir work/npc2/");
+		vec_stPathes.push_back("d:/ymir work/npc_pet/");
+		vec_stPathes.push_back("d:/ymir work/npc_mount/");
 		vec_stPathes.push_back ("d:/ymir work/guild/");
 	}
 	else if (race>=1400 && race<=1700)
@@ -82,6 +108,8 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 		vec_stPathes.push_back ("d:/ymir work/monster/");
 		vec_stPathes.push_back ("d:/ymir work/npc/");
 		vec_stPathes.push_back ("d:/ymir work/npc2/");
+		vec_stPathes.push_back("d:/ymir work/npc_pet/");
+		vec_stPathes.push_back("d:/ymir work/npc_mount/");
 		vec_stPathes.push_back ("d:/ymir work/guild/");
 	}
 	else
@@ -90,6 +118,8 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 		vec_stPathes.push_back ("d:/ymir work/monster2/");
 		vec_stPathes.push_back ("d:/ymir work/npc/");
 		vec_stPathes.push_back ("d:/ymir work/npc2/");
+		vec_stPathes.push_back("d:/ymir work/npc_pet/");
+		vec_stPathes.push_back("d:/ymir work/npc_mount/");
 		vec_stPathes.push_back ("d:/ymir work/guild/");
 	}
 	return;
@@ -156,7 +186,8 @@ CRaceData* CRaceManager::__LoadRaceData(DWORD dwRaceIndex)
 		{
 			if (i != vec_stFullPathName.size() - 1)
 			{
-				TraceError("CRaceManager::RegisterRacePath : RACE[%u] LOAD MSMFILE[%s] ERROR. Will Find Another Path.", dwRaceIndex, stMSMFileName.c_str());
+				// error removed in official binary too
+				//TraceError("CRaceManager::RegisterRacePath : RACE[%u] LOAD MSMFILE[%s] ERROR. Will Find Another Path.", dwRaceIndex, stMSMFileName.c_str());
 				continue;
 			}
 			

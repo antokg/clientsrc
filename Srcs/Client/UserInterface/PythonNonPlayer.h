@@ -27,20 +27,40 @@ class CPythonNonPlayer : public CSingleton<CPythonNonPlayer>
 			MOB_ENCHANT_PENETRATE,
 			MOB_ENCHANTS_MAX_NUM
 		};
+
 		enum EMobResists
 		{
+			MOB_RESIST_FIST,
 			MOB_RESIST_SWORD,
 			MOB_RESIST_TWOHAND,
 			MOB_RESIST_DAGGER,
 			MOB_RESIST_BELL,
 			MOB_RESIST_FAN,
 			MOB_RESIST_BOW,
+			MOB_RESIST_CLAW,
 			MOB_RESIST_FIRE,
 			MOB_RESIST_ELECT,
 			MOB_RESIST_MAGIC,
 			MOB_RESIST_WIND,
 			MOB_RESIST_POISON,
-			MOB_RESISTS_MAX_NUM 
+			MOB_RESIST_BLEEDING,
+			MOB_RESIST_DARK,
+			MOB_RESIST_ICE,
+			MOB_RESIST_EARTH,
+
+			MOB_RESISTS_MAX_NUM
+		};
+
+		enum EMobAtt
+		{
+			MOB_ATT_ELEC,
+			MOB_ATT_FIRE,
+			MOB_ATT_ICE,
+			MOB_ATT_WIND,
+			MOB_ATT_EARTH,
+			MOB_ATT_DARK,
+
+			MOB_ATT_MAX_NUM
 		};
 
 		#define MOB_ATTRIBUTE_MAX_NUM	12
@@ -64,6 +84,7 @@ class CPythonNonPlayer : public CSingleton<CPythonNonPlayer>
 			BYTE        bRank;                  // PAWN, KNIGHT, KING
 			BYTE        bBattleType;            // MELEE, etc..
 			BYTE        bLevel;                 // Level
+			BYTE		bScalePct;
 			BYTE        bSize;
 
 			DWORD       dwGoldMin;
@@ -89,6 +110,8 @@ class CPythonNonPlayer : public CSingleton<CPythonNonPlayer>
 
 			char        cEnchants[MOB_ENCHANTS_MAX_NUM];
 			char        cResists[MOB_RESISTS_MAX_NUM];
+
+			char		cAtt[MOB_ATT_MAX_NUM];
 
 			DWORD       dwResurrectionVnum;
 			DWORD       dwDropItemVnum;

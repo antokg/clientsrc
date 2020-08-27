@@ -44,20 +44,38 @@ enum EMobEnchants
 
 enum EMobResists
 {
+	MOB_RESIST_FIST,
 	MOB_RESIST_SWORD,
 	MOB_RESIST_TWOHAND,
 	MOB_RESIST_DAGGER,
 	MOB_RESIST_BELL,
 	MOB_RESIST_FAN,
 	MOB_RESIST_BOW,
+	MOB_RESIST_CLAW,
 	MOB_RESIST_FIRE,
 	MOB_RESIST_ELECT,
 	MOB_RESIST_MAGIC,
 	MOB_RESIST_WIND,
 	MOB_RESIST_POISON,
+	MOB_RESIST_BLEEDING,
+	MOB_RESIST_DARK,
+	MOB_RESIST_ICE,
+	MOB_RESIST_EARTH,
+
 	MOB_RESISTS_MAX_NUM
 };
 
+enum EMobAtt
+{
+	MOB_ATT_ELEC,
+	MOB_ATT_FIRE,
+	MOB_ATT_ICE,
+	MOB_ATT_WIND,
+	MOB_ATT_EARTH,
+	MOB_ATT_DARK,
+
+	MOB_ATT_MAX_NUM
+};
 
 #pragma pack(1)
 typedef struct SMobSkillLevel
@@ -78,6 +96,8 @@ typedef struct SMobTable
 	BYTE	bRank;			// PAWN, KNIGHT, KING
 	BYTE	bBattleType;		// MELEE, etc..
 	BYTE	bLevel;			// Level
+	BYTE	bScalePct;
+
 	BYTE	bSize;
 
 	DWORD	dwGoldMin;
@@ -103,6 +123,7 @@ typedef struct SMobTable
 
 	char	cEnchants[MOB_ENCHANTS_MAX_NUM];
 	char	cResists[MOB_RESISTS_MAX_NUM];
+	char	cAtt[MOB_ATT_MAX_NUM];
 
 	DWORD	dwResurrectionVnum;
 	DWORD	dwDropItemVnum;
@@ -243,6 +264,7 @@ bool Set_Proto_Mob_Table(TMobTable *mobTable, cCsvTable &csvTable, std::map<int,
 	mobTable->bBattleType          = battleTypeValue;
 
 	mobTable->bLevel		= atoi(csvTable.AsStringByIndex(col++));
+	mobTable->bScalePct		= atoi(csvTable.AsStringByIndex(col++));
 	//8. SIZE
 	int sizeValue = get_Mob_Size_Value(csvTable.AsStringByIndex(col++));
 	mobTable->bSize                = sizeValue;
@@ -295,6 +317,9 @@ bool Set_Proto_Mob_Table(TMobTable *mobTable, cCsvTable &csvTable, std::map<int,
 	for (int i = 0; i < MOB_RESISTS_MAX_NUM; ++i)
 		mobTable->cResists[i] = atoi(csvTable.AsStringByIndex(col++));
 
+	for (int i = 0; i < MOB_ATT_MAX_NUM; ++i)
+		mobTable->cAtt[i] = atoi(csvTable.AsStringByIndex(col++));
+
 	mobTable->fDamMultiply		= atoi(csvTable.AsStringByIndex(col++));
 	mobTable->dwSummonVnum		= atoi(csvTable.AsStringByIndex(col++));
 	mobTable->dwDrainSP		= atoi(csvTable.AsStringByIndex(col++));
@@ -340,7 +365,10 @@ bool BuildMobTable()
 	} else {
 		nameData.Next();
 		while(nameData.Next()) {
-			localMap[atoi(nameData.AsStringByIndex(0))] = nameData.AsStringByIndex(1);
+			if (nameData.ColCount() == 1)
+				localMap[atoi(nameData.AsStringByIndex(0))] = "";
+			else
+				localMap[atoi(nameData.AsStringByIndex(0))] = nameData.AsStringByIndex(1);
 		}
 	}
 	//______________________________________________________________//

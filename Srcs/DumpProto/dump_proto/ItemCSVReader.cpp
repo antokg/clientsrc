@@ -518,7 +518,7 @@ int get_Mob_Rank_Value(string inputString)
 
 int get_Mob_Type_Value(string inputString)
 {
-	string arType[] = { "MONSTER", "NPC", "STONE", "WARP", "DOOR", "BUILDING", "PC", "POLYMORPH_PC", "HORSE", "GOTO"};
+	string arType[] = { "MONSTER", "NPC", "STONE", "WARP", "DOOR", "BUILDING", "PC", "POLYMORPH_PC", "HORSE", "GOTO", "PET", "PET_PAY" };
 
 	int retInt = -1;
 	//cout << "Type : " << typeStr << " -> ";
@@ -581,7 +581,9 @@ int get_Mob_Size_Value(string inputString)
 
 int get_Mob_AIFlag_Value(string inputString)
 {
-	vector<string> arAIFlag = {"AGGR","NOMOVE","COWARD","NOATTSHINSU","NOATTCHUNJO","NOATTJINNO","ATTMOB","BERSERK","STONESKIN","GODSPEED","DEATHBLOW","REVIVE"};
+	std::vector<std::string> arAIFlag = { "AGGR","NOMOVE","COWARD","NOATTSHINSU","NOATTCHUNJO","NOATTJINNO","ATTMOB","BERSERK","STONESKIN",
+											"GODSPEED","DEATHBLOW","REVIVE", "HEALER", "COUNT", "NORECOVERY", "REFLECT", "FALL", "VIT",
+											"RATTSPEED", "RCASTSPEED", "", "TIMEVIT" };
 
 	return get_flags_value(inputString, arAIFlag, ',');
 }
@@ -589,7 +591,7 @@ int get_Mob_AIFlag_Value(string inputString)
 int get_Mob_RaceFlag_Value(string inputString)
 {
 	std::vector<std::string> arRaceFlag = { "ANIMAL","UNDEAD","DEVIL","HUMAN","ORC","MILGYO","INSECT","FIRE","ICE","DESERT","TREE",
-		"ATT_ELEC","ATT_FIRE","ATT_ICE","ATT_WIND","ATT_EARTH","ATT_DARK" };
+		"ATT_ELEC","ATT_FIRE","ATT_ICE","ATT_WIND","ATT_EARTH","ATT_DARK", "DECO", "HIDE", "ATT_CZ" };
 
 	return get_flags_value(inputString, arRaceFlag, ',');
 }

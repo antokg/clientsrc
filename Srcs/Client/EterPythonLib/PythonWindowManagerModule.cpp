@@ -2271,6 +2271,18 @@ PyObject * wndButtonIsDown(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildValue("i", ((UI::CButton*)pWindow)->IsPressed());
 }
 
+
+PyObject* wndButtonOver(PyObject* poSelf, PyObject* poArgs)
+{
+	UI::CWindow* pWindow;
+	if (!PyTuple_GetWindow(poArgs, 0, &pWindow))
+		return Py_BuildException();
+
+	((UI::CButton*)pWindow)->Over();
+
+	return Py_BuildNone();
+}
+
 extern BOOL g_bOutlineBoxEnable;
 extern BOOL g_bShowOverInWindowName;
 
@@ -2295,6 +2307,7 @@ PyObject * wndMgrShowOverInWindowName(PyObject * poSelf, PyObject * poArgs)
 
 	return Py_BuildNone();
 }
+
 
 void initwndMgr()
 {
@@ -2482,6 +2495,7 @@ void initwndMgr()
 		{ "Down",						wndButtonDown,						METH_VARARGS },
 		{ "SetUp",						wndButtonSetUp,						METH_VARARGS },
 		{ "IsDown",						wndButtonIsDown,					METH_VARARGS },
+		{ "Over",						wndButtonOver,						METH_VARARGS },
 
 		// DragButton
 		{ "SetRestrictMovementArea",	wndButtonSetRestrictMovementArea,	METH_VARARGS },

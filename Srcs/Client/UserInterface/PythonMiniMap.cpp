@@ -12,6 +12,7 @@
 #include "AbstractPlayer.h"
 
 #include "../eterPythonLib/PythonWindowManager.h"
+#include "PythonNonPlayer.h"
 
 void CPythonMiniMap::AddObserver(DWORD dwVID, float fSrcX, float fSrcY)
 {
@@ -823,8 +824,6 @@ void CPythonMiniMap::__LoadAtlasMarkInfo()
 		return;
 	}
 
-	const std::string strType[TYPE_COUNT] = { "OPC", "OPCPVP", "OPCPVPSELF", "NPC", "MONSTER", "WARP", "WAYPOINT" };
-
 	for (DWORD i = 0; i < stTokenVectorMap.size(); ++i)
 	{
 		char szMarkInfoName[32+1];
@@ -835,33 +834,38 @@ void CPythonMiniMap::__LoadAtlasMarkInfo()
 
 		const CTokenVector & rVector = stTokenVectorMap[szMarkInfoName];
 
-		const std::string & c_rstrType = rVector[0].c_str();
-		const std::string & c_rstrPositionX = rVector[1].c_str();
-		const std::string & c_rstrPositionY = rVector[2].c_str();
-		const std::string & c_rstrText = rVector[3].c_str();
+		const std::string& c_rstrPositionX = rVector[0].c_str();
+		const std::string& c_rstrPositionY = rVector[1].c_str();
+		const DWORD c_dwMobVnum = atoi(rVector[2].c_str());
+
+		const CPythonNonPlayer::TMobTable* pkTab = CPythonNonPlayer::Instance().GetTable(c_dwMobVnum);
+
+		if (!pkTab)
+		{
+			TraceError("CPythonMiniMap::__LoadAtlasMarkInfo mob vnum %d doesn't exist (%s:%d) - maybe using old format ?", c_dwMobVnum, szAtlasMarkInfoFileName, i+1);
+			continue;
+		}
 
 		TAtlasMarkInfo aAtlasMarkInfo;
 
-		for ( int i = 0; i < TYPE_COUNT; ++i)
-		{
-			if (0 == c_rstrType.compare(strType[i]))
-				aAtlasMarkInfo.m_byType = (BYTE)i;
-		}
+		aAtlasMarkInfo.m_byType = pkTab->bType;
 		aAtlasMarkInfo.m_fX = atof(c_rstrPositionX.c_str());
 		aAtlasMarkInfo.m_fY = atof(c_rstrPositionY.c_str());
-		aAtlasMarkInfo.m_strText = c_rstrText;
+		aAtlasMarkInfo.m_strText = pkTab->szLocaleName;
 
 		aAtlasMarkInfo.m_fScreenX = aAtlasMarkInfo.m_fX / m_fAtlasMaxX * m_fAtlasImageSizeX - (float)m_WhiteMark.GetWidth() / 2.0f;
 		aAtlasMarkInfo.m_fScreenY = aAtlasMarkInfo.m_fY / m_fAtlasMaxY * m_fAtlasImageSizeY - (float)m_WhiteMark.GetHeight() / 2.0f;
 
 		switch(aAtlasMarkInfo.m_byType)
 		{
-			case TYPE_NPC:
+			case CActorInstance::TYPE_NPC:
 				m_AtlasNPCInfoVector.push_back(aAtlasMarkInfo);
 				break;
-			case TYPE_WARP:
+			case CActorInstance::TYPE_WARP:
 				m_AtlasWarpInfoVector.push_back(aAtlasMarkInfo);
 				break;
+			default:
+				TraceError("CPythonMiniMap::__LoadAtlasMarkInfo unknown mark type %d (%s:%d)", aAtlasMarkInfo.m_byType, szAtlasMarkInfoFileName, i+1);
 		}
 	}
 }

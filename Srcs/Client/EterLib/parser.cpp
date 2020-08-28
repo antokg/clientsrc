@@ -277,6 +277,7 @@ bool Group::GetArg(const char *c_arg_base, int arg_len, TArgList & argList)
 bool Group::Create(const std::string & stSource)
 {
 	m_cmdList.clear();
+	m_iLineCount = 0;
 
 	if (stSource.empty())
 		return false;
@@ -383,6 +384,8 @@ bool Group::Create(const std::string & stSource)
 			else if (cur == '\r' || cur == '\n')
 			{
 				++str_pos;
+				if (cur == '\n')
+					m_iLineCount++;
 			}
 			else
 			{

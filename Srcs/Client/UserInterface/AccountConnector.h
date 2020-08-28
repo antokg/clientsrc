@@ -19,6 +19,7 @@ class CAccountConnector : public CNetworkStream, public CSingleton<CAccountConne
 
 		void SetHandler(PyObject* poHandler);
 		void SetLoginInfo(const char * c_szName, const char * c_szPwd);
+		std::string GetLoginID();
 		void ClearLoginInfo( void );
 
 		bool SendChinaMatrixCardPacket(const char * c_szMatrixCardString);

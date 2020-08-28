@@ -206,6 +206,16 @@ PyObject * eventGetLineCount(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildValue("i", iLineCount);
 }
 
+PyObject* eventGetTotalLineCount(PyObject* poSelf, PyObject* poArgs)
+{
+	int iIndex;
+	if (!PyTuple_GetInteger(poArgs, 0, &iIndex))
+		return Py_BuildException();
+
+	int iTotalLineCount = CPythonEventManager::Instance().GetTotalLineCount(iIndex);
+	return Py_BuildValue("i", iTotalLineCount);
+}
+
 PyObject * eventSetVisibleStartLine(PyObject * poSelf, PyObject * poArgs)
 {
 	int iIndex;
@@ -269,6 +279,27 @@ PyObject * eventDestroy(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* eventSetFontColor(PyObject* poSelf, PyObject* poArgs)
+{
+	int iIndex;
+	if (!PyTuple_GetInteger(poArgs, 0, &iIndex))
+		return Py_BuildException();
+
+	float r, g, b;
+
+	if (!PyTuple_GetFloat(poArgs, 1, &r))
+		return Py_BuildException();
+
+	if (!PyTuple_GetFloat(poArgs, 2, &g))
+		return Py_BuildException();
+
+	if (!PyTuple_GetFloat(poArgs, 3, &b))
+		return Py_BuildException();
+
+	CPythonEventManager::Instance().SetFontColor(iIndex, r, g, b);
+	return Py_BuildNone();
+}
+
 void initEvent()
 {
 	static PyMethodDef s_methods[] =
@@ -294,6 +325,7 @@ void initEvent()
 
 		{ "SelectAnswer",				eventSelectAnswer,					METH_VARARGS },
 		{ "GetLineCount",				eventGetLineCount,					METH_VARARGS },
+		{ "GetTotalLineCount",			eventGetTotalLineCount,				METH_VARARGS },
 		{ "SetVisibleStartLine",		eventSetVisibleStartLine,			METH_VARARGS },
 		{ "GetVisibleStartLine",		eventGetVisibleStartLine,			METH_VARARGS },
 
@@ -303,6 +335,7 @@ void initEvent()
 
 		{ "QuestButtonClick",			eventQuestButtonClick,				METH_VARARGS },
 		{ "Destroy",					eventDestroy,						METH_VARARGS },
+		{ "SetFontColor",				eventSetFontColor,					METH_VARARGS },
 		{ NULL,							NULL,								NULL         },
 	};
 

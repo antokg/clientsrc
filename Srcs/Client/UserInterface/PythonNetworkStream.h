@@ -58,6 +58,7 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 			ACCOUNT_CHARACTER_SLOT_GUILD_NAME,
 			ACCOUNT_CHARACTER_SLOT_CHANGE_NAME_FLAG,
 			ACCOUNT_CHARACTER_SLOT_HAIR,
+			ACCOUNT_CHARACTER_SLOT_LAST_PLAYTIME,
 		};
 
 		enum

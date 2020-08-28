@@ -374,6 +374,20 @@ void CPythonEventManager::SetEventSetWidth(int iIndex, int iWidth)
 	pEventSet->iWidth = iWidth;
 }
 
+void CPythonEventManager::SetFontColor(int iIndex, float r, float g, float b)
+{
+	if (!CheckEventSetIndex(iIndex))
+		return;
+
+	TEventSet* pEventSet = m_EventSetVector[iIndex];
+	if (!pEventSet)
+		return;
+
+	D3DXCOLOR col(r, g, b, 1.0);
+
+	pEventSet->CurrentColor = col;
+}
+
 void CPythonEventManager::ProcessEventSet(TEventSet * pEventSet)
 {
 	if (pEventSet->isLock)
@@ -948,6 +962,15 @@ int CPythonEventManager::GetLineCount(int iIndex)
 
 	TEventSet * pEventSet = m_EventSetVector[iIndex];
 	return pEventSet->ScriptTextLineList.size()+pEventSet->iAdjustLine;
+}
+
+int CPythonEventManager::GetTotalLineCount(int iIndex)
+{
+	if (!CheckEventSetIndex(iIndex))
+		return 0;
+
+	TEventSet* pEventSet = m_EventSetVector[iIndex];
+	return pEventSet->ScriptGroup.GetLineCount();
 }
 
 void CPythonEventManager::ClearLine(TEventSet * pEventSet)

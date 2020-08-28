@@ -22,7 +22,7 @@ class CPythonEventManager : public CSingleton<CPythonEventManager>
 			EVENT_POSITION_START = 0,
 			EVENT_POSITION_END = 1,
 
-			BOX_VISIBLE_LINE_COUNT = 5,
+			BOX_VISIBLE_LINE_COUNT = 15,
 		};
 
 		enum EButtonType
@@ -168,6 +168,7 @@ class CPythonEventManager : public CSingleton<CPythonEventManager>
 		void UpdateEventSet(int iIndex, int ix, int iy);
 		void RenderEventSet(int iIndex);
 		void SetEventSetWidth(int iIndex, int iWidth);
+		void SetFontColor(int iIndex, float r, float g, float b);
 
 		void Skip(int iIndex);
 		bool IsWait(int iIndex);
@@ -177,6 +178,7 @@ class CPythonEventManager : public CSingleton<CPythonEventManager>
 		void SetVisibleStartLine(int iIndex, int iStartLine);
 		int GetVisibleStartLine(int iIndex);
 		int GetLineCount(int iIndex);
+		int GetTotalLineCount(int iIndex);
 		void SetVisibleLineCount(int iIndex, int iLineCount);
 
 		void SetInterfaceWindow(PyObject * poInterface);

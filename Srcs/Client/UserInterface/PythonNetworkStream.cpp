@@ -413,6 +413,9 @@ UINT CPythonNetworkStream::GetAccountCharacterSlotDatau(UINT iSlot, UINT eType)
 			break;
 		case ACCOUNT_CHARACTER_SLOT_HAIR:
 			return rkSimplePlayerInfo.wHairPart;
+		case ACCOUNT_CHARACTER_SLOT_LAST_PLAYTIME:
+			//TODO code this
+			return 0;
 			break;
 	}
 	return 0;

@@ -28,6 +28,10 @@ void CAccountConnector::SetLoginInfo(const char * c_szName, const char * c_szPwd
 	m_strPassword = c_szPwd;
 }
 
+std::string CAccountConnector::GetLoginID()
+{
+	return m_strID;
+};
 
 void CAccountConnector::ClearLoginInfo( void )
 {

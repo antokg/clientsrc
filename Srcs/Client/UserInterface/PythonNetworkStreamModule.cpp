@@ -385,6 +385,12 @@ PyObject* netSetLoginInfo(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* netGetLoginID(PyObject* poSelf, PyObject* poArgs)
+{
+	CAccountConnector& rkAccountConnector = CAccountConnector::Instance();
+	return Py_BuildValue("s", rkAccountConnector.GetLoginID().c_str());
+}
+
 PyObject* netSetOfflinePhase(PyObject* poSelf, PyObject* poArgs)
 {
 	CPythonNetworkStream& rkNetStream=CPythonNetworkStream::Instance();
@@ -1744,6 +1750,7 @@ void initnet()
 
 		{ "ToggleGameDebugInfo",				netToggleGameDebugInfo,					METH_VARARGS },
 		{ "SetLoginInfo",						netSetLoginInfo,						METH_VARARGS },
+		{ "GetLoginID",							netGetLoginID,							METH_VARARGS },
 		{ "SetPhaseWindow",						netSetPhaseWindow,						METH_VARARGS },
 		{ "ClearPhaseWindow",					netClearPhaseWindow,					METH_VARARGS },
 		{ "SetServerCommandParserWindow",		netSetServerCommandParserWindow,		METH_VARARGS },
@@ -1905,6 +1912,7 @@ void initnet()
 	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_STR", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_STR);
 	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_DEX", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_DEX);
 	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_INT", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_INT);
+	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_LAST_PLAYTIME", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_LAST_PLAYTIME);
 	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_HTH", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_HTH);
 	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_PLAYTIME", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_PLAYTIME);
 	PyModule_AddIntConstant(poModule, "ACCOUNT_CHARACTER_SLOT_FORM", CPythonNetworkStream::ACCOUNT_CHARACTER_SLOT_FORM);
@@ -1929,4 +1937,6 @@ void initnet()
 	PyModule_AddIntConstant(poModule, "DS_SUB_HEADER_REFINE_FAIL_NOT_ENOUGH_MATERIAL", DS_SUB_HEADER_REFINE_FAIL_NOT_ENOUGH_MATERIAL);
 	PyModule_AddIntConstant(poModule, "DS_SUB_HEADER_REFINE_FAIL_TOO_MUCH_MATERIAL", DS_SUB_HEADER_REFINE_FAIL_TOO_MUCH_MATERIAL);
 	PyModule_AddIntConstant(poModule, "DS_SUB_HEADER_REFINE_SUCCEED", DS_SUB_HEADER_REFINE_SUCCEED);
+
+	PyModule_AddIntConstant(poModule, "CHARACTER_SLOT_COUNT_MAX", 4);
 }

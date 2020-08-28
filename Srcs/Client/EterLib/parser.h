@@ -81,6 +81,8 @@ namespace script
 			* @return stError 이 곳으로 에러가 출력 된다.
 			*/
 			std::string &       GetError();
+
+			int GetLineCount() { return m_iLineCount; }
 			
 		private:
 			void                SetError(const char *str);
@@ -88,6 +90,7 @@ namespace script
 			
 			std::string         m_stError;
 			std::list<TCmd>     m_cmdList;
+			int					m_iLineCount;
     };
 }
 

@@ -1190,6 +1190,7 @@ typedef struct SSimplePlayerInformation
 	LONG				lAddr;
 	WORD				wPort;
 	BYTE				bySkillGroup;
+	DWORD				dwLastPlayTime;
 } TSimplePlayerInformation;
 
 typedef struct packet_login_success3
@@ -1419,6 +1420,8 @@ enum EChatType
 	CHAT_TYPE_SHOUT,	/* 외치기 */
 	CHAT_TYPE_WHISPER,	// 서버와는 연동되지 않는 Only Client Enum
 	CHAT_TYPE_BIG_NOTICE,
+
+	CHAT_TYPE_DICE_INFO = 11,
 	CHAT_TYPE_MAX_NUM,
 };
 

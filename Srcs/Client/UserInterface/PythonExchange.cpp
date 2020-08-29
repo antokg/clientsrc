@@ -207,6 +207,16 @@ void CPythonExchange::SetElkMode(bool value)
 	m_elk_mode = value;
 }
 
+int CPythonExchange::GetLevelFromTarget()
+{
+	return m_victim.level;
+}
+
+void CPythonExchange::SetTargetLevel(int level)
+{
+	m_victim.level = level;
+}
+
 void CPythonExchange::Start()
 {
 	m_isTrading = true;

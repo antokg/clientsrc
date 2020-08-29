@@ -516,6 +516,7 @@ class CInstanceBase
 		DWORD					GetVirtualNumber();
 		DWORD					GetEmpireID();
 		DWORD					GetGuildID();
+		DWORD					GetLevel() { return m_dwLevel; }
 		int						GetAlignment();
 		UINT					GetAlignmentGrade();
 		int						GetAlignmentType();

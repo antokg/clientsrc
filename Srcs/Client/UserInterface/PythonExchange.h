@@ -16,6 +16,7 @@ class CPythonExchange : public CSingleton<CPythonExchange>
 		typedef struct trade
 		{
 			char					name[CHARACTER_NAME_MAX_LEN + 1];
+			int						level;
 
 			DWORD					item_vnum[EXCHANGE_ITEM_MAX_NUM];
 			BYTE					item_count[EXCHANGE_ITEM_MAX_NUM];
@@ -82,6 +83,9 @@ class CPythonExchange : public CSingleton<CPythonExchange>
 
 		bool			GetElkMode();
 		void			SetElkMode(bool value);
+
+		void			SetTargetLevel(int level);
+		int				GetLevelFromTarget();
 
 	protected:
 		bool				m_isTrading;

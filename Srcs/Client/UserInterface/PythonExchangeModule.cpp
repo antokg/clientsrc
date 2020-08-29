@@ -152,6 +152,11 @@ PyObject * exchangeSetElkMode(PyObject * poTarget, PyObject * poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* exchangeGetLevelFromTarget(PyObject* poTarget, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonExchange::Instance().GetLevelFromTarget());
+}
+
 void initTrade()
 {
 	static PyMethodDef s_methods[] = 
@@ -182,6 +187,7 @@ void initTrade()
 
 		{"GetElkMode",					exchangeGetElkMode,					METH_VARARGS},
 		{"SetElkMode",					exchangeSetElkMode,					METH_VARARGS},
+		{"GetLevelFromTarget",			exchangeGetLevelFromTarget,			METH_VARARGS},
 
 		{NULL, NULL},
 	};

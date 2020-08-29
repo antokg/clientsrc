@@ -1796,7 +1796,10 @@ bool CPythonNetworkStream::RecvExchangePacket()
 				CInstanceBase * pCharacterInstance = CPythonCharacterManager::Instance().GetInstancePtr(exchange_packet.arg1);
 
 				if (pCharacterInstance)
+				{
 					CPythonExchange::Instance().SetTargetName(pCharacterInstance->GetNameString());
+					CPythonExchange::Instance().SetTargetLevel(pCharacterInstance->GetLevel());
+				}
 			}
 
 			PyCallClassMemberFunc(m_apoPhaseWnd[PHASE_WINDOW_GAME], "StartExchange", Py_BuildValue("()"));

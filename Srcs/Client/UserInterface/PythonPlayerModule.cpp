@@ -1770,6 +1770,21 @@ PyObject * playerOpenCharacterMenu(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* playerPartyMemberVIDToPID(PyObject* poSelf, PyObject* poArgs)
+{
+	int iVID;
+	if (!PyTuple_GetInteger(poArgs, 0, &iVID))
+		return Py_BuildException();
+
+	DWORD dwPID;
+	if (CPythonPlayer::Instance().PartyMemberVIDToPID(iVID, &dwPID))
+	{
+		return Py_BuildValue("i", dwPID);
+	}
+	
+	return Py_BuildValue("i", -1);
+}
+
 PyObject * playerIsPartyMember(PyObject* poSelf, PyObject* poArgs)
 {
 	int iVID;
@@ -2345,6 +2360,7 @@ void initPlayer()
 		{ "SlotTypeToInvenType",		playerSlotTypeToInvenType,			METH_VARARGS },
 		{ "SendDragonSoulRefine",		playerSendDragonSoulRefine,			METH_VARARGS },
 		{ "IsPoly",						playerIsPoly,						METH_VARARGS },
+		{ "PartyMemberVIDToPID",		playerPartyMemberVIDToPID,						METH_VARARGS },
 
 		{ NULL,							NULL,								NULL },
 	};

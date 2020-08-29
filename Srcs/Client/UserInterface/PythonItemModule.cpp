@@ -45,11 +45,12 @@ PyObject * itemSelectItem(PyObject * poSelf, PyObject * poArgs)
 
 	if (!CItemManager::Instance().SelectItemData(iIndex))
 	{
-		TraceError("Cannot find item by %d", iIndex);
-		CItemManager::Instance().SelectItemData(60001);
+		//TraceError("Cannot find item by %d", iIndex);
+		//CItemManager::Instance().SelectItemData(60001);
+		return Py_BuildValue("i", 0);
 	}
 
-	return Py_BuildNone();
+	return Py_BuildValue("i", 1);
 }
 
 PyObject * itemGetItemName(PyObject * poSelf, PyObject * poArgs)
@@ -651,6 +652,7 @@ void initItem()
 	PyModule_AddIntConstant(poModule, "WEAPON_BELL",				CItemData::WEAPON_BELL);
 	PyModule_AddIntConstant(poModule, "WEAPON_FAN",					CItemData::WEAPON_FAN);
 	PyModule_AddIntConstant(poModule, "WEAPON_ARROW",				CItemData::WEAPON_ARROW);
+	PyModule_AddIntConstant(poModule, "WEAPON_QUIVER",				CItemData::WEAPON_QUIVER);
 	PyModule_AddIntConstant(poModule, "WEAPON_NUM_TYPES",			CItemData::WEAPON_NUM_TYPES);
 
 	PyModule_AddIntConstant(poModule, "USE_POTION",					CItemData::USE_POTION);
@@ -708,6 +710,8 @@ void initItem()
 	PyModule_AddIntConstant(poModule, "ITEM_ANTIFLAG_PKDROP",		CItemData::ITEM_ANTIFLAG_PKDROP);
 	PyModule_AddIntConstant(poModule, "ITEM_ANTIFLAG_STACK",		CItemData::ITEM_ANTIFLAG_STACK);
 	PyModule_AddIntConstant(poModule, "ITEM_ANTIFLAG_MYSHOP",		CItemData::ITEM_ANTIFLAG_MYSHOP);
+	PyModule_AddIntConstant(poModule, "ITEM_ANTIFLAG_REINFORCE",	CItemData::ITEM_ANTIFLAG_REINFORCE);
+	PyModule_AddIntConstant(poModule, "ITEM_ANTIFLAG_ENCHANT",		CItemData::ITEM_ANTIFLAG_ENCHANT);
 
 	PyModule_AddIntConstant(poModule, "ITEM_FLAG_RARE",				CItemData::ITEM_FLAG_RARE);
 	PyModule_AddIntConstant(poModule, "ITEM_FLAG_UNIQUE",			CItemData::ITEM_FLAG_UNIQUE);

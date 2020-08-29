@@ -1493,7 +1493,6 @@ void initapp()
 	PyModule_AddIntConstant(poModule, "CAMERA_TO_NEGATIVE",		CPythonApplication::CAMERA_TO_NEGITIVE);
 	PyModule_AddIntConstant(poModule, "CAMERA_STOP",			CPythonApplication::CAMERA_STOP);
 
-	//PyModule_AddIntConstant(poModule, "VERSION", 1);
 	PyModule_AddStringConstant(poModule, "VERSION", "1.0.0");
 
 #ifdef ENABLE_COSTUME_SYSTEM
@@ -1771,12 +1770,6 @@ void initapp()
 	PyModule_AddIntConstant(poModule, "BR_SYSTEM_MESSAGE", 1);
 #else
 	PyModule_AddIntConstant(poModule, "BR_SYSTEM_MESSAGE", 0);
-#endif
-
-#ifdef ENABLE_STEAM
-	PyModule_AddIntConstant(poModule, "ENABLE_STEAM", 1);
-#else
-	PyModule_AddIntConstant(poModule, "ENABLE_STEAM", 0);
 #endif
 
 #ifdef WJ_MULTI_TEXTLINE
@@ -2065,5 +2058,11 @@ void initapp()
 	PyModule_AddIntConstant(poModule, "ENABLE_WEAPON_COSTUME_SYSTEM", 1);
 #else
 	PyModule_AddIntConstant(poModule, "ENABLE_WEAPON_COSTUME_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_PARTY_LEADER_RENEWAL
+	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_LEADER_RENEWAL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_LEADER_RENEWAL", 0);
 #endif
 }

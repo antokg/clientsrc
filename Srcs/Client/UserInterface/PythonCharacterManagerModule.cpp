@@ -713,6 +713,25 @@ PyObject * chrmgrIsPossibleEmoticon(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildValue("i", result);
 }
 
+PyObject* chrmgrSetRaceHeight(PyObject* poSelf, PyObject* poArgs)
+{
+	int iRaceIndex;
+
+	if (!PyTuple_GetInteger(poArgs, 0, &iRaceIndex))
+		return Py_BadArgument();
+
+	float fRaceHeight;
+
+	if (!PyTuple_GetFloat(poArgs, 1, &fRaceHeight))
+	{
+		return Py_BadArgument();
+	}
+
+	CRaceManager::Instance().SetRaceHeight(iRaceIndex, fRaceHeight);
+
+	return Py_BuildNone();
+}
+
 void initchrmgr()
 {
 	static PyMethodDef s_methods[] =
@@ -758,6 +777,7 @@ void initchrmgr()
 		{ "RegisterTitleName",			chrmgrRegisterTitleName,				METH_VARARGS },
 		{ "RegisterNameColor",			chrmgrRegisterNameColor,				METH_VARARGS },
 		{ "RegisterTitleColor",			chrmgrRegisterTitleColor,				METH_VARARGS },
+		{ "SetRaceHeight",				chrmgrSetRaceHeight,					METH_VARARGS },
 
 		{ NULL,							NULL,									NULL },
 	};	
@@ -776,6 +796,7 @@ void initchrmgr()
 	PyModule_AddIntConstant(poModule, "NAMECOLOR_PARTY", CInstanceBase::NAMECOLOR_PARTY);
 	PyModule_AddIntConstant(poModule, "NAMECOLOR_WARP", CInstanceBase::NAMECOLOR_WARP);
 	PyModule_AddIntConstant(poModule, "NAMECOLOR_WAYPOINT", CInstanceBase::NAMECOLOR_WAYPOINT);
+	PyModule_AddIntConstant(poModule, "NAMECOLOR_TARGET_VICTIM", CInstanceBase::NAMECOLOR_TARGET_VICTIM);
 	PyModule_AddIntConstant(poModule, "NAMECOLOR_EXTRA", CInstanceBase::NAMECOLOR_EXTRA);
 	
 	PyModule_AddIntConstant(poModule, "EFFECT_SPAWN_DISAPPEAR",		CInstanceBase::EFFECT_SPAWN_DISAPPEAR);
@@ -840,5 +861,15 @@ void initchrmgr()
 	PyModule_AddIntConstant(poModule, "EFFECT_HALLOWEEN_CANDY_EQUIP",		CInstanceBase::EFFECT_HALLOWEEN_CANDY_EQUIP);
 	PyModule_AddIntConstant(poModule, "EFFECT_HAPPINESS_RING_EQUIP",		CInstanceBase::EFFECT_HAPPINESS_RING_EQUIP);
 	PyModule_AddIntConstant(poModule, "EFFECT_LOVE_PENDANT_EQUIP",		CInstanceBase::EFFECT_LOVE_PENDANT_EQUIP);
-	
+
+	// TODO replace with true constant name
+	PyModule_AddIntConstant(poModule, "EFFECT_ACCE_SUCESS_ABSORB", 288);
+	PyModule_AddIntConstant(poModule, "EFFECT_ACCE_EQUIP", 289);
+	PyModule_AddIntConstant(poModule, "EFFECT_ACCE_BACK", 290);
+	PyModule_AddIntConstant(poModule, "EFFECT_EASTER_CANDY_EQIP", 291);
+	PyModule_AddIntConstant(poModule, "EFFECT_THUNDER_AREA", 292);
+	PyModule_AddIntConstant(poModule, "EFFECT_THUNDER", 293);
+	PyModule_AddIntConstant(poModule, "EFFECT_HEAL", 294);
+	PyModule_AddIntConstant(poModule, "EFFECT_CAPE_OF_COURAGE", 295);
+
 }

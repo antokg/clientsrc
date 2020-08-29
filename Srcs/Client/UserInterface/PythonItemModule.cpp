@@ -501,6 +501,12 @@ PyObject* itemLoadItemTable(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* itemIsItemUsedForDragonSoul(PyObject* poSelf, PyObject* poArgs)
+{
+	// TODO code this
+	return Py_BuildValue("i", 0);
+}
+
 void initItem()
 {
 	static PyMethodDef s_methods[] =
@@ -544,6 +550,7 @@ void initItem()
 		{ "Pick",							itemPick,								METH_VARARGS },
 
 		{ "LoadItemTable",					itemLoadItemTable,						METH_VARARGS },
+		{ "IsItemUsedForDragonSoul",		itemIsItemUsedForDragonSoul,			METH_VARARGS },
 
 		{ NULL,								NULL,									NULL		 },
 	};
@@ -610,6 +617,7 @@ void initItem()
 	PyModule_AddIntConstant(poModule, "ITEM_TYPE_SPECIAL_DS",		CItemData::ITEM_TYPE_SPECIAL_DS);
 	PyModule_AddIntConstant(poModule, "ITEM_TYPE_RING",				CItemData::ITEM_TYPE_RING);
 	PyModule_AddIntConstant(poModule, "ITEM_TYPE_BELT",				CItemData::ITEM_TYPE_BELT);
+	PyModule_AddIntConstant(poModule, "ITEM_TYPE_GIFTBOX",			CItemData::ITEM_TYPE_GIFTBOX);
 
 
 #ifdef ENABLE_COSTUME_SYSTEM
@@ -618,6 +626,8 @@ void initItem()
 	// Item Sub Type
 	PyModule_AddIntConstant(poModule, "COSTUME_TYPE_BODY",			CItemData::COSTUME_BODY);
 	PyModule_AddIntConstant(poModule, "COSTUME_TYPE_HAIR",			CItemData::COSTUME_HAIR);
+	PyModule_AddIntConstant(poModule, "COSTUME_TYPE_MOUNT",			CItemData::COSTUME_MOUNT);
+	PyModule_AddIntConstant(poModule, "COSTUME_TYPE_ACCE",			CItemData::COSTUME_ACCE);
 
 	// 인벤토리 및 장비창에서의 슬롯 번호
 	PyModule_AddIntConstant(poModule, "COSTUME_SLOT_START",			c_Costume_Slot_Start);

@@ -6,5 +6,6 @@ bin/
 obj/
 Release/
 Debug/
+Distribute/
 *.sbr
 *.sdf

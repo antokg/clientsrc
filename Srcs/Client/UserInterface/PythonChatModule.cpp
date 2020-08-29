@@ -517,4 +517,6 @@ void initChat()
 
 	PyModule_AddIntConstant(poModule, "CHAT_SET_CHAT_WINDOW",	0);
 	PyModule_AddIntConstant(poModule, "CHAT_SET_LOG_WINDOW",	1);
+
+	PyModule_AddIntConstant(poModule, "CHAT_TYPE_DICE_INFO",	CHAT_TYPE_DICE_INFO);
 }

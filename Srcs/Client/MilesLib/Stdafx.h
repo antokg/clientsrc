@@ -12,6 +12,7 @@
 #include <mss.h>
 #pragma warning(default:4201)
 #include <windows.h>
+#pragma comment(lib, "legacy_stdio_definitions.lib")
 
 //#include <crtdbg.h>
 

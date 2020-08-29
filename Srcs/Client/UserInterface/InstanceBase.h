@@ -241,7 +241,8 @@ class CInstanceBase
 			NAMECOLOR_PVP,
 			NAMECOLOR_PARTY,
 			NAMECOLOR_WARP,
-			NAMECOLOR_WAYPOINT,						
+			NAMECOLOR_WAYPOINT,
+			NAMECOLOR_TARGET_VICTIM,
 			NAMECOLOR_EXTRA = NAMECOLOR_FUNC + 10,
 			NAMECOLOR_NUM = NAMECOLOR_EXTRA + 10,
 		};
@@ -371,7 +372,7 @@ class CInstanceBase
 			EFFECT_HAPPINESS_RING_EQUIP,				// 행복의 반지 착용 순간에 발동하는 이펙트
 			EFFECT_LOVE_PENDANT_EQUIP,				// 행복의 반지 착용 순간에 발동하는 이펙트
 			EFFECT_TEMP,
-			EFFECT_NUM,
+			EFFECT_NUM = 350, // TODO remove this 
 		};
 
 		enum

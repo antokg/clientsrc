@@ -1493,6 +1493,9 @@ void initapp()
 	PyModule_AddIntConstant(poModule, "CAMERA_TO_NEGATIVE",		CPythonApplication::CAMERA_TO_NEGITIVE);
 	PyModule_AddIntConstant(poModule, "CAMERA_STOP",			CPythonApplication::CAMERA_STOP);
 
+	//PyModule_AddIntConstant(poModule, "VERSION", 1);
+	PyModule_AddStringConstant(poModule, "VERSION", "1.0.0");
+
 #ifdef ENABLE_COSTUME_SYSTEM
 	PyModule_AddIntConstant(poModule, "ENABLE_COSTUME_SYSTEM",	1);
 #else
@@ -1517,14 +1520,550 @@ void initapp()
 	PyModule_AddIntConstant(poModule, "ENABLE_NEW_EQUIPMENT_SYSTEM",	0);
 #endif
 
-#ifdef USE_OPENID
-	PyModule_AddIntConstant(poModule, "USE_OPENID",	1);
-	if (openid_test)
-		PyModule_AddIntConstant(poModule, "OPENID_TEST",	1);
-	else
-		PyModule_AddIntConstant(poModule, "OPENID_TEST",	0);
+#ifdef ENABLE_GROWTH_PET_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_GROWTH_PET_SYSTEM", 1);
 #else
-	PyModule_AddIntConstant(poModule, "USE_OPENID",	0);
-	PyModule_AddIntConstant(poModule, "OPENID_TEST",	0);
-#endif /* USE_OPENID */
+	PyModule_AddIntConstant(poModule, "ENABLE_GROWTH_PET_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_BATTLE_FIELD
+	PyModule_AddIntConstant(poModule, "ENABLE_BATTLE_FIELD", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_BATTLE_FIELD", 0);
+#endif
+
+#ifdef ENABLE_GEM_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_GEM_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_GEM_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_GUILD_DRAGONLAIR_PARTY_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_GUILD_DRAGONLAIR_PARTY_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_GUILD_DRAGONLAIR_PARTY_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_12ZI
+	PyModule_AddIntConstant(poModule, "ENABLE_12ZI", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_12ZI", 0);
+#endif
+
+
+#ifdef WJ_SHOW_PARTY_ON_MINIMAP
+	PyModule_AddIntConstant(poModule, "WJ_SHOW_PARTY_ON_MINIMAP", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_SHOW_PARTY_ON_MINIMAP", 0);
+#endif
+
+#ifdef ENABLE_MONSTER_CARD
+	PyModule_AddIntConstant(poModule, "ENABLE_MONSTER_CARD", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MONSTER_CARD", 0);
+#endif
+
+#ifdef ENABLE_PARTY_MATCH
+	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_MATCH", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_MATCH", 0);
+#endif
+
+#ifdef ENABLE_WOLFMAN_CHARACTER
+	PyModule_AddIntConstant(poModule, "ENABLE_WOLFMAN_CHARACTER", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_WOLFMAN_CHARACTER", 0);
+#endif
+	
+#ifdef ENABLE_10TH_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_10TH_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_10TH_EVENT", 0);
+#endif
+
+#ifdef ENABLE_MONSTER_BACK
+	PyModule_AddIntConstant(poModule, "ENABLE_MONSTER_BACK", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MONSTER_BACK", 0);
+#endif
+
+#ifdef ENABLE_CARNIVAL2016
+	PyModule_AddIntConstant(poModule, "ENABLE_CARNIVAL2016", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_CARNIVAL2016", 0);
+#endif
+
+#ifdef ENABLE_CHEQUE_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_CHEQUE_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_CHEQUE_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_FISH_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_FISH_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_FISH_EVENT", 0);
+#endif
+
+#ifdef ENABLE_KEYCHANGE_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_KEYCHANGE_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_KEYCHANGE_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_MINI_GAME_YUTNORI
+	PyModule_AddIntConstant(poModule, "ENABLE_MINI_GAME_YUTNORI", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MINI_GAME_YUTNORI", 0);
+#endif
+
+#ifdef ENABLE_INPUT_WIDTH_CHECK_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_INPUT_WIDTH_CHECK_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_INPUT_WIDTH_CHECK_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_PRIVATESHOP_SEARCH_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_PRIVATESHOP_SEARCH_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PRIVATESHOP_SEARCH_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_WEB_LINKED_BANNER
+	PyModule_AddIntConstant(poModule, "ENABLE_WEB_LINKED_BANNER", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_WEB_LINKED_BANNER", 0);
+#endif
+
+#ifdef ENABLE_USER_SITUATION_NOTICE
+	PyModule_AddIntConstant(poModule, "ENABLE_USER_SITUATION_NOTICE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_USER_SITUATION_NOTICE", 0);
+#endif
+
+#ifdef ENABLE_DETAILS_UI
+	PyModule_AddIntConstant(poModule, "ENABLE_DETAILS_UI", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_DETAILS_UI", 0);
+#endif
+
+#ifdef ENABLE_EXTEND_INVEN_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_EXTEND_INVEN_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_EXTEND_INVEN_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_MOVE_COSTUME_ATTR
+	PyModule_AddIntConstant(poModule, "ENABLE_MOVE_COSTUME_ATTR", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MOVE_COSTUME_ATTR", 0);
+#endif
+
+#ifdef WJ_ENABLE_TRADABLE_ICON
+	PyModule_AddIntConstant(poModule, "WJ_ENABLE_TRADABLE_ICON", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_ENABLE_TRADABLE_ICON", 0);
+#endif
+
+#ifdef ENABLE_SLOT_COVER_IMAGE_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_SLOT_COVER_IMAGE_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SLOT_COVER_IMAGE_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_CHANGED_ATTR
+	PyModule_AddIntConstant(poModule, "ENABLE_CHANGED_ATTR", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_CHANGED_ATTR", 0);
+#endif
+
+#ifdef ENABLE_MYSHOP_DECO
+	PyModule_AddIntConstant(poModule, "ENABLE_MYSHOP_DECO", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MYSHOP_DECO", 0);
+#endif
+
+#ifdef ENABLE_CHANNEL_LIST
+	PyModule_AddIntConstant(poModule, "ENABLE_CHANNEL_LIST", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_CHANNEL_LIST", 0);
+#endif
+
+#ifdef ENABLE_SECOND_GUILDRENEWAL_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_SECOND_GUILDRENEWAL_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SECOND_GUILDRENEWAL_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_678TH_SKILL
+	PyModule_AddIntConstant(poModule, "ENABLE_678TH_SKILL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_678TH_SKILL", 0);
+#endif
+
+#ifdef ENABLE_678TH_SKILL
+	PyModule_AddIntConstant(poModule, "ENABLE_GROWTH_PET_SKILL_DEL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_GROWTH_PET_SKILL_DEL", 0);
+#endif
+
+#ifdef ENABLE_GUILD_DRAGONLAIR_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_GUILD_DRAGONLAIR_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_GUILD_DRAGONLAIR_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_NEW_HALLOWEEN_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_NEW_HALLOWEEN_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_NEW_HALLOWEEN_EVENT", 0);
+#endif
+
+#ifdef ENABLE_2016_VALENTINE
+	PyModule_AddIntConstant(poModule, "ENABLE_2016_VALENTINE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_2016_VALENTINE", 0);
+#endif
+
+#ifdef ENABLE_MINI_GAME_OKEY_NORMAL
+	PyModule_AddIntConstant(poModule, "ENABLE_MINI_GAME_OKEY_NORMAL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MINI_GAME_OKEY_NORMAL", 0);
+#endif
+
+#ifdef ENABLE_AUTO_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_AUTO_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_AUTO_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_SUMMER_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_SUMMER_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SUMMER_EVENT", 0);
+#endif
+
+#ifdef ENABLE_2017_RAMADAN
+	PyModule_AddIntConstant(poModule, "ENABLE_2017_RAMADAN", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_2017_RAMADAN", 0);
+#endif
+
+#ifdef ENABLE_SERVER_SELECT_RENEWAL
+	PyModule_AddIntConstant(poModule, "ENABLE_SERVER_SELECT_RENEWAL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SERVER_SELECT_RENEWAL", 0);
+#endif
+
+#ifdef LOGIN_COUNT_DOWN_UI_MODIFY
+	PyModule_AddIntConstant(poModule, "LOGIN_COUNT_DOWN_UI_MODIFY", 1);
+#else
+	PyModule_AddIntConstant(poModule, "LOGIN_COUNT_DOWN_UI_MODIFY", 0);
+#endif
+
+#ifdef BR_SERVER_CONSOLIDATION_MESSAGE
+	PyModule_AddIntConstant(poModule, "BR_SERVER_CONSOLIDATION_MESSAGE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "BR_SERVER_CONSOLIDATION_MESSAGE", 0);
+#endif
+
+#ifdef BR_SYSTEM_MESSAGE
+	PyModule_AddIntConstant(poModule, "BR_SYSTEM_MESSAGE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "BR_SYSTEM_MESSAGE", 0);
+#endif
+
+#ifdef ENABLE_STEAM
+	PyModule_AddIntConstant(poModule, "ENABLE_STEAM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_STEAM", 0);
+#endif
+
+#ifdef WJ_MULTI_TEXTLINE
+	PyModule_AddIntConstant(poModule, "WJ_MULTI_TEXTLINE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_MULTI_TEXTLINE", 0);
+#endif
+
+#ifdef POPUPDIALOG_MODIFY
+	PyModule_AddIntConstant(poModule, "POPUPDIALOG_MODIFY", 1);
+#else
+	PyModule_AddIntConstant(poModule, "POPUPDIALOG_MODIFY", 0);
+#endif
+
+#ifdef WJ_NEW_USER_CARE
+	PyModule_AddIntConstant(poModule, "WJ_NEW_USER_CARE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_NEW_USER_CARE", 0);
+#endif
+
+#ifdef ENABLE_MOVE_CHANNEL
+	PyModule_AddIntConstant(poModule, "ENABLE_MOVE_CHANNEL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MOVE_CHANNEL", 0);
+#endif
+
+#ifdef ENABLE_GUILDRENEWAL_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_GUILDRENEWAL_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_GUILDRENEWAL_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_CHANGE_LOOK_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_CHANGE_LOOK_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_CHANGE_LOOK_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_ELEMENT_ADD
+	PyModule_AddIntConstant(poModule, "ENABLE_ELEMENT_ADD", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_ELEMENT_ADD", 0);
+#endif
+
+#ifdef ENABLE_PENDANT
+	PyModule_AddIntConstant(poModule, "ENABLE_PENDANT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PENDANT", 0);
+#endif
+
+#ifdef ENABLE_PVP_BALANCE
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_BALANCE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_BALANCE", 0);
+#endif
+
+#ifdef ENABLE_COSTUME_ATTR_RENEWAL_SECOND
+	PyModule_AddIntConstant(poModule, "ENABLE_COSTUME_ATTR_RENEWAL_SECOND", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_COSTUME_ATTR_RENEWAL_SECOND", 0);
+#endif
+
+#ifdef ENABLE_SOUL_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_SOUL_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SOUL_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_SET_ITEM
+	PyModule_AddIntConstant(poModule, "ENABLE_SET_ITEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SET_ITEM", 0);
+#endif
+
+#ifdef ENABLE_SOCKET_STRING3
+	PyModule_AddIntConstant(poModule, "ENABLE_SOCKET_STRING3", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SOCKET_STRING3", 0);
+#endif
+
+#ifdef ENABLE_NEW_USER_CARE
+	PyModule_AddIntConstant(poModule, "ENABLE_NEW_USER_CARE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_NEW_USER_CARE", 0);
+#endif
+
+#ifdef ENABLE_LUCKY_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_LUCKY_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_LUCKY_EVENT", 0);
+#endif
+
+#ifdef ENABLE_PVP_TOURNAMENT
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_TOURNAMENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_TOURNAMENT", 0);
+#endif
+
+#ifdef ENABLE_PEPSI_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_PEPSI_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PEPSI_EVENT", 0);
+#endif
+
+#ifdef ENABLE_FLOWER_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_FLOWER_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_FLOWER_EVENT", 0);
+#endif
+
+#ifdef ENABLE_RESEARCHER_ELIXIR_FIX
+	PyModule_AddIntConstant(poModule, "ENABLE_RESEARCHER_ELIXIR_FIX", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_RESEARCHER_ELIXIR_FIX", 0);
+#endif
+
+#ifdef ENABLE_AUTO_ATTACK
+	PyModule_AddIntConstant(poModule, "ENABLE_AUTO_ATTACK", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_AUTO_ATTACK", 0);
+#endif
+
+#ifdef ENABLE_MESSENGER_BLOCK
+	PyModule_AddIntConstant(poModule, "ENABLE_MESSENGER_BLOCK", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_MESSENGER_BLOCK", 0);
+#endif
+
+#ifdef ENABLE_ACCUMULATE_DAMAGE_DISPLAY
+	PyModule_AddIntConstant(poModule, "ENABLE_ACCUMULATE_DAMAGE_DISPLAY", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_ACCUMULATE_DAMAGE_DISPLAY", 0);
+#endif
+
+#ifdef ENABLE_HELP_RENEWAL
+	PyModule_AddIntConstant(poModule, "ENABLE_HELP_RENEWAL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_HELP_RENEWAL", 0);
+#endif
+
+#ifdef WJ_ENABLE_PICKUP_ITEM_EFFECT
+	PyModule_AddIntConstant(poModule, "WJ_ENABLE_PICKUP_ITEM_EFFECT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_ENABLE_PICKUP_ITEM_EFFECT", 0);
+#endif
+
+#ifdef ENABLE_DS_PASSWORD
+	PyModule_AddIntConstant(poModule, "ENABLE_DS_PASSWORD", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_DS_PASSWORD", 0);
+#endif
+
+#ifdef WJ_SHOW_MOB_INFO
+	PyModule_AddIntConstant(poModule, "WJ_SHOW_MOB_INFO", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_SHOW_MOB_INFO", 0);
+#endif
+
+#ifdef ENABLE_STRUCTURE_VIEW_MODE
+	PyModule_AddIntConstant(poModule, "ENABLE_STRUCTURE_VIEW_MODE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_STRUCTURE_VIEW_MODE", 0);
+#endif
+
+#ifdef ENABLE_FOG_FIX
+	PyModule_AddIntConstant(poModule, "ENABLE_FOG_FIX", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_FOG_FIX", 0);
+#endif
+
+#ifdef ENABLE_ENVIRONMENT_EFFECT_OPTION
+	PyModule_AddIntConstant(poModule, "ENABLE_ENVIRONMENT_EFFECT_OPTION", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_ENVIRONMENT_EFFECT_OPTION", 0);
+#endif
+
+#ifdef ENABLE_EXTEND_MALLBOX
+	PyModule_AddIntConstant(poModule, "ENABLE_EXTEND_MALLBOX", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_EXTEND_MALLBOX", 0);
+#endif
+
+#ifdef ENABLE_OX_RENEWAL
+	PyModule_AddIntConstant(poModule, "ENABLE_OX_RENEWAL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_OX_RENEWAL", 0);
+#endif
+
+#ifdef ENABLE_INPUT_CANCEL
+	PyModule_AddIntConstant(poModule, "ENABLE_INPUT_CANCEL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_INPUT_CANCEL", 0);
+#endif
+
+#ifdef ENABLE_RANKING_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_RANKING_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_RANKING_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_SPECIAL_GACHA
+	PyModule_AddIntConstant(poModule, "ENABLE_SPECIAL_GACHA", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SPECIAL_GACHA", 0);
+#endif
+
+#ifdef ENABLE_PVP_TOURNAMENT_GF
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_TOURNAMENT_GF", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_TOURNAMENT_GF", 0);
+#endif
+
+#ifdef ENABLE_DELETE_FAILURE_TYPE
+	PyModule_AddIntConstant(poModule, "ENABLE_DELETE_FAILURE_TYPE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_DELETE_FAILURE_TYPE", 0);
+#endif
+
+#ifdef ENABLE_BALANCE_IMPROVING
+	PyModule_AddIntConstant(poModule, "ENABLE_BALANCE_IMPROVING", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_BALANCE_IMPROVING", 0);
+#endif
+
+#ifdef ENABLE_AI_FLAG_REFLECT
+	PyModule_AddIntConstant(poModule, "ENABLE_AI_FLAG_REFLECT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_AI_FLAG_REFLECT", 0);
+#endif
+
+#ifdef ENABLE_ACCE
+	PyModule_AddIntConstant(poModule, "ENABLE_ACCE", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_ACCE", 0);
+#endif
+
+#ifdef ENABLE_EXP_EVENT
+	PyModule_AddIntConstant(poModule, "ENABLE_EXP_EVENT", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_EXP_EVENT", 0);
+#endif
+
+#ifdef ENABLE_REFINE_MSG_ADD
+	PyModule_AddIntConstant(poModule, "ENABLE_REFINE_MSG_ADD", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_REFINE_MSG_ADD", 0);
+#endif
+
+#ifdef ENABLE_PVP_ONOFF
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_ONOFF", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PVP_ONOFF", 0);
+#endif
+
+#ifdef WJ_SHOW_NPC_QUEST_NAME
+	PyModule_AddIntConstant(poModule, "WJ_SHOW_NPC_QUEST_NAME", 1);
+#else
+	PyModule_AddIntConstant(poModule, "WJ_SHOW_NPC_QUEST_NAME", 0);
+#endif
+
+#ifdef ENABLE_BOSS_BOX
+	PyModule_AddIntConstant(poModule, "ENABLE_BOSS_BOX", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_BOSS_BOX", 0);
+#endif
+
+#ifdef ENABLE_SOULBIND_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_SOULBIND_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_SOULBIND_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_QUIVER_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_QUIVER_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_QUIVER_SYSTEM", 0);
+#endif
+
+#ifdef ENABLE_PICK_ROD_REFINE_RENEWAL
+	PyModule_AddIntConstant(poModule, "ENABLE_PICK_ROD_REFINE_RENEWAL", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PICK_ROD_REFINE_RENEWAL", 0);
+#endif
+
+#ifdef ENABLE_WEAPON_COSTUME_SYSTEM
+	PyModule_AddIntConstant(poModule, "ENABLE_WEAPON_COSTUME_SYSTEM", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_WEAPON_COSTUME_SYSTEM", 0);
+#endif
 }

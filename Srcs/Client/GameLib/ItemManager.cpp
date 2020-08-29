@@ -160,6 +160,7 @@ bool CItemManager::LoadItemList(const char * c_szFileName)
 		}
 		else
 		{
+			// TODO check type weapon/aura and register effect properly for the auras
 			if (4 == TokenVector.size())
 			{
 				const std::string & c_rstrModelFileName = TokenVector[3];

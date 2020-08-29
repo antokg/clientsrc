@@ -1487,5 +1487,11 @@ void initchr()
 
 	PyModule_AddIntConstant(poModule, "NEW_AFFECT_DRAGON_SOUL_DECK1",		CInstanceBase::NEW_AFFECT_DRAGON_SOUL_DECK1);
 	PyModule_AddIntConstant(poModule, "NEW_AFFECT_DRAGON_SOUL_DECK2",		CInstanceBase::NEW_AFFECT_DRAGON_SOUL_DECK2);
+	PyModule_AddIntConstant(poModule, "AFFECT_DUNGEON_READY",				CInstanceBase::AFFECT_DUNGEON_READY);
+	PyModule_AddIntConstant(poModule, "AFFECT_FIRE",						CInstanceBase::AFFECT_FIRE);
+	PyModule_AddIntConstant(poModule, "AFFECT_WAR_FLAG1",						CInstanceBase::AFFECT_WAR_FLAG1);
+	PyModule_AddIntConstant(poModule, "AFFECT_WAR_FLAG2",						CInstanceBase::AFFECT_WAR_FLAG2);
+	PyModule_AddIntConstant(poModule, "AFFECT_WAR_FLAG3",						CInstanceBase::AFFECT_WAR_FLAG3);
+
 
 }

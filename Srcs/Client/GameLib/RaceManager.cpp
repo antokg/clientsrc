@@ -366,6 +366,11 @@ void CRaceManager::RegisterRaceName(DWORD dwRaceIndex, const char * c_szName)
 	m_kMap_dwRaceKey_stRaceName.insert(std::map<DWORD, std::string>::value_type(dwRaceIndex, c_szName));
 }
 
+void CRaceManager::SetRaceHeight(DWORD dwRaceIndex, float fRaceHeight)
+{
+	m_kMap_dwRaceKey_fRaceHeight[dwRaceIndex] = fRaceHeight;
+}
+
 void CRaceManager::CreateRace(DWORD dwRaceIndex)
 {
 	if (m_RaceDataMap.end() != m_RaceDataMap.find(dwRaceIndex))

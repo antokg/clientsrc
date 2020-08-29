@@ -2164,6 +2164,16 @@ PyObject* playerSendDragonSoulRefine(PyObject* poSelf, PyObject* poArgs)
 	
 	return Py_BuildNone();
 }
+
+PyObject* playerIsPoly(PyObject* poSelf, PyObject* poArgs)
+{
+	CInstanceBase* pMainInstance = CPythonPlayer::Instance().NEW_GetMainActorPtr();
+	if (!pMainInstance)
+		return Py_BuildValue("i", 0);
+
+	return Py_BuildValue("i", pMainInstance->IsPoly());
+}
+
 void initPlayer()
 {
 	static PyMethodDef s_methods[] =
@@ -2334,6 +2344,7 @@ void initPlayer()
 		{ "GetItemLink",				playerGetItemLink,					METH_VARARGS },
 		{ "SlotTypeToInvenType",		playerSlotTypeToInvenType,			METH_VARARGS },
 		{ "SendDragonSoulRefine",		playerSendDragonSoulRefine,			METH_VARARGS },
+		{ "IsPoly",						playerIsPoly,						METH_VARARGS },
 
 		{ NULL,							NULL,								NULL },
 	};
@@ -2568,5 +2579,11 @@ void initPlayer()
 	PyModule_AddIntConstant(poModule, "DS_SUB_HEADER_DO_UPGRADE",	DS_SUB_HEADER_DO_UPGRADE);
 	PyModule_AddIntConstant(poModule, "DS_SUB_HEADER_DO_IMPROVEMENT",	DS_SUB_HEADER_DO_IMPROVEMENT);
 	PyModule_AddIntConstant(poModule, "DS_SUB_HEADER_DO_REFINE",	DS_SUB_HEADER_DO_REFINE);
+
+	// TODO replace with true constant name
+	PyModule_AddIntConstant(poModule, "POINT_MELEE_MAGIC_ATT_BONUS_PER", 132);
+	PyModule_AddIntConstant(poModule, "SKILLBOOK_COMB_SLOT_MAX", 10);
+	PyModule_AddIntConstant(poModule, "MINIGAME_TYPE_RUMI", 0);
+	PyModule_AddIntConstant(poModule, "MINIGAME_TYPE_MAX", 9);
 
 }

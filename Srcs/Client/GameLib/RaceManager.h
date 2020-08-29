@@ -17,6 +17,7 @@ class CRaceManager : public CSingleton<CRaceManager>
 		
 		void RegisterRaceName(DWORD dwRaceIndex, const char * c_szName);
 		void RegisterRaceSrcName(const char * c_szName, const char * c_szSrcName);
+		void SetRaceHeight(DWORD dwRaceIndex, float fRaceHeight);
 		
 		void SetPathName(const char * c_szPathName);
 		const char * GetFullPathFileName(const char* c_szFileName);
@@ -42,6 +43,7 @@ class CRaceManager : public CSingleton<CRaceManager>
 
 		std::map<std::string, std::string> m_kMap_stRaceName_stSrcName;
 		std::map<DWORD, std::string>	m_kMap_dwRaceKey_stRaceName;
+		std::map<DWORD, float> m_kMap_dwRaceKey_fRaceHeight;
 
 	private:
 		std::string						m_strPathName;

@@ -654,6 +654,15 @@ void CPythonPlayer::GetItemAttribute(TItemPos Cell, DWORD dwAttrSlotIndex, BYTE 
 	*psValue = GetItemData(Cell)->aAttr[dwAttrSlotIndex].sValue;
 }
 
+bool CPythonPlayer::ItemIsAntiflag(TItemPos Cell, int iAntiflag)
+{
+	if (!Cell.IsValidCell())
+		return false;
+
+	const TItemData* Item = GetItemData(Cell);
+	return Item->anti_flags & iAntiflag;
+}
+
 void CPythonPlayer::SetItemCount(TItemPos Cell, BYTE byCount)
 {
 	if (!Cell.IsValidCell())

@@ -2189,6 +2189,19 @@ PyObject* playerIsPoly(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildValue("i", pMainInstance->IsPoly());
 }
 
+PyObject* playerIsAntiFlagBySlot(PyObject* poSelf, PyObject* poArgs)
+{
+	TItemPos Cell;
+	if (!PyTuple_GetInteger(poArgs, 0, &Cell.cell))
+		return Py_BuildException();
+
+	int iAntiflag;
+	if (!PyTuple_GetInteger(poArgs, 1, &iAntiflag))
+		return Py_BuildException();
+
+	return Py_BuildValue("i", CPythonPlayer::Instance().ItemIsAntiflag(Cell, iAntiflag));
+}
+
 void initPlayer()
 {
 	static PyMethodDef s_methods[] =
@@ -2361,6 +2374,7 @@ void initPlayer()
 		{ "SendDragonSoulRefine",		playerSendDragonSoulRefine,			METH_VARARGS },
 		{ "IsPoly",						playerIsPoly,						METH_VARARGS },
 		{ "PartyMemberVIDToPID",		playerPartyMemberVIDToPID,						METH_VARARGS },
+		{ "IsAntiFlagBySlot",			playerIsAntiFlagBySlot,				METH_VARARGS },
 
 		{ NULL,							NULL,								NULL },
 	};

@@ -289,6 +289,7 @@ class CPythonPlayer : public CSingleton<CPythonPlayer>, public IAbstractPlayer
 		DWORD	GetItemCountByVnum(DWORD dwVnum);
 		DWORD	GetItemMetinSocket(TItemPos Cell, DWORD dwMetinSocketIndex);
 		void	GetItemAttribute(TItemPos Cell, DWORD dwAttrSlotIndex, BYTE * pbyType, short * psValue);
+		bool	ItemIsAntiflag(TItemPos Cell, int iAntiflag);
 		void	SendClickItemPacket(DWORD dwIID);
 
 		void	RequestAddLocalQuickSlot(DWORD dwLocalSlotIndex, DWORD dwWndType, DWORD dwWndItemPos);

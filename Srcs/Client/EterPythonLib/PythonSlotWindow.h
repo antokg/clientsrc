@@ -72,6 +72,7 @@ namespace UI
 				CSlotButton * pSlotButton;
 				CImageBox * pSignImage;
 				CAniImageBox * pFinishCoolTimeEffect;
+				CAniImageBox* m_pSlotActiveEffect;
 			} TSlot;
 			typedef std::list<TSlot> TSlotList;
 			typedef TSlotList::iterator TSlotListIterator;
@@ -153,12 +154,12 @@ namespace UI
 		protected:
 			void __Initialize();
 			void __CreateToggleSlotImage();
-			void __CreateSlotEnableEffect();
+			void __CreateSlotEnableEffect(TSlot* pSlot);
 			void __CreateFinishCoolTimeEffect(TSlot * pSlot);
 			void __CreateBaseImage(const char * c_szFileName, float fr, float fg, float fb, float fa);
 
 			void __DestroyToggleSlotImage();
-			void __DestroySlotEnableEffect();
+			void __DestroySlotEnableEffect(TSlot* pSlot);
 			void __DestroyFinishCoolTimeEffect(TSlot * pSlot);
 			void __DestroyBaseImage();
 
@@ -205,7 +206,6 @@ namespace UI
 
 			CGraphicImageInstance * m_pBaseImageInstance;
 			CImageBox * m_pToggleSlotImage;
-			CAniImageBox * m_pSlotActiveEffect;
 			std::deque<DWORD> m_ReserveDestroyEffectDeque;
 	};
 };

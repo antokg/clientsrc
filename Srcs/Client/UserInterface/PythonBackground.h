@@ -127,6 +127,8 @@ public:
 	TMapInfo* GlobalPositionToMapInfo(DWORD dwGlobalX, DWORD dwGlobalY);
 	const char* GetWarpMapName();
 
+	bool IsMapInfoByMapName(const char* c_szMapName);
+
 protected:
 	void __CreateProperty();
 	bool __IsSame(std::set<int> & rleft, std::set<int> & rright);

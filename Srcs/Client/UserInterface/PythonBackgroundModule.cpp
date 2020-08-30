@@ -523,6 +523,15 @@ PyObject * backgroundDisableGuildArea(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* backgroundIsMapInfoByMapName(PyObject* poSelf, PyObject* poArgs)
+{
+	char* szName;
+	if (!PyTuple_GetString(poArgs, 0, &szName))
+		return Py_BadArgument();
+
+	return Py_BuildValue("i", CPythonBackground::Instance().IsMapInfoByMapName(szName));
+}
+
 void initBackground()
 {
 	static PyMethodDef s_methods[] =
@@ -581,6 +590,7 @@ void initBackground()
 		{ "DisableGuildArea",					backgroundDisableGuildArea,					METH_VARARGS },
 
 		{ "WarpTest",							backgroundWarpTest,							METH_VARARGS },
+		{ "IsMapInfoByMapName",					backgroundIsMapInfoByMapName,				METH_VARARGS },
 
 		{ NULL, NULL, NULL },
 	};

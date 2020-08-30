@@ -2071,4 +2071,10 @@ void initapp()
 #else
 	PyModule_AddIntConstant(poModule, "ENABLE_STONE_OF_BLESS", 0);
 #endif
+
+#ifdef ENABLE_PARTY_CHANNEL_FIX
+	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_CHANNEL_FIX", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_CHANNEL_FIX", 0);
+#endif
 }

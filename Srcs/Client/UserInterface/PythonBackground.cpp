@@ -919,3 +919,9 @@ void CPythonBackground::DeleteSpecialEffect(DWORD dwID)
 	CMapOutdoor& rkMap=GetMapOutdoorRef();
 	rkMap.SpecialEffect_Delete(dwID);
 }
+
+bool CPythonBackground::IsMapInfoByMapName(const char* c_szName)
+{
+	const auto& info = std::find_if(m_kVct_kMapInfo.begin(), m_kVct_kMapInfo.end(), [&c_szName](const auto& elt) noexcept { return elt.m_strName.compare(c_szName) == 0; });
+	return info != m_kVct_kMapInfo.end();
+}

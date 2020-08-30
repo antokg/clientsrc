@@ -623,7 +623,8 @@ void CSlotWindow::LockSlot(DWORD dwIndex)
 	if (!GetSlotPointer(dwIndex, &pSlot))
 		return;
 
-	pSlot->dwState |= SLOT_STATE_LOCK;
+	SET_BIT(pSlot->dwState, SLOT_STATE_LOCK);
+	//pSlot->dwState |= SLOT_STATE_LOCK;
 }
 void CSlotWindow::UnlockSlot(DWORD dwIndex)
 {
@@ -631,7 +632,8 @@ void CSlotWindow::UnlockSlot(DWORD dwIndex)
 	if (!GetSlotPointer(dwIndex, &pSlot))
 		return;
 
-	pSlot->dwState ^= SLOT_STATE_LOCK;
+	REMOVE_BIT(pSlot->dwState, SLOT_STATE_LOCK);
+	//pSlot->dwState ^= SLOT_STATE_LOCK;
 }
 void CSlotWindow::SetCantUseSlot(DWORD dwIndex)
 {
@@ -639,15 +641,18 @@ void CSlotWindow::SetCantUseSlot(DWORD dwIndex)
 	if (!GetSlotPointer(dwIndex, &pSlot))
 		return;
 
-	pSlot->dwState |= SLOT_STATE_CANT_USE;
+	SET_BIT(pSlot->dwState, SLOT_STATE_CANT_USE);
+	//pSlot->dwState |= SLOT_STATE_CANT_USE;
 }
+
 void CSlotWindow::SetUseSlot(DWORD dwIndex)
 {
 	TSlot * pSlot;
 	if (!GetSlotPointer(dwIndex, &pSlot))
 		return;
 
-	pSlot->dwState ^= SLOT_STATE_CANT_USE;
+	REMOVE_BIT(pSlot->dwState, SLOT_STATE_CANT_USE);
+	//pSlot->dwState ^= SLOT_STATE_CANT_USE;
 }
 void CSlotWindow::EnableSlot(DWORD dwIndex)
 {
@@ -1108,6 +1113,15 @@ void CSlotWindow::OnRender()
 				rSlot.m_pSlotActiveEffect->Update();
 				rSlot.m_pSlotActiveEffect->Render();
 			}
+		}
+
+		if (IS_SET(rSlot.dwState, SLOT_STATE_CANT_USE))
+		{
+			CPythonGraphic::Instance().SetDiffuseColor(1.0f, 1.0f, 1.0f, 0.3f);
+			CPythonGraphic::Instance().RenderBar2d(m_rect.left + rSlot.ixPosition,
+				m_rect.top + rSlot.iyPosition,
+				m_rect.left + rSlot.ixPosition + rSlot.ixCellSize,
+				m_rect.top + rSlot.iyPosition + rSlot.byyPlacedItemSize * ITEM_HEIGHT);
 		}
 	}
 

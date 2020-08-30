@@ -42,6 +42,22 @@ namespace UI
 				FLAG_RTL				= (1 << 11),	// Right-to-left
 			};
 
+			enum EWindowType
+			{
+				ON_TOP_WND_NONE,
+				ON_TOP_WND_SHOP,
+				ON_TOP_WND_EXCHANGE,
+				ON_TOP_WND_SAFEBOX,
+				ON_TOP_WND_PRIVATE_SHOP,
+				ON_TOP_WND_ITEM_COMB,
+				ON_TOP_WND_PET_FEED,
+				ON_TOP_WND_FISH_EVENT,
+				ON_TOP_WND_MAILBOX,
+				ON_TOP_WND_PET_ATTR_CHANGE,
+				ON_TOP_WND_LUCKY_BOX,
+				ON_TOP_WND_PET_PRIMIUM_FEEDSTUFF,
+			};
+
 		public:
 			CWindow(PyObject * ppyObject);
 			virtual ~CWindow();

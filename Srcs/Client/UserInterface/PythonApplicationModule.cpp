@@ -2065,4 +2065,10 @@ void initapp()
 #else
 	PyModule_AddIntConstant(poModule, "ENABLE_PARTY_LEADER_RENEWAL", 0);
 #endif
+
+#ifdef ENABLE_STONE_OF_BLESS
+	PyModule_AddIntConstant(poModule, "ENABLE_STONE_OF_BLESS", 1);
+#else
+	PyModule_AddIntConstant(poModule, "ENABLE_STONE_OF_BLESS", 0);
+#endif
 }

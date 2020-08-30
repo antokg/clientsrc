@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "PythonPlayer.h"
 #include "PythonApplication.h"
+#include "../EterPythonLib/PythonWindow.h"
 
 extern const DWORD c_iSkillIndex_Tongsol	= 121;
 extern const DWORD c_iSkillIndex_Combo		= 122;
@@ -2615,5 +2616,18 @@ void initPlayer()
 	PyModule_AddIntConstant(poModule, "SKILLBOOK_COMB_SLOT_MAX", 10);
 	PyModule_AddIntConstant(poModule, "MINIGAME_TYPE_RUMI", 0);
 	PyModule_AddIntConstant(poModule, "MINIGAME_TYPE_MAX", 9);
+
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_NONE",					UI::CWindow::ON_TOP_WND_NONE);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_SHOP",					UI::CWindow::ON_TOP_WND_SHOP);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_EXCHANGE",				UI::CWindow::ON_TOP_WND_EXCHANGE);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_SAFEBOX",					UI::CWindow::ON_TOP_WND_SAFEBOX);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_PRIVATE_SHOP",			UI::CWindow::ON_TOP_WND_PRIVATE_SHOP);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_ITEM_COMB",				UI::CWindow::ON_TOP_WND_ITEM_COMB);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_PET_FEED",				UI::CWindow::ON_TOP_WND_PET_FEED);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_FISH_EVENT",				UI::CWindow::ON_TOP_WND_FISH_EVENT);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_MAILBOX",					UI::CWindow::ON_TOP_WND_MAILBOX);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_PET_ATTR_CHANGE",			UI::CWindow::ON_TOP_WND_PET_ATTR_CHANGE);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_LUCKY_BOX",				UI::CWindow::ON_TOP_WND_LUCKY_BOX);
+	PyModule_AddIntConstant(poModule, "ON_TOP_WND_PET_PRIMIUM_FEEDSTUFF",	UI::CWindow::ON_TOP_WND_PET_PRIMIUM_FEEDSTUFF);
 
 }

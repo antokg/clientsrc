@@ -2308,6 +2308,42 @@ PyObject * wndMgrShowOverInWindowName(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* wndMgrSetUnusableSlotOnTopWnd(PyObject* poSelf, PyObject* poArgs)
+{
+	UI::CWindow* pWin;
+	if (!PyTuple_GetWindow(poArgs, 0, &pWin))
+		return Py_BuildException();
+
+	int iSlotIndex;
+	if (!PyTuple_GetInteger(poArgs, 1, &iSlotIndex))
+		return Py_BuildException();
+
+	if (!pWin->IsType(UI::CSlotWindow::Type()))
+		return Py_BuildException();
+
+	UI::CSlotWindow* pSlotWin = (UI::CSlotWindow*)pWin;
+	pSlotWin->SetCantUseSlot(iSlotIndex);
+	return Py_BuildNone();
+}
+
+PyObject* wndMgrSetUsableSlotOnTopWnd(PyObject* poSelf, PyObject* poArgs)
+{
+	UI::CWindow* pWin;
+	if (!PyTuple_GetWindow(poArgs, 0, &pWin))
+		return Py_BuildException();
+
+	int iSlotIndex;
+	if (!PyTuple_GetInteger(poArgs, 1, &iSlotIndex))
+		return Py_BuildException();
+
+	if (!pWin->IsType(UI::CSlotWindow::Type()))
+		return Py_BuildException();
+
+	UI::CSlotWindow* pSlotWin = (UI::CSlotWindow*)pWin;
+	pSlotWin->SetUseSlot(iSlotIndex);
+	return Py_BuildNone();
+}
+
 
 void initwndMgr()
 {
@@ -2503,6 +2539,9 @@ void initwndMgr()
 		// For Debug
 		{ "SetOutlineFlag",				wndMgrSetOutlineFlag,				METH_VARARGS },
 		{ "ShowOverInWindowName",		wndMgrShowOverInWindowName,			METH_VARARGS },
+
+		{ "SetUnusableSlotOnTopWnd",	wndMgrSetUnusableSlotOnTopWnd,		METH_VARARGS },
+		{ "SetUsableSlotOnTopWnd",		wndMgrSetUsableSlotOnTopWnd,		METH_VARARGS },
 
 		{ NULL,							NULL,								NULL },
 	};

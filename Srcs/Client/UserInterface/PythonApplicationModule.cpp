@@ -1700,7 +1700,7 @@ void initapp()
 	PyModule_AddIntConstant(poModule, "ENABLE_678TH_SKILL", 0);
 #endif
 
-#ifdef ENABLE_678TH_SKILL
+#ifdef ENABLE_GROWTH_PET_SKILL_DEL
 	PyModule_AddIntConstant(poModule, "ENABLE_GROWTH_PET_SKILL_DEL", 1);
 #else
 	PyModule_AddIntConstant(poModule, "ENABLE_GROWTH_PET_SKILL_DEL", 0);

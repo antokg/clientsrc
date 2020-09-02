@@ -630,6 +630,12 @@ void CPythonNetworkStream::GamePhase()
 				ret = RecvDragonSoulRefine();
 				break;
 
+			/* EXTEND INVENTORY */
+			case HEADER_GC_EX_INVEN:
+				ret = RecvExInvenPacket();
+				break;
+			/* END EXTEND INVENTORY */
+
 			default:
 				ret = RecvDefaultPacket(header);
 				break;
@@ -1527,6 +1533,11 @@ bool CPythonNetworkStream::RecvPointChange()
 			default:
 				__RefreshStatus();
 				break;
+		}
+
+		if (POINT_INVENTORY_STAGES == PointChange.Type)
+		{
+			__RefreshInventoryWindow();
 		}
 
 		if (POINT_GOLD == PointChange.Type)
@@ -4441,3 +4452,17 @@ bool CPythonNetworkStream::SendDragonSoulRefinePacket(BYTE bRefineType, TItemPos
 	}
 	return true;
 }
+
+/* EXTEND INVENTORY */
+bool CPythonNetworkStream::SendExtendInvenPacket(BYTE subheader)
+{
+	TPacketCGExInven pack;
+	pack.header = HEADER_CG_EX_INVEN;
+	pack.subheader = subheader;
+
+	if (!Send(sizeof(pack), &pack))
+		return false;
+
+	return true;
+}
+/* END EXTEND INVENTORY */

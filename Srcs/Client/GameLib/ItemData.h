@@ -98,6 +98,12 @@ class CItemData
 			MATERIAL_DS_CHANGE_ATTR,
 		};
 
+		enum EQuestSubTypes
+		{
+			QUEST_NONE,
+			QUEST_PET_PAY,
+		};
+
 		enum EArmorSubTypes
 		{
 			ARMOR_BODY,

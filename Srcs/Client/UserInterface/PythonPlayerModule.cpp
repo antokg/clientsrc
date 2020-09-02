@@ -1278,15 +1278,16 @@ PyObject * playerIsBeltInventorySlot(PyObject* poSelf, PyObject* poArgs)
 
 PyObject * playerIsEquipmentSlot(PyObject* poSelf, PyObject* poArgs)
 {
-	int iSlotIndex;
-	if (!PyTuple_GetInteger(poArgs, 0, &iSlotIndex))
+	if (PyTuple_Size(poArgs) == 1)
+		return Py_BuildValue("i", 0);
+		
+	TItemPos Cell;
+	if (!PyTuple_GetInteger(poArgs, 0, &Cell.window_type))
+			return Py_BuildException();
+	if (!PyTuple_GetInteger(poArgs, 1, &Cell.cell))
 		return Py_BuildException();
 
-	if (iSlotIndex >= c_Equipment_Start)
-	if (iSlotIndex <= c_DragonSoul_Equip_End)
-		return Py_BuildValue("i", 1);
-
-	return Py_BuildValue("i", 0);
+	return Py_BuildValue("i", CPythonPlayer::Instance().IsEquipmentSlot(Cell));
 }
 
 PyObject * playerIsDSEquipmentSlot(PyObject* poSelf, PyObject* poArgs)
@@ -2203,6 +2204,29 @@ PyObject* playerIsAntiFlagBySlot(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildValue("i", CPythonPlayer::Instance().ItemIsAntiflag(Cell, iAntiflag));
 }
 
+/* EXTEND INVENTORY */
+
+PyObject* playerGetExtendInvenStage(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonPlayer::Instance().GetStatus(POINT_INVENTORY_STAGES));
+}
+
+PyObject* playerGetExtendInvenMax(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonPlayer::Instance().GetExtendInvenMax());
+}
+
+PyObject* playerWindowTypeToSlotType(PyObject* poSelf, PyObject* poArgs)
+{
+	BYTE bWindowType;
+	if (!PyTuple_GetInteger(poArgs, 0, &bWindowType))
+		return Py_BuildException();
+
+	return Py_BuildValue("i", CPythonPlayer::Instance().WindowTypeToSlotType(bWindowType));
+}
+
+/* END EXTEND INVENTORY */
+
 void initPlayer()
 {
 	static PyMethodDef s_methods[] =
@@ -2377,6 +2401,12 @@ void initPlayer()
 		{ "PartyMemberVIDToPID",		playerPartyMemberVIDToPID,						METH_VARARGS },
 		{ "IsAntiFlagBySlot",			playerIsAntiFlagBySlot,				METH_VARARGS },
 
+		/* EXTEND INVENTORY */
+		{ "GetExtendInvenStage",		playerGetExtendInvenStage,			METH_VARARGS},
+		{ "GetExtendInvenMax",			playerGetExtendInvenMax,			METH_VARARGS},
+		{ "WindowTypeToSlotType",		playerWindowTypeToSlotType,			METH_VARARGS},
+		/* END EXTEND INVENTORY */
+
 		{ NULL,							NULL,								NULL },
 	};
 
@@ -2456,6 +2486,17 @@ void initPlayer()
 	PyModule_AddIntConstant(poModule, "INVENTORY_SLOT_COUNT",	c_Inventory_Count);
 	PyModule_AddIntConstant(poModule, "EQUIPMENT_SLOT_START",	c_Equipment_Start);
 	PyModule_AddIntConstant(poModule, "EQUIPMENT_PAGE_COUNT",	c_Equipment_Count);
+	PyModule_AddIntConstant(poModule, "ITEM_SLOT_COUNT",		c_ItemSlot_Count);
+	PyModule_AddIntConstant(poModule, "EQUIPMENT_MAX",			c_Equipment_Max);
+
+	/* EXTEND INVENTORY */
+	PyModule_AddIntConstant(poModule, "EX_INVENTORY_PAGE_COUNT", c_exInventory_Page_Count);
+	PyModule_AddIntConstant(poModule, "EX_INVENTORY_PAGE_START", c_exInventory_Page_Start);
+	PyModule_AddIntConstant(poModule, "EX_INVENTORY_STAGE_MAX", c_exInventory_Stage_Max);
+	PyModule_AddIntConstant(poModule, "EX_INVEN_FAIL_FALL_SHORT", EX_INVEN_FAIL_FALL_SHORT);
+	PyModule_AddIntConstant(poModule, "EX_INVEN_FAIL_FOURTH_PAGE_STAGE_MAX", EX_INVEN_FAIL_FOURTH_PAGE_STAGE_MAX);
+	PyModule_AddIntConstant(poModule, "EX_INVEN_SUCCESS", EX_INVEN_SUCCESS);
+	/* END EXTEND INVENTORY */
 
 #ifdef ENABLE_NEW_EQUIPMENT_SYSTEM
 	PyModule_AddIntConstant(poModule, "NEW_EQUIPMENT_SLOT_START",	c_New_Equipment_Start);
@@ -2487,6 +2528,8 @@ void initPlayer()
 	PyModule_AddIntConstant(poModule, "SLOT_TYPE_MALL",						SLOT_TYPE_MALL);
 	PyModule_AddIntConstant(poModule, "SLOT_TYPE_EMOTION",					SLOT_TYPE_EMOTION);
 	PyModule_AddIntConstant(poModule, "SLOT_TYPE_DRAGON_SOUL_INVENTORY",	SLOT_TYPE_DRAGON_SOUL_INVENTORY);
+	PyModule_AddIntConstant(poModule, "SLOT_TYPE_EQUIPMENT",				SLOT_TYPE_EQUIPMENT);
+	PyModule_AddIntConstant(poModule, "SLOT_TYPE_BELT_INVENTORY",			SLOT_TYPE_BELT_INVENTORY);
 
 	PyModule_AddIntConstant(poModule, "RESERVED_WINDOW",					RESERVED_WINDOW);
 	PyModule_AddIntConstant(poModule, "INVENTORY",							INVENTORY);
@@ -2495,6 +2538,9 @@ void initPlayer()
 	PyModule_AddIntConstant(poModule, "MALL",								MALL);
 	PyModule_AddIntConstant(poModule, "DRAGON_SOUL_INVENTORY",				DRAGON_SOUL_INVENTORY);
 	PyModule_AddIntConstant(poModule, "GROUND",								GROUND);
+	PyModule_AddIntConstant(poModule, "BELT_INVENTORY",						BELT_INVENTORY);
+
+	PyModule_AddIntConstant(poModule, "WEAR_MAX",							c_Wear_Max);
 
 	PyModule_AddIntConstant(poModule, "ITEM_MONEY",					-1);
 

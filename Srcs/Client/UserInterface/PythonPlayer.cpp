@@ -548,8 +548,9 @@ const TItemData * CPythonPlayer::GetItemData(TItemPos Cell) const
 	switch (Cell.window_type)
 	{
 	case INVENTORY:
-	case EQUIPMENT:
 		return &m_playerStatus.aItem[Cell.cell];
+	case EQUIPMENT:
+		return &m_playerStatus.aEquipment[Cell.cell];
 	case DRAGON_SOUL_INVENTORY:
 		return &m_playerStatus.aDSItem[Cell.cell];
 	default:
@@ -575,8 +576,10 @@ void CPythonPlayer::SetItemData(TItemPos Cell, const TItemData & c_rkItemInst)
 	switch (Cell.window_type)
 	{
 	case INVENTORY:
-	case EQUIPMENT:
 		m_playerStatus.aItem[Cell.cell] = c_rkItemInst;
+		break;
+	case EQUIPMENT:
+		m_playerStatus.aEquipment[Cell.cell] = c_rkItemInst;
 		break;
 	case DRAGON_SOUL_INVENTORY:
 		m_playerStatus.aDSItem[Cell.cell] = c_rkItemInst;
@@ -616,7 +619,7 @@ DWORD CPythonPlayer::GetItemCountByVnum(DWORD dwVnum)
 {
 	DWORD dwCount = 0;
 
-	for (int i = 0; i < c_Inventory_Count; ++i)
+	for (int i = 0; i < c_ItemSlot_Count; ++i)
 	{
 		const TItemData & c_rItemData = m_playerStatus.aItem[i];
 		if (c_rItemData.vnum == dwVnum)
@@ -1613,6 +1616,37 @@ void CPythonPlayer::ClearSkillDict()
 
 	__ClearAutoAttackTargetActorID();
 }
+
+/* EXTEND INVENTORY */
+
+BYTE CPythonPlayer::WindowTypeToSlotType(BYTE bWindow)
+{
+	switch (bWindow)
+	{
+	case INVENTORY:
+		return SLOT_TYPE_INVENTORY;
+	case EQUIPMENT:
+		return SLOT_TYPE_EQUIPMENT;
+	case SAFEBOX:
+		return SLOT_TYPE_SAFEBOX;
+	case MALL:
+		return SLOT_TYPE_MALL;
+	case DRAGON_SOUL_INVENTORY:
+		return SLOT_TYPE_DRAGON_SOUL_INVENTORY;
+	case BELT_INVENTORY:
+		return SLOT_TYPE_BELT_INVENTORY;
+	default:
+		TraceError("CPythonPlayer::WindowTypeToSlotType unknown window type %d", bWindow);
+		return -1;
+
+	}
+}
+
+DWORD CPythonPlayer::GetExtendInvenMax()
+{
+	return c_Inventory_Page_Size * (c_Inventory_Page_Count - c_exInventory_Page_Count) + GetStatus(POINT_INVENTORY_STAGES) * c_Inventory_Col_Count;
+}
+/* END EXTEND INVENTORY */
 
 void CPythonPlayer::Clear()
 {

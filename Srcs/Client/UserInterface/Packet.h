@@ -144,7 +144,9 @@ enum
 	HEADER_CG_GUILD_SYMBOL_CRC					= 113,
 	HEADER_CG_SCRIPT_SELECT_ITEM				= 114,
 	HEADER_CG_LOGIN4							= 115,
-	HEADER_CG_LOGIN5_OPENID						= 116,	//OpenID : 실행시 받은 인증키를 서버에 보냄.
+	HEADER_CG_LOGIN5_OPENID						= 116,	// to be removed
+
+	HEADER_CG_EX_INVEN							= 117,
 
 	HEADER_CG_RUNUP_MATRIX_ANSWER               = 201,
 	HEADER_CG_NEWCIBN_PASSPOD_ANSWER			= 202,
@@ -332,7 +334,9 @@ enum
 	HEADER_GC_HYBRIDCRYPT_SDB					= 153, // SDB means Supplmentary Data Blocks
 	//HYBRID CRYPT
 
-	HEADER_GC_AUTH_SUCCESS_OPENID				= 154,
+	HEADER_GC_AUTH_SUCCESS_OPENID				= 154, // to be removed
+
+	HEADER_GC_EX_INVEN							= 155,
 
 	HEADER_GC_RUNUP_MATRIX_QUIZ                 = 201,
 	HEADER_GC_NEWCIBN_PASSPOD_REQUEST			= 202,
@@ -1668,6 +1672,8 @@ enum EPointTypes
 	// 임시로 이렇게 둔다.
 	POINT_ENERGY_END_TIME = 129,	// 129 기력 종료 시간
 
+	POINT_INVENTORY_STAGES = 138, // temporary 138
+
 	// 클라이언트 포인트
 	POINT_MIN_WEP = 200,
 	POINT_MAX_WEP,
@@ -2812,5 +2818,37 @@ typedef struct SChannelStatus
 	short nPort;
 	BYTE bStatus;
 } TChannelStatus;
+
+/* EXTEND INVENTORY */
+
+// Serverside
+enum {
+	EX_INVEN_FAIL_FALL_SHORT,
+	EX_INVEN_SUCCESS,
+	EX_INVEN_FAIL_FOURTH_PAGE_STAGE_MAX,
+};
+
+typedef struct SPacketGCExInven
+{
+	BYTE header;
+	DWORD item_vnum;
+	BYTE msg;
+	BYTE count;
+} TPacketGCExInven;
+
+// Clientside
+
+enum {
+	SUBHEADER_EX_INVEN_CLICK,
+	SUBHEADER_EX_INVEN_UPGRADE,
+};
+
+typedef struct SPacketCGExInven
+{
+	BYTE header;
+	BYTE subheader;
+} TPacketCGExInven;
+
+/* END EXTEND INVENTORY */
 
 #pragma pack(pop)

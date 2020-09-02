@@ -838,7 +838,7 @@ bool CPythonPlayer::__HasEnoughArrow()
 
 bool CPythonPlayer::__HasItem(DWORD dwItemID)
 {
-	for (int i = 0; i < c_Inventory_Count; ++i)
+	for (int i = 0; i < c_ItemSlot_Count; ++i)
 	{
 		if (dwItemID == GetItemIndex(TItemPos (INVENTORY, i)))
 			return true;

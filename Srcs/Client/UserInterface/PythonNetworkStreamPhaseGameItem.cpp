@@ -938,3 +938,18 @@ bool CPythonNetworkStream::RecvDragonSoulRefine()
 
 	return true;
 }
+
+/* EXTEND INVENTORY */
+bool CPythonNetworkStream::RecvExInvenPacket()
+{
+	TPacketGCExInven packet;
+
+	if (!Recv(sizeof(packet), &packet))
+		return false;
+
+	PyCallClassMemberFunc(m_apoPhaseWnd[PHASE_WINDOW_GAME], "ExInvenItemUseMsg", Py_BuildValue("iii", packet.item_vnum, packet.msg, packet.count));
+
+	return true;
+
+}
+/* END EXTEND INVENTORY */

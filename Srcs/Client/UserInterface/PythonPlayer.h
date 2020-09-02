@@ -116,8 +116,9 @@ class CPythonPlayer : public CSingleton<CPythonPlayer>, public IAbstractPlayer
 		};
 
 		typedef struct SPlayerStatus
-		{		    
-			TItemData			aItem[c_Inventory_Count];
+		{
+			TItemData			aEquipment[c_Equipment_Max];
+			TItemData			aItem[c_ItemSlot_Count];
 			TItemData			aDSItem[c_DragonSoul_Inventory_Count];
 			TQuickSlot			aQuickSlot[QUICKSLOT_MAX_NUM];
 			TSkillInstance		aSkill[SKILL_MAX_NUM];
@@ -427,6 +428,11 @@ class CPythonPlayer : public CSingleton<CPythonPlayer>, public IAbstractPlayer
 		__inline const	SAutoPotionInfo& GetAutoPotionInfo(int type) const	{ return m_kAutoPotionInfo[type]; }
 		__inline		SAutoPotionInfo& GetAutoPotionInfo(int type)		{ return m_kAutoPotionInfo[type]; }
 		__inline void					 SetAutoPotionInfo(int type, const SAutoPotionInfo& info)	{ m_kAutoPotionInfo[type] = info; }		
+
+		/* EXTEND INVENTORY */
+		BYTE	WindowTypeToSlotType(BYTE bWindowType);
+		DWORD	GetExtendInvenMax();
+		/* END EXTEND INVENTORY */
 
 	protected:
 		TQuickSlot &	__RefLocalQuickSlot(int SlotIndex);

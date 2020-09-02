@@ -1714,6 +1714,20 @@ PyObject* netRegisterErrorLog(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+/* EXTEND INVENTORY */
+PyObject* netSendExtendInvenButtonClick(PyObject* poSelf, PyObject* poArgs)
+{
+	CPythonNetworkStream::Instance().SendExtendInvenPacket(SUBHEADER_EX_INVEN_CLICK);
+	return Py_BuildNone();
+}
+
+PyObject* netSendExtendInvenUpgrade(PyObject* poSelf, PyObject* poArgs)
+{
+	CPythonNetworkStream::Instance().SendExtendInvenPacket(SUBHEADER_EX_INVEN_UPGRADE);
+	return Py_BuildNone();
+}
+/* END EXTEND INVENTORY */
+
 void initnet()
 {
 	static PyMethodDef s_methods[] =
@@ -1880,6 +1894,11 @@ void initnet()
 
 		// Log
 		{ "RegisterErrorLog",						netRegisterErrorLog,						METH_VARARGS },
+
+		/* EXTEND INVENTORY */
+		{ "SendExtendInvenButtonClick",				netSendExtendInvenButtonClick,				METH_VARARGS },
+		{ "SendExtendInvenUpgrade",					netSendExtendInvenUpgrade,					METH_VARARGS },
+		/* END EXTEND INVENTORY*/
 
 		{ NULL,										NULL,										NULL },
 	};

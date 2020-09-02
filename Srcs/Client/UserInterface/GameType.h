@@ -37,12 +37,23 @@ const DWORD c_Name_Max_Length = 64;
 const DWORD c_FileName_Max_Length = 128;
 const DWORD c_Short_Name_Max_Length = 32;
 
-const DWORD c_Inventory_Page_Size = 5*9; // x*y
-const DWORD c_Inventory_Page_Count = 2;
+const DWORD c_Inventory_Col_Count = 5;
+const DWORD c_Inventory_Row_Count = 9;
+
+const DWORD c_Inventory_Page_Size = c_Inventory_Col_Count * c_Inventory_Row_Count; // x*y
+const DWORD c_Inventory_Page_Count = 4;
 const DWORD c_ItemSlot_Count = c_Inventory_Page_Size * c_Inventory_Page_Count;
 const DWORD c_Equipment_Count = 12;
 
-const DWORD c_Equipment_Start = c_ItemSlot_Count;
+/* EXTEND INVENTORY */
+
+constexpr DWORD c_exInventory_Page_Count = 2;
+constexpr DWORD c_exInventory_Page_Start = 3;
+constexpr DWORD c_exInventory_Stage_Max = 18;
+
+/* END EXTEND INVENTORY */
+
+const DWORD c_Equipment_Start = 0;
 
 const DWORD c_Equipment_Body	= c_Equipment_Start + 0;
 const DWORD c_Equipment_Head	= c_Equipment_Start + 1;
@@ -63,19 +74,11 @@ const DWORD	c_Costume_Slot_Hair = c_Costume_Slot_Start + 1;
 const DWORD c_Costume_Slot_Count = 2;
 const DWORD c_Costume_Slot_End = c_Costume_Slot_Start + c_Costume_Slot_Count;
 
-// 새로 추가된 신규 반지 & 벨트
-// 장착형 아이템에 할당할 수 있는 위치가 기존 장비, 채기랍 퀘스트 보상, 코스튬 시스템 등으로 인해서 공간이 잘려있다.
-// 이게 다 채기랍 보상 버프를 장착아이템처럼 구현한 ㅅㄲ 때문에 난리났따... ㅆㅂ
-// 
-// 정리하면, 기존 장비창들은 서버DB상 아이템 포지션이 90 ~ 102 이고,
-// 2013년 초에 새로 추가되는 슬롯들은 111 ~ 부터 시작한다. 착용 장비에서 최대로 사용할 수 있는 값은 121 까지이고, 122부터는 용혼석에서 사용한다.
-#ifdef ENABLE_NEW_EQUIPMENT_SYSTEM
-	const DWORD c_New_Equipment_Start = c_Costume_Slot_End;
-	const DWORD c_New_Equipment_Count = 3;
-	const DWORD c_Equipment_Ring1 = c_New_Equipment_Start + 0;
-	const DWORD c_Equipment_Ring2 = c_New_Equipment_Start + 1;
-	const DWORD c_Equipment_Belt = c_New_Equipment_Start + 2;
-#endif
+const DWORD c_New_Equipment_Start = c_Costume_Slot_End;
+const DWORD c_New_Equipment_Count = 3;
+const DWORD c_Equipment_Ring1 = c_New_Equipment_Start + 0;
+const DWORD c_Equipment_Ring2 = c_New_Equipment_Start + 1;
+const DWORD c_Equipment_Belt = c_New_Equipment_Start + 2;
 
 enum EDragonSoulDeckType
 {
@@ -110,16 +113,18 @@ enum EDragonSoulStepTypes
 // 서버 common/length.h 파일의 EWearPositions 열거형이 32까지 확장될 것을 염두하고(32 이상은 확장 하기 힘들게 되어있음.), 
 // 그 이후부터를 용혼석 장착 슬롯으로 사용.
 const DWORD c_Wear_Max = 32;
-const DWORD c_DragonSoul_Equip_Start = c_ItemSlot_Count + c_Wear_Max;
+const DWORD c_DragonSoul_Equip_Start = c_Wear_Max;
 const DWORD c_DragonSoul_Equip_Slot_Max = 6;
 const DWORD c_DragonSoul_Equip_End = c_DragonSoul_Equip_Start + c_DragonSoul_Equip_Slot_Max * DS_DECK_MAX_NUM;
+
+const DWORD c_Equipment_Max = c_DragonSoul_Equip_End;
 
 // NOTE: 2013년 2월 5일 현재... 용혼석 데크는 2개가 존재하는데, 향후 확장 가능성이 있어서 3개 데크 여유분을 할당 해 둠. 그 뒤 공간은 벨트 인벤토리로 사용
 const DWORD c_DragonSoul_Equip_Reserved_Count = c_DragonSoul_Equip_Slot_Max * 3;		
 
 #ifdef ENABLE_NEW_EQUIPMENT_SYSTEM
 	// 벨트 아이템이 제공하는 인벤토리
-	const DWORD c_Belt_Inventory_Slot_Start = c_DragonSoul_Equip_End + c_DragonSoul_Equip_Reserved_Count;
+	const DWORD c_Belt_Inventory_Slot_Start = 0;// c_DragonSoul_Equip_End + c_DragonSoul_Equip_Reserved_Count;
 	const DWORD c_Belt_Inventory_Width = 4;
 	const DWORD c_Belt_Inventory_Height= 4;
 	const DWORD c_Belt_Inventory_Slot_Count = c_Belt_Inventory_Width * c_Belt_Inventory_Height;
@@ -150,6 +155,9 @@ enum ESlotType
 	SLOT_TYPE_PRIVATE_SHOP,
 	SLOT_TYPE_MALL,
 	SLOT_TYPE_DRAGON_SOUL_INVENTORY,
+
+	SLOT_TYPE_EQUIPMENT = 15,
+	SLOT_TYPE_BELT_INVENTORY,
 	SLOT_TYPE_MAX,
 };
 
@@ -205,7 +213,7 @@ typedef struct SItemPos
 		switch (window_type)
 		{
 		case INVENTORY:
-			return cell < c_Inventory_Count;
+			return cell < c_ItemSlot_Count;
 			break;
 		case EQUIPMENT:
 			return cell < c_DragonSoul_Equip_End;
@@ -222,8 +230,9 @@ typedef struct SItemPos
 		switch (window_type)
 		{
 		case INVENTORY:
+			return false;
 		case EQUIPMENT:
-			return (c_Equipment_Start + c_Wear_Max > cell) && (c_Equipment_Start <= cell);
+			return cell >= 0 && cell < c_Equipment_Max;
 			break;
 
 		case BELT_INVENTORY:

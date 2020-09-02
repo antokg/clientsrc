@@ -261,6 +261,10 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		// ¿ëÈ«¼® °­È­
 		bool SendDragonSoulRefinePacket(BYTE bRefineType, TItemPos* pos);
 
+		/* EXTEND INVENTORY */
+		bool SendExtendInvenPacket(BYTE subheader);
+		/* END EXTEND INVENTORY */
+
 		// Handshake
 		bool RecvHandshakePacket();
 		bool RecvHandshakeOKPacket();
@@ -539,6 +543,10 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		
 		// ¿ëÈ¥¼® °ü·Ã
 		bool RecvDragonSoulRefine();
+
+		/* EXTEND INVENTORY */
+		bool RecvExInvenPacket();
+		/* END EXTEND INVENTORY */
 
 		// MiniMap Info
 		bool RecvNPCList();

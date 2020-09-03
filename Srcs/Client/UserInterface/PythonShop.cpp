@@ -106,7 +106,7 @@ void CPythonShop::ClearPrivateShopStock()
 {
 	m_PrivateShopItemStock.clear();
 }
-void CPythonShop::AddPrivateShopItemStock(TItemPos ItemPos, BYTE dwDisplayPos, DWORD dwPrice)
+void CPythonShop::AddPrivateShopItemStock(TItemPos ItemPos, BYTE dwDisplayPos, DWORD dwPrice, DWORD dwCheque)
 {
 	DelPrivateShopItemStock(ItemPos);
 
@@ -115,6 +115,7 @@ void CPythonShop::AddPrivateShopItemStock(TItemPos ItemPos, BYTE dwDisplayPos, D
 	SellingItem.count = 0;
 	SellingItem.pos = ItemPos;
 	SellingItem.price = dwPrice;
+	SellingItem.cheque = dwCheque;
 	SellingItem.display_pos = dwDisplayPos;
 	m_PrivateShopItemStock.insert(make_pair(ItemPos, SellingItem));
 }
@@ -135,6 +136,19 @@ int CPythonShop::GetPrivateShopItemPrice(TItemPos ItemPos)
 	TShopItemTable & rShopItemTable = itor->second;
 	return rShopItemTable.price;
 }
+
+/* CHEQUE SYSTEM */
+int CPythonShop::GetPrivateShopItemCheque(TItemPos ItemPos)
+{
+	TPrivateShopItemStock::iterator itor = m_PrivateShopItemStock.find(ItemPos);
+
+	if (m_PrivateShopItemStock.end() == itor)
+		return 0;
+
+	TShopItemTable& rShopItemTable = itor->second;
+	return rShopItemTable.cheque;
+}
+/* END CHEQUE SYSTEM */
 struct ItemStockSortFunc
 {
 	bool operator() (TShopItemTable & rkLeft, TShopItemTable & rkRight)
@@ -338,8 +352,11 @@ PyObject * shopAddPrivateShopItemStock(PyObject * poSelf, PyObject * poArgs)
 	int iPrice;
 	if (!PyTuple_GetInteger(poArgs, 3, &iPrice))
 		return Py_BuildException();
+	int iCheque;
+	if (!PyTuple_GetInteger(poArgs, 4, &iCheque))
+		return Py_BuildException();
 
-	CPythonShop::Instance().AddPrivateShopItemStock(TItemPos(bItemWindowType, wItemSlotIndex), iDisplaySlotIndex, iPrice);
+	CPythonShop::Instance().AddPrivateShopItemStock(TItemPos(bItemWindowType, wItemSlotIndex), iDisplaySlotIndex, iPrice, iCheque);
 	return Py_BuildNone();
 }
 PyObject * shopDelPrivateShopItemStock(PyObject * poSelf, PyObject * poArgs)
@@ -399,6 +416,34 @@ PyObject * shopGetTabCoinType(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildValue("i", CPythonShop::instance().GetTabCoinType(bTabIdx));
 }
 
+/* CHEQUE SYSTEM */
+PyObject* shopGetItemCheque(PyObject* poSelf, PyObject* poArgs)
+{
+	int iIndex;
+	if (!PyTuple_GetInteger(poArgs, 0, &iIndex))
+		return Py_BuildException();
+
+	const TShopItemData* c_pItemData;
+	if (CPythonShop::Instance().GetItemData(iIndex, &c_pItemData))
+		return Py_BuildValue("i", c_pItemData->cheque);
+
+	return Py_BuildValue("i", 0);
+}
+
+PyObject* shopGetPrivateShopItemCheque(PyObject* poSelf, PyObject* poArgs)
+{
+	BYTE bItemWindowType;
+	if (!PyTuple_GetInteger(poArgs, 0, &bItemWindowType))
+		return Py_BuildException();
+	WORD wItemSlotIndex;
+	if (!PyTuple_GetInteger(poArgs, 1, &wItemSlotIndex))
+		return Py_BuildException();
+
+	int iValue = CPythonShop::Instance().GetPrivateShopItemCheque(TItemPos(bItemWindowType, wItemSlotIndex));
+	return Py_BuildValue("i", iValue);
+}
+/* END CHEQUE SYSTEM */
+
 void initshop()
 {
 	static PyMethodDef s_methods[] =
@@ -417,6 +462,10 @@ void initshop()
 		{ "GetTabCount",				shopGetTabCount,				METH_VARARGS },
 		{ "GetTabName",					shopGetTabName,					METH_VARARGS },
 		{ "GetTabCoinType",				shopGetTabCoinType,				METH_VARARGS },
+		/* CHEQUE SYSTEM */
+		{"GetItemCheque",				shopGetItemCheque,				METH_VARARGS },
+		{"GetPrivateShopItemCheque",	shopGetPrivateShopItemCheque,	METH_VARARGS },
+		/* END CHEQUE SYSTEM */
 
 		// Private Shop
 		{ "ClearPrivateShopStock",		shopClearPrivateShopStock,		METH_VARARGS },

@@ -157,6 +157,18 @@ PyObject* exchangeGetLevelFromTarget(PyObject* poTarget, PyObject* poArgs)
 	return Py_BuildValue("i", CPythonExchange::Instance().GetLevelFromTarget());
 }
 
+/* CHEQUE SYSTEM */
+PyObject* exchangeGetChequeFromSelf(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonExchange::Instance().GetChequeFromSelf());
+}
+
+PyObject* exchangeGetChequeFromTarget(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonExchange::Instance().GetChequeFromTarget());
+}
+/* END CHEQUE SYSTEM */
+
 void initTrade()
 {
 	static PyMethodDef s_methods[] = 
@@ -188,6 +200,8 @@ void initTrade()
 		{"GetElkMode",					exchangeGetElkMode,					METH_VARARGS},
 		{"SetElkMode",					exchangeSetElkMode,					METH_VARARGS},
 		{"GetLevelFromTarget",			exchangeGetLevelFromTarget,			METH_VARARGS},
+		{"GetChequeFromSelf",			exchangeGetChequeFromSelf,			METH_VARARGS},
+		{"GetChequeFromTarget",			exchangeGetChequeFromTarget,			METH_VARARGS},
 
 		{NULL, NULL},
 	};

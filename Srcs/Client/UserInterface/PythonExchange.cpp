@@ -256,3 +256,26 @@ CPythonExchange::CPythonExchange()
 CPythonExchange::~CPythonExchange()
 {
 }
+
+/* CHEQUE SYSTEM */
+void CPythonExchange::SetChequeToTarget(DWORD cheque)
+{
+	m_victim.cheque = cheque;
+}
+
+void CPythonExchange::SetChequeToSelf(DWORD cheque)
+{
+	m_self.cheque = cheque;
+}
+
+DWORD CPythonExchange::GetChequeFromTarget()
+{
+	return m_victim.cheque;
+}
+
+DWORD CPythonExchange::GetChequeFromSelf()
+{
+	return m_self.cheque;
+}
+
+/* END CHEQUE SYSTEM */

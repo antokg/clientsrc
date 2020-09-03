@@ -1623,6 +1623,8 @@ BYTE CPythonPlayer::WindowTypeToSlotType(BYTE bWindow)
 {
 	switch (bWindow)
 	{
+	case RESERVED_WINDOW:
+		return SLOT_TYPE_NONE;
 	case INVENTORY:
 		return SLOT_TYPE_INVENTORY;
 	case EQUIPMENT:

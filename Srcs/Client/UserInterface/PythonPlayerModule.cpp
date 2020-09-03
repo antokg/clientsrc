@@ -2224,8 +2224,14 @@ PyObject* playerWindowTypeToSlotType(PyObject* poSelf, PyObject* poArgs)
 
 	return Py_BuildValue("i", CPythonPlayer::Instance().WindowTypeToSlotType(bWindowType));
 }
-
 /* END EXTEND INVENTORY */
+
+/* CHEQUE SYSTEM */
+PyObject* playerGetCheque(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonPlayer::Instance().GetStatus(POINT_CHEQUE));
+}
+/* END CHEQUE SYSTEM*/
 
 void initPlayer()
 {
@@ -2406,6 +2412,10 @@ void initPlayer()
 		{ "GetExtendInvenMax",			playerGetExtendInvenMax,			METH_VARARGS},
 		{ "WindowTypeToSlotType",		playerWindowTypeToSlotType,			METH_VARARGS},
 		/* END EXTEND INVENTORY */
+
+		/* CHEQUE SYSTEM */
+		{ "GetCheque",					playerGetCheque,					METH_VARARGS},
+		/* END CHEQUE SYSTEM*/
 
 		{ NULL,							NULL,								NULL },
 	};
@@ -2675,5 +2685,10 @@ void initPlayer()
 	PyModule_AddIntConstant(poModule, "ON_TOP_WND_PET_ATTR_CHANGE",			UI::CWindow::ON_TOP_WND_PET_ATTR_CHANGE);
 	PyModule_AddIntConstant(poModule, "ON_TOP_WND_LUCKY_BOX",				UI::CWindow::ON_TOP_WND_LUCKY_BOX);
 	PyModule_AddIntConstant(poModule, "ON_TOP_WND_PET_PRIMIUM_FEEDSTUFF",	UI::CWindow::ON_TOP_WND_PET_PRIMIUM_FEEDSTUFF);
+	PyModule_AddIntConstant(poModule, "GOLD_MAX",							c_Gold_Max);
+
+	/* CHEQUE SYSTEM */
+	PyModule_AddIntConstant(poModule, "CHEQUE_MAX",							c_Cheque_Max);
+	/* END CHEQUE SYSTEM */
 
 }

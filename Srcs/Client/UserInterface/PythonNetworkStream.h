@@ -167,7 +167,7 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		// Exchange
 		bool SendExchangeStartPacket(DWORD vid);
 		bool SendExchangeItemAddPacket(TItemPos ItemPos, BYTE byDisplayPos);
-		bool SendExchangeElkAddPacket(DWORD elk);
+		bool SendExchangeElkAddPacket(DWORD elk, DWORD cheque);
 		bool SendExchangeItemDelPacket(BYTE pos);
 		bool SendExchangeAcceptPacket();
 		bool SendExchangeExitPacket();

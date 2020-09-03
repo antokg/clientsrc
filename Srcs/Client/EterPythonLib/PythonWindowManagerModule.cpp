@@ -2344,6 +2344,41 @@ PyObject* wndMgrSetUsableSlotOnTopWnd(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* wndMgrSetCantMouseEventSlot(PyObject* poSelf, PyObject* poArgs)
+{
+	UI::CWindow* pWin;
+	if (!PyTuple_GetWindow(poArgs, 0, &pWin))
+		return Py_BuildException();
+
+	int iSlotIndex;
+	if (!PyTuple_GetInteger(poArgs, 1, &iSlotIndex))
+		return Py_BuildException();
+
+	if (!pWin->IsType(UI::CSlotWindow::Type()))
+		return Py_BuildException();
+
+	UI::CSlotWindow* pSlotWin = (UI::CSlotWindow*)pWin;
+	pSlotWin->SetCantMouseEvent(iSlotIndex);
+	return Py_BuildNone();
+}
+
+PyObject* wndMgrSetCanMouseEventSlot(PyObject* poSelf, PyObject* poArgs)
+{
+	UI::CWindow* pWin;
+	if (!PyTuple_GetWindow(poArgs, 0, &pWin))
+		return Py_BuildException();
+
+	int iSlotIndex;
+	if (!PyTuple_GetInteger(poArgs, 1, &iSlotIndex))
+		return Py_BuildException();
+
+	if (!pWin->IsType(UI::CSlotWindow::Type()))
+		return Py_BuildException();
+
+	UI::CSlotWindow* pSlotWin = (UI::CSlotWindow*)pWin;
+	pSlotWin->SetCanMouseEvent(iSlotIndex);
+	return Py_BuildNone();
+}
 
 void initwndMgr()
 {
@@ -2542,6 +2577,8 @@ void initwndMgr()
 
 		{ "SetUnusableSlotOnTopWnd",	wndMgrSetUnusableSlotOnTopWnd,		METH_VARARGS },
 		{ "SetUsableSlotOnTopWnd",		wndMgrSetUsableSlotOnTopWnd,		METH_VARARGS },
+		{ "SetCantMouseEventSlot",		wndMgrSetCantMouseEventSlot,		METH_VARARGS },
+		{ "SetCanMouseEventSlot",		wndMgrSetCanMouseEventSlot,		METH_VARARGS },
 
 		{ NULL,							NULL,								NULL },
 	};

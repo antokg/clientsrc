@@ -25,6 +25,7 @@ class CPythonExchange : public CSingleton<CPythonExchange>
 
 			BYTE					accept;
 			DWORD					elk;
+			DWORD					cheque;
 		} TExchangeData;
 
 	public:
@@ -87,6 +88,13 @@ class CPythonExchange : public CSingleton<CPythonExchange>
 		void			SetTargetLevel(int level);
 		int				GetLevelFromTarget();
 
+		/* CHEQUE SYSTEM */
+		void			SetChequeToTarget(DWORD cheque);
+		void			SetChequeToSelf(DWORD cheque);
+
+		DWORD			GetChequeFromTarget();
+		DWORD			GetChequeFromSelf();
+		/* END CHEQUE SYSTEM */
 	protected:
 		bool				m_isTrading;
 

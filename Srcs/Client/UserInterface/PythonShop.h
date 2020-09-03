@@ -50,10 +50,14 @@ class CPythonShop : public CSingleton<CPythonShop>
 		BOOL IsMainPlayerPrivateShop();
 
 		void ClearPrivateShopStock();
-		void AddPrivateShopItemStock(TItemPos ItemPos, BYTE byDisplayPos, DWORD dwPrice);
+		void AddPrivateShopItemStock(TItemPos ItemPos, BYTE byDisplayPos, DWORD dwPrice, DWORD dwCheque);
 		void DelPrivateShopItemStock(TItemPos ItemPos);
 		int GetPrivateShopItemPrice(TItemPos ItemPos);
 		void BuildPrivateShop(const char * c_szName);
+
+		/* CHEQUE SYSTEM */
+		int GetPrivateShopItemCheque(TItemPos ItemPos);
+		/* END CHEQUE SYSTEM */
 
 	protected:
 		BOOL	CheckSlotIndex(DWORD dwIndex);

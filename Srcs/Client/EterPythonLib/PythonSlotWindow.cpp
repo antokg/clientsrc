@@ -672,6 +672,23 @@ void CSlotWindow::DisableSlot(DWORD dwIndex)
 	//pSlot->dwState ^= SLOT_STATE_DISABLE;
 }
 
+void CSlotWindow::SetCantMouseEvent(DWORD dwIndex)
+{
+	TSlot* pSlot;
+	if (!GetSlotPointer(dwIndex, &pSlot))
+		return;
+
+	SET_BIT(pSlot->dwState, SLOT_STATE_CANT_MOUSE_EVENT);
+}
+
+void CSlotWindow::SetCanMouseEvent(DWORD dwIndex)
+{
+	TSlot* pSlot;
+	if (!GetSlotPointer(dwIndex, &pSlot))
+		return;
+
+	REMOVE_BIT(pSlot->dwState, SLOT_STATE_CANT_MOUSE_EVENT);
+}
 // Select
 
 void CSlotWindow::SelectSlot(DWORD dwSelectingIndex)
@@ -800,6 +817,9 @@ BOOL CSlotWindow::OnMouseLeftButtonDown()
 		return TRUE;
 	}
 
+	if (IS_SET(pSlot->dwState, SLOT_STATE_CANT_MOUSE_EVENT))
+		return FALSE;
+
 	if (pSlot->isItem && !(pSlot->dwState & SLOT_STATE_LOCK))
 	{
 		OnSelectItemSlot(pSlot->dwSlotNumber);
@@ -851,6 +871,9 @@ BOOL CSlotWindow::OnMouseRightButtonDown()
 	TSlot * pSlot;
 	if (!GetPickedSlotPointer(&pSlot))
 		return TRUE;
+
+	if (IS_SET(pSlot->dwState, SLOT_STATE_CANT_MOUSE_EVENT))
+		return FALSE;
 
 	if (pSlot->isItem)
 	{
@@ -922,9 +945,13 @@ void CSlotWindow::OnUseSlot()
 {
 	TSlot * pSlot;
 	if (GetPickedSlotPointer(&pSlot))
-	if (pSlot->isItem)
 	{
-		PyCallClassMemberFunc(m_poHandler, "OnUseSlot", Py_BuildValue("(i)", pSlot->dwSlotNumber));
+		if (IS_SET(pSlot->dwState, SLOT_STATE_CANT_MOUSE_EVENT))
+			return;
+		if (pSlot->isItem)
+		{
+			PyCallClassMemberFunc(m_poHandler, "OnUseSlot", Py_BuildValue("(i)", pSlot->dwSlotNumber));
+		}
 	}
 }
 
@@ -1118,6 +1145,15 @@ void CSlotWindow::OnRender()
 		if (IS_SET(rSlot.dwState, SLOT_STATE_CANT_USE))
 		{
 			CPythonGraphic::Instance().SetDiffuseColor(1.0f, 1.0f, 1.0f, 0.3f);
+			CPythonGraphic::Instance().RenderBar2d(m_rect.left + rSlot.ixPosition,
+				m_rect.top + rSlot.iyPosition,
+				m_rect.left + rSlot.ixPosition + rSlot.ixCellSize,
+				m_rect.top + rSlot.iyPosition + rSlot.byyPlacedItemSize * ITEM_HEIGHT);
+		}
+
+		if (IS_SET(rSlot.dwState, SLOT_STATE_CANT_MOUSE_EVENT))
+		{
+			CPythonGraphic::Instance().SetDiffuseColor(1.0f, 0.0f, 0.0f, 0.3f);
 			CPythonGraphic::Instance().RenderBar2d(m_rect.left + rSlot.ixPosition,
 				m_rect.top + rSlot.iyPosition,
 				m_rect.left + rSlot.ixPosition + rSlot.ixCellSize,

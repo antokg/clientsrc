@@ -141,6 +141,9 @@ const DWORD c_DragonSoul_Inventory_Box_Size = 32;
 const DWORD c_DragonSoul_Inventory_Count = CItemData::DS_SLOT_NUM_TYPES * DRAGON_SOUL_GRADE_MAX * c_DragonSoul_Inventory_Box_Size;
 const DWORD c_DragonSoul_Inventory_End = c_DragonSoul_Inventory_Start + c_DragonSoul_Inventory_Count;
 
+const DWORD c_Gold_Max = 2000000000;
+const DWORD c_Cheque_Max = 1000;
+
 enum ESlotType
 {
 	SLOT_TYPE_NONE,
@@ -337,6 +340,7 @@ typedef struct packet_shop_item
 {
     DWORD       vnum;
     DWORD       price;
+	DWORD		cheque;
     BYTE        count;
 	BYTE		display_pos;
 	long		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];

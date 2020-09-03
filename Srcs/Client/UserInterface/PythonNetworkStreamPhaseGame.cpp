@@ -1855,9 +1855,15 @@ bool CPythonNetworkStream::RecvExchangePacket()
 
 		case EXCHANGE_SUBHEADER_GC_ELK_ADD:
 			if (exchange_packet.is_me)
+			{
 				CPythonExchange::Instance().SetElkToSelf(exchange_packet.arg1);
+				CPythonExchange::Instance().SetChequeToSelf(exchange_packet.arg3);
+			}
 			else
+			{
 				CPythonExchange::Instance().SetElkToTarget(exchange_packet.arg1);
+				CPythonExchange::Instance().SetChequeToTarget(exchange_packet.arg3);
+			}
 
 			__RefreshExchangeWindow();
 			break;
@@ -2086,7 +2092,7 @@ bool CPythonNetworkStream::SendExchangeStartPacket(DWORD vid)
 	return SendSequence();
 }
 
-bool CPythonNetworkStream::SendExchangeElkAddPacket(DWORD elk)
+bool CPythonNetworkStream::SendExchangeElkAddPacket(DWORD elk, DWORD cheque)
 {
 	if (!__CanActMainInstance())
 		return true;
@@ -2096,6 +2102,7 @@ bool CPythonNetworkStream::SendExchangeElkAddPacket(DWORD elk)
 	packet.header		= HEADER_CG_EXCHANGE;
 	packet.subheader	= EXCHANGE_SUBHEADER_CG_ELK_ADD;
 	packet.arg1			= elk;
+	packet.arg3			= cheque;
 
 	if (!Send(sizeof(packet), &packet))
 	{

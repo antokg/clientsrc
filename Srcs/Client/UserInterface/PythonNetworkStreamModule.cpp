@@ -948,8 +948,12 @@ PyObject* netSendExchangeElkAddPacket(PyObject* poSelf, PyObject* poArgs)
 	if (!PyTuple_GetInteger(poArgs, 0, &iElk))
 		return Py_BuildException();
 
+	int iCheque;
+	if (!PyTuple_GetInteger(poArgs, 1, &iCheque))
+		return Py_BadArgument();
+
 	CPythonNetworkStream& rkNetStream=CPythonNetworkStream::Instance();
-	rkNetStream.SendExchangeElkAddPacket(iElk);
+	rkNetStream.SendExchangeElkAddPacket(iElk, iCheque);
 	return Py_BuildNone();
 }
 

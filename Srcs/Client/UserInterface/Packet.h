@@ -729,6 +729,7 @@ typedef struct command_exchange
 	BYTE		subheader;
 	DWORD		arg1;
 	BYTE		arg2;
+	DWORD		arg3;
 	TItemPos	Pos;
 } TPacketCGExchange;
 
@@ -1025,6 +1026,7 @@ typedef struct SShopItemTable
 
     TItemPos	pos;			// PC 상점에만 이용
     DWORD		price;			// PC 상점에만 이용
+	DWORD		cheque;
     BYTE		display_pos;	//	PC 상점에만 이용, 보일 위치.
 } TShopItemTable;
 
@@ -1673,6 +1675,7 @@ enum EPointTypes
 	POINT_ENERGY_END_TIME = 129,	// 129 기력 종료 시간
 
 	POINT_INVENTORY_STAGES = 138, // temporary 138
+	POINT_CHEQUE	= 139,
 
 	// 클라이언트 포인트
 	POINT_MIN_WEP = 200,

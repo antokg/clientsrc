@@ -2233,6 +2233,13 @@ PyObject* playerGetCheque(PyObject* poSelf, PyObject* poArgs)
 }
 /* END CHEQUE SYSTEM*/
 
+/* GEM SYSTEM */
+PyObject* playerGetGem(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonPlayer::Instance().GetStatus(POINT_GEM));
+}
+/* END GEM SYSTEM */
+
 void initPlayer()
 {
 	static PyMethodDef s_methods[] =
@@ -2416,7 +2423,10 @@ void initPlayer()
 		/* CHEQUE SYSTEM */
 		{ "GetCheque",					playerGetCheque,					METH_VARARGS},
 		/* END CHEQUE SYSTEM*/
-
+		
+		/* GEM SYSTEM */
+		{ "GetGem",						playerGetGem,						METH_VARARGS},
+		/* END GEM SYSTEM */
 		{ NULL,							NULL,								NULL },
 	};
 

@@ -1676,6 +1676,7 @@ enum EPointTypes
 
 	POINT_INVENTORY_STAGES = 138, // temporary 138
 	POINT_CHEQUE	= 139,
+	POINT_GEM	= 140,
 
 	// 클라이언트 포인트
 	POINT_MIN_WEP = 200,

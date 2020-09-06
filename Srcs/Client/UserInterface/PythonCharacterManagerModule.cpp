@@ -871,5 +871,6 @@ void initchrmgr()
 	PyModule_AddIntConstant(poModule, "EFFECT_THUNDER", 293);
 	PyModule_AddIntConstant(poModule, "EFFECT_HEAL", 294);
 	PyModule_AddIntConstant(poModule, "EFFECT_CAPE_OF_COURAGE", 295);
+	PyModule_AddIntConstant(poModule, "EFFECT_GEM_PENDANT", 314);
 
 }

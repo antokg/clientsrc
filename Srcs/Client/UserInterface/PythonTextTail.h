@@ -18,6 +18,7 @@ class CPythonTextTail : public CSingleton<CPythonTextTail>
 
 			CGraphicTextInstance*			pTitleTextInstance;
 			CGraphicTextInstance*			pLevelTextInstance;
+			CGraphicTextInstance*			pAIFlagTextInstance;
 
 
 			// Todo : 이건 전부 VID로 바꾸도록 한다.
@@ -37,6 +38,7 @@ class CPythonTextTail : public CSingleton<CPythonTextTail>
 			DWORD							LivingTime;
 
 			float							fHeight;
+			bool							bIsPC;
 
 			STextTail() {}
 			virtual ~STextTail() {}

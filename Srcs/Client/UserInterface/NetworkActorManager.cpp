@@ -87,6 +87,7 @@ void SNetworkActorData::__copy__(const SNetworkActorData& src)
 	m_dwGuildID = src.m_dwGuildID;
 	m_dwLevel = src.m_dwLevel;
 	m_stName = src.m_stName;
+	m_dwAIFlag = src.m_dwAIFlag;
 }
 // END_OF_NETWORK_ACTOR_DATA_COPY
 	
@@ -117,6 +118,8 @@ SNetworkActorData::SNetworkActorData()
 	m_dwMountVnum=0;
 
 	m_stName="";
+	m_dwLevel = 0;
+	m_dwAIFlag = 0;
 
 	m_kAffectFlags.Clear();
 }
@@ -357,6 +360,7 @@ CInstanceBase* CNetworkActorManager::__AppendCharacterManagerActor(SNetworkActor
 	kCreateData.m_dwWeapon=rkNetActorData.m_dwWeapon;
 	kCreateData.m_dwHair=rkNetActorData.m_dwHair;
 	kCreateData.m_isMain=__IsMainActorVID(dwVID);
+	kCreateData.m_dwAIFlag = rkNetActorData.m_dwAIFlag;
 
 	CInstanceBase* pOldInstance = rkChrMgr.GetInstancePtr(dwVID);
 	if (pOldInstance)

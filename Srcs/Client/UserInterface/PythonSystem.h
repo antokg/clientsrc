@@ -75,6 +75,8 @@ class CPythonSystem : public CSingleton<CPythonSystem>
 			bool			bAlwaysShowName;
 			bool			bShowDamage;
 			bool			bShowSalesText;
+			bool			bShowMobLevel;
+			bool			bShowMobAIFlag;
 		} TConfig;
 
 	public:
@@ -148,6 +150,11 @@ class CPythonSystem : public CSingleton<CPythonSystem>
 		int								GetDistance();
 		int								GetShadowLevel();
 		void							SetShadowLevel(unsigned int level);
+
+		bool							IsShowMobLevel();
+		void							SetShowMobLevel(int iFlag);
+		bool							IsShowMobAIFlag();
+		void							SetShowMobAIFlag(int iFlag);
 
 	protected:
 		TResolution						m_ResolutionList[RESOLUTION_MAX_NUM];

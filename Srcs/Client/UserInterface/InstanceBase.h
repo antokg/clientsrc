@@ -34,6 +34,8 @@ class CInstanceBase
 			std::string m_stName;
 
 			bool	m_isMain;
+
+			DWORD	m_dwAIFlag;
 		};
 
 	public:
@@ -380,6 +382,31 @@ class CInstanceBase
 			DUEL_NONE,
 			DUEL_CANNOTATTACK,
 			DUEL_START,
+		};
+
+		enum EAIFlags
+		{
+			AIFLAG_AGGRESSIVE = (1 << 0),
+			AIFLAG_NOMOVE = (1 << 1),
+			AIFLAG_COWARD = (1 << 2),
+			AIFLAG_NOATTACKSHINSU = (1 << 3),
+			AIFLAG_NOATTACKJINNO = (1 << 4),
+			AIFLAG_NOATTACKCHUNJO = (1 << 5),
+			AIFLAG_ATTACKMOB = (1 << 6),
+			AIFLAG_BERSERK = (1 << 7),
+			AIFLAG_STONESKIN = (1 << 8),
+			AIFLAG_GODSPEED = (1 << 9),
+			AIFLAG_DEATHBLOW = (1 << 10),
+			AIFLAG_REVIVE = (1 << 11),
+			AIFLAG_HEALER = (1 << 12),
+			AIFLAG_COUNT = (1 << 13),
+			AIFLAG_NORECOVERY = (1 << 14),
+			AIFLAG_REFLECT = (1 << 15),
+			AIFLAG_FALL = (1 << 16),
+			AIFLAG_VIT = (1 << 17),
+			AIFLAG_RATTSPEED = (1 << 18),
+			AIFLAG_RCASTSPEED = (1 << 19),
+			AIFLAG_TIMEVIT = (1 << 21),
 		};
 
 	public:
@@ -782,6 +809,8 @@ class CInstanceBase
 		void SetFishEmoticon();
 		bool IsPossibleEmoticon();
 
+		DWORD GetAIFlag() { return m_dwAIFlag; }
+
 	protected:
 		UINT					__LessRenderOrder_GetLODLevel();
 		void					__Initialize();
@@ -901,6 +930,7 @@ class CInstanceBase
 		DWORD					m_dwLevel;
 		DWORD					m_dwEmpireID;
 		DWORD					m_dwGuildID;
+		DWORD					m_dwAIFlag;
 
 	protected:		
 		CAffectFlagContainer	m_kAffectFlagContainer;

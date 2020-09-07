@@ -372,6 +372,38 @@ PyObject * systemSetShadowLevel(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* systemIsShowMobLevel(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonSystem::Instance().IsShowMobLevel());
+}
+
+PyObject* systemSetShowMobLevel(PyObject* poSelf, PyObject* poArgs)
+{
+	int iFlag;
+	if (!PyTuple_GetInteger(poArgs, 0, &iFlag))
+		return Py_BuildException();
+
+	CPythonSystem::Instance().SetShowMobLevel(iFlag);
+
+	return Py_BuildNone();
+}
+
+PyObject* systemIsShowMobAIFlag(PyObject* poSelf, PyObject* poArgs)
+{
+	return Py_BuildValue("i", CPythonSystem::Instance().IsShowMobAIFlag());
+}
+
+PyObject* systemSetShowMobAIFlag(PyObject* poSelf, PyObject* poArgs)
+{
+	int iFlag;
+	if (!PyTuple_GetInteger(poArgs, 0, &iFlag))
+		return Py_BuildException();
+
+	CPythonSystem::Instance().SetShowMobAIFlag(iFlag);
+
+	return Py_BuildNone();
+}
+
 void initsystem()
 {
 	static PyMethodDef s_methods[] =
@@ -425,6 +457,10 @@ void initsystem()
 
 		{ "GetShadowLevel",				systemGetShadowLevel,			METH_VARARGS },
 		{ "SetShadowLevel",				systemSetShadowLevel,			METH_VARARGS },
+		{ "IsShowMobLevel",				systemIsShowMobLevel,			METH_VARARGS },
+		{ "SetShowMobLevel",			systemSetShowMobLevel,			METH_VARARGS },
+		{ "IsShowMobAIFlag",			systemIsShowMobAIFlag,			METH_VARARGS },
+		{ "SetShowMobAIFlag",			systemSetShowMobAIFlag,			METH_VARARGS },
 
 		{ NULL,							NULL,							NULL }
 	};

@@ -40,6 +40,7 @@ struct SNetworkActorData
 
 	DWORD	m_dwGuildID;
 	DWORD	m_dwLevel;
+	DWORD	m_dwAIFlag;
 	
 	SNetworkActorData();
 

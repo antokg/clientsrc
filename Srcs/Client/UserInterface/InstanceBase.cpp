@@ -761,6 +761,7 @@ bool CInstanceBase::Create(const SCreateData& c_rkCreateData)
 	m_dwLevel = c_rkCreateData.m_dwLevel;
 	m_dwGuildID = c_rkCreateData.m_dwGuildID;
 	m_dwEmpireID = c_rkCreateData.m_dwEmpireID;
+	m_dwAIFlag = c_rkCreateData.m_dwAIFlag;
 
 	SetVirtualNumber(c_rkCreateData.m_dwRace);
 	SetRotation(c_rkCreateData.m_fRot);
@@ -3094,6 +3095,7 @@ void CInstanceBase::__Initialize()
 	m_bDamageEffectType = false;
 	m_dwDuelMode = DUEL_NONE;
 	m_dwEmoticonTime = 0;
+	m_dwAIFlag = 0;
 }
 
 CInstanceBase::CInstanceBase()

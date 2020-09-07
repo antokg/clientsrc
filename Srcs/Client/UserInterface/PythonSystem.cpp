@@ -307,6 +307,8 @@ void CPythonSystem::SetDefaultConfig()
 	m_Config.bAlwaysShowName	= DEFAULT_VALUE_ALWAYS_SHOW_NAME;
 	m_Config.bShowDamage		= true;
 	m_Config.bShowSalesText		= true;
+	m_Config.bShowMobLevel		= true;
+	m_Config.bShowMobAIFlag		= true;
 }
 
 bool CPythonSystem::IsWindowed()
@@ -400,11 +402,11 @@ bool CPythonSystem::LoadConfig()
 			break;
 
 		if (!stricmp(command, "WIDTH"))
-			m_Config.width		= atoi(value);
+			m_Config.width = atoi(value);
 		else if (!stricmp(command, "HEIGHT"))
-			m_Config.height	= atoi(value);
+			m_Config.height = atoi(value);
 		else if (!stricmp(command, "BPP"))
-			m_Config.bpp		= atoi(value);
+			m_Config.bpp = atoi(value);
 		else if (!stricmp(command, "FREQUENCY"))
 			m_Config.frequency = atoi(value);
 		else if (!stricmp(command, "SOFTWARE_CURSOR"))
@@ -414,14 +416,16 @@ bool CPythonSystem::LoadConfig()
 		else if (!stricmp(command, "VISIBILITY"))
 			m_Config.iDistance = atoi(value);
 		else if (!stricmp(command, "MUSIC_VOLUME")) {
-			if(strchr(value, '.') == 0) { // Old compatiability
-				m_Config.music_volume = pow(10.0f, (-1.0f + (((float) atoi(value)) / 5.0f)));
-				if(atoi(value) == 0)
+			if (strchr(value, '.') == 0) { // Old compatiability
+				m_Config.music_volume = pow(10.0f, (-1.0f + (((float)atoi(value)) / 5.0f)));
+				if (atoi(value) == 0)
 					m_Config.music_volume = 0.0f;
-			} else
+			}
+			else
 				m_Config.music_volume = atof(value);
-		} else if (!stricmp(command, "VOICE_VOLUME"))
-			m_Config.voice_volume = (char) atoi(value);
+		}
+		else if (!stricmp(command, "VOICE_VOLUME"))
+			m_Config.voice_volume = (char)atoi(value);
 		else if (!stricmp(command, "GAMMA"))
 			m_Config.gamma = atoi(value);
 		else if (!stricmp(command, "IS_SAVE_ID"))
@@ -452,6 +456,10 @@ bool CPythonSystem::LoadConfig()
 			m_Config.bShowDamage = atoi(value) == 1 ? true : false;
 		else if (!stricmp(command, "SHOW_SALESTEXT"))
 			m_Config.bShowSalesText = atoi(value) == 1 ? true : false;
+		else if (!stricmp(command, "SHOW_MOBLEVEL"))
+			m_Config.bShowMobLevel = atoi(value);
+		else if (!stricmp(command, "SHOW_MOBAIFLAG"))
+			m_Config.bShowMobAIFlag = atoi(value);
 	}
 
 	if (m_Config.bWindowed)
@@ -532,7 +540,9 @@ bool CPythonSystem::SaveConfig()
 		fprintf(fp, "SHOW_DAMAGE		%d\n", m_Config.bShowDamage);
 	if (m_Config.bShowSalesText == 0)
 		fprintf(fp, "SHOW_SALESTEXT		%d\n", m_Config.bShowSalesText);
-
+	
+	fprintf(fp, "SHOW_MOBLEVEL			%d\n", m_Config.bShowMobLevel);
+	fprintf(fp, "SHOW_MOBAIFLAG			%d\n", m_Config.bShowMobAIFlag);
 	fprintf(fp, "USE_DEFAULT_IME		%d\n", m_Config.bUseDefaultIME);
 	fprintf(fp, "SOFTWARE_TILING		%d\n", m_Config.bSoftwareTiling);
 	fprintf(fp, "SHADOW_LEVEL			%d\n", m_Config.iShadowLevel);
@@ -672,4 +682,24 @@ CPythonSystem::CPythonSystem()
 CPythonSystem::~CPythonSystem()
 {
 	assert(m_poInterfaceHandler==NULL && "CPythonSystem MUST CLEAR!");
+}
+
+bool CPythonSystem::IsShowMobLevel()
+{
+	return m_Config.bShowMobLevel;
+}
+
+void CPythonSystem::SetShowMobLevel(int iFlag)
+{
+	m_Config.bShowMobLevel = iFlag;
+}
+
+bool CPythonSystem::IsShowMobAIFlag()
+{
+	return m_Config.bShowMobAIFlag;
+}
+
+void CPythonSystem::SetShowMobAIFlag(int iFlag)
+{
+	m_Config.bShowMobAIFlag= iFlag;
 }

@@ -7,10 +7,6 @@
 #include "AbstractPlayer.h"
 #include "../gamelib/ActorInstance.h"
 
-
-
-
-
 void CPythonNetworkStream::__GlobalPositionToLocalPosition(LONG& rGlobalX, LONG& rGlobalY)
 {
 	CPythonBackground&rkBgMgr=CPythonBackground::Instance();
@@ -116,16 +112,26 @@ bool CPythonNetworkStream::RecvCharacterAppendPacket()
 	kNetActorData.m_dwMountVnum=0;/*chrAddPacket.dwMountVnum*/;	
 
 	kNetActorData.m_dwLevel = 0; // 몬스터 레벨 표시 안함
+	kNetActorData.m_dwAIFlag = 0;
 
 	if(kNetActorData.m_bType != CActorInstance::TYPE_PC && 
 		kNetActorData.m_bType != CActorInstance::TYPE_NPC)
 	{
 		const char * c_szName;
-		CPythonNonPlayer& rkNonPlayer=CPythonNonPlayer::Instance();
-		if (rkNonPlayer.GetName(kNetActorData.m_dwRace, &c_szName))
-			kNetActorData.m_stName = c_szName;
-		//else
-		//	kNetActorData.m_stName=chrAddPacket.name;
+		const CPythonNonPlayer::TMobTable* pMobTable = CPythonNonPlayer::Instance().GetTable(kNetActorData.m_dwRace);
+
+		if (pMobTable)
+		{
+			kNetActorData.m_stName = pMobTable->szLocaleName;
+
+			if (kNetActorData.m_bType == CActorInstance::TYPE_ENEMY ||
+				kNetActorData.m_bType == CActorInstance::TYPE_STONE ||
+				kNetActorData.m_bType == CActorInstance::TYPE_PET)
+			{
+				kNetActorData.m_dwLevel = pMobTable->bLevel;
+				kNetActorData.m_dwAIFlag = pMobTable->dwAIFlag;
+			}
+		}
 
 		__RecvCharacterAppendPacket(&kNetActorData);
 	}

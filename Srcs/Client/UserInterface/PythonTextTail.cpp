@@ -9,6 +9,7 @@
 #include "PythonGuild.h"
 #include "Locale.h"
 #include "MarkManager.h"
+#include "PythonSystem.h"
 
 const D3DXCOLOR c_TextTail_Player_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 const D3DXCOLOR c_TextTail_Monster_Color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
@@ -318,6 +319,16 @@ void CPythonTextTail::ArrangeTextTail()
 		pTextTail->pTextInstance->SetColor(pTextTail->Color.r, pTextTail->Color.g, pTextTail->Color.b);
 		pTextTail->pTextInstance->SetPosition(pTextTail->x + fxAdd, pTextTail->y, pTextTail->z);
 		pTextTail->pTextInstance->Update();
+
+		fxAdd += iNameWidth / 2;
+
+		CGraphicTextInstance * pAIFlag = pTextTail->pAIFlagTextInstance;
+		if (pAIFlag)
+		{
+			pAIFlag->SetColor(pTextTail->Color.r, pTextTail->Color.g, pTextTail->Color.b);
+			pAIFlag->SetPosition(pTextTail->x + fxAdd, pTextTail->y, pTextTail->z);
+			pAIFlag->Update();
+		}
 	}
 
 	for (TChatTailMap::iterator itorChat=m_ChatTailMap.begin(); itorChat!=m_ChatTailMap.end();)
@@ -356,9 +367,21 @@ void CPythonTextTail::Render()
 		{
 			pTextTail->pTitleTextInstance->Render();
 		}
-		if (pTextTail->pLevelTextInstance)
+
+		if (pTextTail->bIsPC || CPythonSystem::Instance().IsShowMobLevel())
 		{
-			pTextTail->pLevelTextInstance->Render();
+			if (pTextTail->pLevelTextInstance)
+			{
+				pTextTail->pLevelTextInstance->Render();
+			}
+		}
+
+		if (CPythonSystem::Instance().IsShowMobAIFlag())
+		{
+			if (pTextTail->pAIFlagTextInstance)
+			{
+				pTextTail->pAIFlagTextInstance->Render();
+			}
 		}
 	}
 
@@ -526,6 +549,7 @@ void CPythonTextTail::RegisterCharacterTextTail(DWORD dwGuildID, DWORD dwVirtual
 	pTextTail->pGuildNameTextInstance=NULL;
 	pTextTail->pTitleTextInstance=NULL;
 	pTextTail->pLevelTextInstance=NULL;
+	pTextTail->pAIFlagTextInstance = NULL;
 
 	if (0 != dwGuildID)
 	{
@@ -560,6 +584,20 @@ void CPythonTextTail::RegisterCharacterTextTail(DWORD dwGuildID, DWORD dwVirtual
 		prGuildNameInstance->Update();
 	}
 
+	if (pCharacterInstance->GetAIFlag() & CInstanceBase::AIFLAG_AGGRESSIVE)
+	{
+		CGraphicTextInstance*& prAIFlagInstance = pTextTail->pAIFlagTextInstance;
+		prAIFlagInstance = CGraphicTextInstance::New();
+		prAIFlagInstance->SetTextPointer(ms_pFont);
+		prAIFlagInstance->SetHorizonalAlign(CGraphicTextInstance::HORIZONTAL_ALIGN_LEFT);
+		prAIFlagInstance->SetVerticalAlign(CGraphicTextInstance::VERTICAL_ALIGN_BOTTOM);
+		prAIFlagInstance->SetValue("*");
+		prAIFlagInstance->SetOutline(true);
+		prAIFlagInstance->SetColor(c_rColor.r, c_rColor.g, c_rColor.b);
+		prAIFlagInstance->Update();
+	}
+
+	pTextTail->bIsPC = pCharacterInstance->IsPC();
 	m_CharacterTextTailMap.insert(TTextTailMap::value_type(dwVirtualID, pTextTail));
 }
 
@@ -819,6 +857,7 @@ CPythonTextTail::TTextTail * CPythonTextTail::RegisterTextTail(DWORD dwVirtualID
 	pTextTail->pGuildNameTextInstance = NULL;
 	pTextTail->pTitleTextInstance = NULL;
 	pTextTail->pLevelTextInstance = NULL;
+	pTextTail->pAIFlagTextInstance = NULL;
 	return pTextTail;
 }
 
@@ -853,6 +892,12 @@ void CPythonTextTail::DeleteTextTail(TTextTail * pTextTail)
 	{
 		CGraphicTextInstance::Delete(pTextTail->pLevelTextInstance);
 		pTextTail->pLevelTextInstance = NULL;
+	}
+
+	if (pTextTail->pAIFlagTextInstance)
+	{
+		CGraphicTextInstance::Delete(pTextTail->pAIFlagTextInstance);
+		pTextTail->pAIFlagTextInstance = NULL;
 	}
 
 	m_TextTailPool.Free(pTextTail);	

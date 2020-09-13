@@ -287,6 +287,9 @@ const char* CItemData::GetUseTypeString() const
 
 DWORD CItemData::GetWeaponType() const
 {
+	if (GetType() == ITEM_TYPE_COSTUME)
+		return GetValue(3);
+
 	return m_ItemTable.bSubType;
 }
 

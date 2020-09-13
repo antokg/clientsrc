@@ -2760,7 +2760,8 @@ bool CInstanceBase::SetWeapon(DWORD eWeapon)
 	
 	//Weapon Effect
 	CItemData * pItemData;
-	if (CItemManager::Instance().GetItemDataPointer(eWeapon, &pItemData))
+	if (CItemManager::Instance().GetItemDataPointer(eWeapon, &pItemData) && 
+		pItemData->GetType() != CItemData::ITEM_TYPE_COSTUME)
 		__GetRefinedEffect(pItemData);
 	else
 		__ClearWeaponRefineEffect();

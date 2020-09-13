@@ -71,7 +71,11 @@ constexpr DWORD c_Equipment_End = c_Equipment_Shield;
 const DWORD c_Costume_Slot_Start = c_Equipment_End + 9;	// [주의] 숫자(19) 하드코딩 주의. 현재 서버에서 코스츔 슬롯은 19부터임. 서버 common/length.h 파일의 EWearPositions 열거형 참고.
 const DWORD	c_Costume_Slot_Body = c_Costume_Slot_Start + 0;
 const DWORD	c_Costume_Slot_Hair = c_Costume_Slot_Start + 1;
-const DWORD c_Costume_Slot_Count = 2;
+const DWORD	c_Costume_Slot_Mount = c_Costume_Slot_Start + 2;
+const DWORD	c_Costume_Slot_Acce = c_Costume_Slot_Start + 3;
+const DWORD c_Costume_Slot_Weapon = c_Costume_Slot_Start + 5;
+const DWORD c_Costume_Slot_Aura = c_Costume_Slot_Start + 9;
+const DWORD c_Costume_Slot_Count = 4;
 const DWORD c_Costume_Slot_End = c_Costume_Slot_Start + c_Costume_Slot_Count;
 
 const DWORD c_New_Equipment_Start = c_Costume_Slot_End;

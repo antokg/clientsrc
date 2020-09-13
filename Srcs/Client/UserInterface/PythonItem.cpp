@@ -306,7 +306,7 @@ void CPythonItem::CreateItem(DWORD dwVirtualID, DWORD dwVirtualNumber, float x, 
 	{
 		z = CPythonBackground::Instance().GetHeight(x, y) + 10.0f;
 
-		if (pItemData->GetType()==CItemData::ITEM_TYPE_WEAPON && 
+		if ( ( pItemData->GetType() == CItemData::ITEM_TYPE_WEAPON || pItemData->GetType() == CItemData::ITEM_TYPE_COSTUME ) && 
 			(pItemData->GetWeaponType() == CItemData::WEAPON_SWORD || 
 			 pItemData->GetWeaponType() == CItemData::WEAPON_ARROW))
 			bStabGround = true;

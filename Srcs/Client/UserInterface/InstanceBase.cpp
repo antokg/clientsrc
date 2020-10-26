@@ -2923,6 +2923,10 @@ void CInstanceBase::RefreshState(DWORD dwMotIndex, bool isLoop)
 				SetMotionMode(CRaceMotionData::MODE_HORSE_BOW); // Only Shaman
 				break;
 
+			case CItemData::WEAPON_CLAW:
+				SetMotionMode(CRaceMotionData::MODE_HORSE_CLAW);
+				break;
+
 			default:
 				SetMotionMode(CRaceMotionData::MODE_HORSE);
 				break;
@@ -2954,6 +2958,9 @@ void CInstanceBase::RefreshState(DWORD dwMotIndex, bool isLoop)
 
 			case CItemData::WEAPON_BELL:
 				SetMotionMode(CRaceMotionData::MODE_BELL); // Only Shaman
+				break;
+			case CItemData::WEAPON_CLAW:
+				SetMotionMode(CRaceMotionData::MODE_CLAW);
 				break;
 
 			case CItemData::WEAPON_ARROW:

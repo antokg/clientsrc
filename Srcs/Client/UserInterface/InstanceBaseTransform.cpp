@@ -91,3 +91,8 @@ float CInstanceBase::GetDegreeFromDirection(int dir)
 
 	return s_dirRot[dir];
 }
+
+void CInstanceBase::SetScale(float fScaleX, float fScaleY, float fScaleZ)
+{
+	m_GraphicThingInstance.SetScale(fScaleX, fScaleY, fScaleZ);
+}

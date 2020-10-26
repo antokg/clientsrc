@@ -26,12 +26,27 @@ extern std::string g_strImagePath;
 // Race Data
 namespace NRaceData
 {
+	enum ERace
+	{
+		MAIN_RACE_WARRIOR_M,
+		MAIN_RACE_ASSASSIN_W,
+		MAIN_RACE_SURA_M,
+		MAIN_RACE_SHAMAN_W,
+		MAIN_RACE_WARRIOR_W,
+		MAIN_RACE_ASSASSIN_M,
+		MAIN_RACE_SURA_W,
+		MAIN_RACE_SHAMAN_M,
+		MAIN_RACE_WOLFMAN_M,
+		MAIN_RACE_MAX_NUM,
+	};
+
 	enum EJobs
 	{
 		JOB_WARRIOR,
 		JOB_ASSASSIN,
 		JOB_SURA,
 		JOB_SHAMAN,
+		JOB_WOLFMAN,
 		JOB_MAX_NUM
 	};
 

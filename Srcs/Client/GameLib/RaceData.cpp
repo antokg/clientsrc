@@ -132,6 +132,7 @@ BOOL CRaceData::GetMotionKey(WORD wMotionModeIndex, WORD wMotionIndex, MOTION_KE
 			case CRaceMotionData::MODE_HORSE_FAN:
 			case CRaceMotionData::MODE_HORSE_BELL:
 			case CRaceMotionData::MODE_HORSE_BOW:
+			case CRaceMotionData::MODE_HORSE_CLAW:
 				wGeneralMode=CRaceMotionData::MODE_HORSE;
 				break;
 

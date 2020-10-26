@@ -89,18 +89,22 @@ void CRaceMotionData::SetName(UINT eName)
 		case NAME_KISS_WITH_ASSASSIN:
 		case NAME_KISS_WITH_SURA:
 		case NAME_KISS_WITH_SHAMAN:
+		case NAME_KISS_WITH_WOLFMAN:
 		case NAME_FRENCH_KISS_WITH_WARRIOR:
 		case NAME_FRENCH_KISS_WITH_ASSASSIN:
 		case NAME_FRENCH_KISS_WITH_SURA:
 		case NAME_FRENCH_KISS_WITH_SHAMAN:
+		case NAME_FRENCH_KISS_WITH_WOLFMAN:
 		case NAME_SLAP_HIT_WITH_WARRIOR:
 		case NAME_SLAP_HIT_WITH_ASSASSIN:
 		case NAME_SLAP_HIT_WITH_SURA:
 		case NAME_SLAP_HIT_WITH_SHAMAN:
+		case NAME_SLAP_HIT_WITH_WOLFMAN:
 		case NAME_SLAP_HURT_WITH_WARRIOR:
 		case NAME_SLAP_HURT_WITH_ASSASSIN:
 		case NAME_SLAP_HURT_WITH_SURA:
 		case NAME_SLAP_HURT_WITH_SHAMAN:
+		case NAME_SLAP_HURT_WITH_WOLFMAN:
 		case NAME_DIG:
 			SetType(TYPE_EVENT);
 			break;
@@ -435,6 +439,12 @@ bool CRaceMotionData::LoadMotionData(const char * c_szFileName)
 						break;
 					case MOTION_EVENT_TYPE_EFFECT_TO_TARGET:
 						pData = new TMotionEffectToTargetEventData;
+						break;
+					case MOTION_EVENT_TYPE_NEW_1:
+						pData = new TMotionNew1EventData;
+						break;
+					case MOTION_EVENT_TYPE_NEW_2:
+						pData = new TMotionNew2EventData;
 						break;
 					default:
 						assert(!" CRaceMotionData::LoadMotionData - Strange Event Type");

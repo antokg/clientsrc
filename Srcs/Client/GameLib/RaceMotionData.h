@@ -51,6 +51,9 @@ class CRaceMotionData
 
 			MODE_WEDDING_DRESS,
 
+			MODE_CLAW,
+			MODE_HORSE_CLAW,
+
 			MODE_MAX_NUM,
 		};
 
@@ -111,6 +114,7 @@ class CRaceMotionData
 			NAME_KISS_WITH_ASSASSIN = NAME_KISS_START + 1,
 			NAME_KISS_WITH_SURA = NAME_KISS_START + 2,
 			NAME_KISS_WITH_SHAMAN = NAME_KISS_START + 3,
+			NAME_KISS_WITH_WOLFMAN = NAME_KISS_START + 4,
 
 			// FRENCH_KISS
 			NAME_FRENCH_KISS_START,
@@ -118,6 +122,7 @@ class CRaceMotionData
 			NAME_FRENCH_KISS_WITH_ASSASSIN = NAME_FRENCH_KISS_START + 1,
 			NAME_FRENCH_KISS_WITH_SURA = NAME_FRENCH_KISS_START + 2,
 			NAME_FRENCH_KISS_WITH_SHAMAN = NAME_FRENCH_KISS_START + 3,
+			NAME_FRENCH_KISS_WITH_WOLFMAN = NAME_FRENCH_KISS_START + 4,
 
 			// SLAP
 			NAME_SLAP_HIT_START,
@@ -125,12 +130,14 @@ class CRaceMotionData
 			NAME_SLAP_HIT_WITH_ASSASSIN = NAME_SLAP_HIT_START + 1,
 			NAME_SLAP_HIT_WITH_SURA = NAME_SLAP_HIT_START + 2,
 			NAME_SLAP_HIT_WITH_SHAMAN = NAME_SLAP_HIT_START + 3,
+			NAME_SLAP_HIT_WITH_WOLFMAN= NAME_SLAP_HIT_START + 4,
 
 			NAME_SLAP_HURT_START,
 			NAME_SLAP_HURT_WITH_WARRIOR = NAME_SLAP_HURT_START + 0,
 			NAME_SLAP_HURT_WITH_ASSASSIN = NAME_SLAP_HURT_START + 1,
 			NAME_SLAP_HURT_WITH_SURA = NAME_SLAP_HURT_START + 2,
 			NAME_SLAP_HURT_WITH_SHAMAN = NAME_SLAP_HURT_START + 3,
+			NAME_SLAP_HURT_WITH_WOLFMAN = NAME_SLAP_HURT_START + 4,
 
 			NAME_DIG,
 
@@ -170,6 +177,8 @@ class CRaceMotionData
 			MOTION_EVENT_TYPE_CHARACTER_HIDE,
 			MOTION_EVENT_TYPE_WARP,
 			MOTION_EVENT_TYPE_EFFECT_TO_TARGET,
+			MOTION_EVENT_TYPE_NEW_1,
+			MOTION_EVENT_TYPE_NEW_2,
 
 			MOTION_EVENT_TYPE_MAX_NUM,
 		};
@@ -192,6 +201,8 @@ class CRaceMotionData
 		typedef struct NMotionEvent::SMotionEventDataCharacterHide	TMotionCharacterHideEventData;
 		typedef struct NMotionEvent::SMotionEventDataWarp			TMotionWarpEventData;
 		typedef struct NMotionEvent::SMotionEventDataEffectToTarget	TMotionEffectToTargetEventData;
+		typedef struct NMotionEvent::SMotionEventDataNew1			TMotionNew1EventData;
+		typedef struct NMotionEvent::SMotionEventDataNew2			TMotionNew2EventData;
 		typedef std::vector<TMotionEventData*> TMotionEventDataVector;
 
 	public:

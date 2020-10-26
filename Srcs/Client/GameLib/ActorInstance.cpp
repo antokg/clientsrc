@@ -5,11 +5,6 @@
 #include "../SpeedTreeLib/SpeedTreeForestDirectX8.h"
 #include "../SpeedTreeLib/SpeedTreeWrapper.h"
 
-enum
-{
-	MAIN_RACE_MAX_NUM = 8,
-};
-
 void CActorInstance::INSTANCEBASE_Deform()
 {
 	Deform();
@@ -273,7 +268,7 @@ bool CActorInstance::IsPoly()
 		return true;
 
 	if (TYPE_PC==m_eActorType)
-		if (m_eRace >= MAIN_RACE_MAX_NUM)
+		if (m_eRace >= NRaceData::MAIN_RACE_MAX_NUM)
 			return TRUE;
 
 	return false;

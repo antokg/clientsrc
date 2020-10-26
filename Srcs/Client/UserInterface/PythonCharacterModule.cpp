@@ -1221,6 +1221,30 @@ PyObject * chrtestSetRideMan(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 
+PyObject* chrSetScale(PyObject* poSelf, PyObject* poArgs)
+{
+	float fScaleX, fScaleY, fScaleZ;
+
+	if (!PyTuple_GetFloat(poArgs, 0, &fScaleX))
+		return Py_BadArgument();
+
+	if (!PyTuple_GetFloat(poArgs, 1, &fScaleY))
+		return Py_BadArgument();
+
+	if (!PyTuple_GetFloat(poArgs, 2, &fScaleZ))
+		return Py_BadArgument();
+
+	CInstanceBase* pCharacterInstance = CPythonCharacterManager::Instance().GetSelectedInstancePtr();
+
+	if (!pCharacterInstance)
+		return Py_BuildNone();
+
+	pCharacterInstance->SetScale(fScaleX, fScaleY, fScaleZ);
+
+
+	return Py_BuildNone();
+}
+
 void initchr()
 {
 	static PyMethodDef s_methods[] =
@@ -1299,6 +1323,7 @@ void initchr()
 
 		{ "RaceToJob",					chrRaceToJob,							METH_VARARGS },
 		{ "RaceToSex",					chrRaceToSex,							METH_VARARGS },
+		{ "SetScale",					chrSetScale,							METH_VARARGS },
 
 		// For Test
 		{ "testGetPKData",					chrtestGetPKData,					METH_VARARGS },
@@ -1388,18 +1413,22 @@ void initchr()
 	PyModule_AddIntConstant(poModule, "MOTION_KISS_WITH_ASSASSIN",			CRaceMotionData::NAME_KISS_WITH_ASSASSIN);
 	PyModule_AddIntConstant(poModule, "MOTION_KISS_WITH_SURA",				CRaceMotionData::NAME_KISS_WITH_SURA);
 	PyModule_AddIntConstant(poModule, "MOTION_KISS_WITH_SHAMAN",			CRaceMotionData::NAME_KISS_WITH_SHAMAN);
+	PyModule_AddIntConstant(poModule, "MOTION_KISS_WITH_WOLFMAN",			CRaceMotionData::NAME_KISS_WITH_WOLFMAN);
 	PyModule_AddIntConstant(poModule, "MOTION_FRENCH_KISS_WITH_WARRIOR",	CRaceMotionData::NAME_FRENCH_KISS_WITH_WARRIOR);
 	PyModule_AddIntConstant(poModule, "MOTION_FRENCH_KISS_WITH_ASSASSIN",	CRaceMotionData::NAME_FRENCH_KISS_WITH_ASSASSIN);
 	PyModule_AddIntConstant(poModule, "MOTION_FRENCH_KISS_WITH_SURA",		CRaceMotionData::NAME_FRENCH_KISS_WITH_SURA);
 	PyModule_AddIntConstant(poModule, "MOTION_FRENCH_KISS_WITH_SHAMAN",		CRaceMotionData::NAME_FRENCH_KISS_WITH_SHAMAN);
+	PyModule_AddIntConstant(poModule, "MOTION_FRENCH_KISS_WITH_WOLFMAN",	CRaceMotionData::NAME_FRENCH_KISS_WITH_WOLFMAN);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HIT_WITH_WARRIOR",		CRaceMotionData::NAME_SLAP_HIT_WITH_WARRIOR);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HIT_WITH_ASSASSIN",		CRaceMotionData::NAME_SLAP_HIT_WITH_ASSASSIN);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HIT_WITH_SURA",			CRaceMotionData::NAME_SLAP_HIT_WITH_SURA);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HIT_WITH_SHAMAN",		CRaceMotionData::NAME_SLAP_HIT_WITH_SHAMAN);
+	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HIT_WITH_WOLFMAN",		CRaceMotionData::NAME_SLAP_HIT_WITH_WOLFMAN);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HURT_WITH_WARRIOR",		CRaceMotionData::NAME_SLAP_HURT_WITH_WARRIOR);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HURT_WITH_ASSASSIN",		CRaceMotionData::NAME_SLAP_HURT_WITH_ASSASSIN);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HURT_WITH_SURA",			CRaceMotionData::NAME_SLAP_HURT_WITH_SURA);
 	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HURT_WITH_SHAMAN",		CRaceMotionData::NAME_SLAP_HURT_WITH_SHAMAN);
+	PyModule_AddIntConstant(poModule, "MOTION_SLAP_HURT_WITH_WOLFMAN",		CRaceMotionData::NAME_SLAP_HURT_WITH_WOLFMAN);
 	PyModule_AddIntConstant(poModule, "MOTION_DIG",							CRaceMotionData::NAME_DIG);
 
 	PyModule_AddIntConstant(poModule, "MOTION_MODE_RESERVED",				CRaceMotionData::MODE_RESERVED);
@@ -1419,6 +1448,8 @@ void initchr()
 	PyModule_AddIntConstant(poModule, "MOTION_MODE_HORSE_FAN",				CRaceMotionData::MODE_HORSE_FAN);
 	PyModule_AddIntConstant(poModule, "MOTION_MODE_HORSE_BELL",				CRaceMotionData::MODE_HORSE_BELL);
 	PyModule_AddIntConstant(poModule, "MOTION_MODE_WEDDING_DRESS",			CRaceMotionData::MODE_WEDDING_DRESS);
+	PyModule_AddIntConstant(poModule, "MOTION_MODE_CLAW",					CRaceMotionData::MODE_CLAW);
+	PyModule_AddIntConstant(poModule, "MOTION_MODE_HORSE_CLAW",				CRaceMotionData::MODE_HORSE_CLAW);
 
 	PyModule_AddIntConstant(poModule, "DIR_NORTH",							CInstanceBase::DIR_NORTH);
 	PyModule_AddIntConstant(poModule, "DIR_NORTHEAST",						CInstanceBase::DIR_NORTHEAST);
@@ -1492,6 +1523,9 @@ void initchr()
 	PyModule_AddIntConstant(poModule, "AFFECT_WAR_FLAG1",						CInstanceBase::AFFECT_WAR_FLAG1);
 	PyModule_AddIntConstant(poModule, "AFFECT_WAR_FLAG2",						CInstanceBase::AFFECT_WAR_FLAG2);
 	PyModule_AddIntConstant(poModule, "AFFECT_WAR_FLAG3",						CInstanceBase::AFFECT_WAR_FLAG3);
+	PyModule_AddIntConstant(poModule, "AFFECT_BLEEDING",						CInstanceBase::AFFECT_BLEEDING);
+	PyModule_AddIntConstant(poModule, "AFFECT_RED_POSSESSION",					CInstanceBase::AFFECT_RED_POSSESSION);
+	PyModule_AddIntConstant(poModule, "AFFECT_BLUE_POSSESSION",					CInstanceBase::AFFECT_BLUE_POSSESSION);
 
 
 }

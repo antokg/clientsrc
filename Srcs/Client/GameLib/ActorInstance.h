@@ -580,6 +580,8 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		void ProcessMotionEventSound(const CRaceMotionData::TMotionEventData * c_pData);
 		void ProcessMotionEventFly(const CRaceMotionData::TMotionEventData * c_pData);
 		void ProcessMotionEventWarp(const CRaceMotionData::TMotionEventData * c_pData);
+		void ProcessMotionEventNew1(const CRaceMotionData::TMotionEventData * c_pData);
+		void ProcessMotionEventNew2(const CRaceMotionData::TMotionEventData * c_pData);
 
 		void AddMovement(float fx, float fy, float fz);
 		

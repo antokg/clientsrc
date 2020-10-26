@@ -107,6 +107,8 @@ bool CActorInstance::__IsLeftHandWeapon(DWORD type)
 		return true;
 	else if (CItemData::WEAPON_BOW == type)
 		return true;
+	else if (CItemData::WEAPON_CLAW == type)
+		return true;
 	else
 		return false;
 }

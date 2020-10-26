@@ -287,4 +287,24 @@ namespace NMotionEvent
 		void Save(FILE * File, int iTabs) {}
 		void Load() {}
 	} TMotionWarpEventData;
+
+	// New 1 (wolfman)
+	typedef struct SMotionEventDataNew1 : public SMotionEventData
+	{
+		SMotionEventDataNew1() {}
+		virtual ~SMotionEventDataNew1() {}
+
+		void Save(FILE* File, int iTabs) {}
+		void Load() {}
+	} TMotionNew1EventData;
+
+	// New 2 (wolfman)
+	typedef struct SMotionEventDataNew2 : public SMotionEventData
+	{
+		SMotionEventDataNew2() {}
+		virtual ~SMotionEventDataNew2() {}
+
+		void Save(FILE* File, int iTabs) {}
+		void Load() {}
+	} TMotionNew2EventData;
 };

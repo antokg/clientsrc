@@ -519,18 +519,22 @@ BOOL CActorInstance::isLock()
 		case CRaceMotionData::NAME_KISS_WITH_ASSASSIN:
 		case CRaceMotionData::NAME_KISS_WITH_SURA:
 		case CRaceMotionData::NAME_KISS_WITH_SHAMAN:
+		case CRaceMotionData::NAME_KISS_WITH_WOLFMAN:
 		case CRaceMotionData::NAME_FRENCH_KISS_WITH_WARRIOR:
 		case CRaceMotionData::NAME_FRENCH_KISS_WITH_ASSASSIN:
 		case CRaceMotionData::NAME_FRENCH_KISS_WITH_SURA:
 		case CRaceMotionData::NAME_FRENCH_KISS_WITH_SHAMAN:
+		case CRaceMotionData::NAME_FRENCH_KISS_WITH_WOLFMAN:
 		case CRaceMotionData::NAME_SLAP_HIT_WITH_WARRIOR:
 		case CRaceMotionData::NAME_SLAP_HIT_WITH_ASSASSIN:
 		case CRaceMotionData::NAME_SLAP_HIT_WITH_SURA:
 		case CRaceMotionData::NAME_SLAP_HIT_WITH_SHAMAN:
+		case CRaceMotionData::NAME_SLAP_HIT_WITH_WOLFMAN:
 		case CRaceMotionData::NAME_SLAP_HURT_WITH_WARRIOR:
 		case CRaceMotionData::NAME_SLAP_HURT_WITH_ASSASSIN:
 		case CRaceMotionData::NAME_SLAP_HURT_WITH_SURA:
 		case CRaceMotionData::NAME_SLAP_HURT_WITH_SHAMAN:
+		case CRaceMotionData::NAME_SLAP_HURT_WITH_WOLFMAN:
 			return TRUE;
 			break;
 	}

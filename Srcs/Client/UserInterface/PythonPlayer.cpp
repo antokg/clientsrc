@@ -5,19 +5,7 @@
 #include "../eterbase/Timer.h"
 
 #include "AbstractPlayer.h"
-
-enum
-{
-	MAIN_RACE_WARRIOR_M,
-	MAIN_RACE_ASSASSIN_W,
-	MAIN_RACE_SURA_M,
-	MAIN_RACE_SHAMAN_W,
-	MAIN_RACE_WARRIOR_W,
-	MAIN_RACE_ASSASSIN_M,
-	MAIN_RACE_SURA_W,
-	MAIN_RACE_SHAMAN_M,
-	MAIN_RACE_MAX_NUM,
-};
+#include "../GameLib/GameType.h"
 
 const DWORD POINT_MAGIC_NUMBER = 0xe73ac1da;
 
@@ -329,21 +317,24 @@ DWORD CPythonPlayer::__GetRaceStat()
 {
 	switch (GetRace())
 	{
-		case MAIN_RACE_WARRIOR_M:
-		case MAIN_RACE_WARRIOR_W:
+	case NRaceData::MAIN_RACE_WARRIOR_M:
+		case NRaceData::MAIN_RACE_WARRIOR_W:
 			return GetStatus(POINT_ST);
 			break;
-		case MAIN_RACE_ASSASSIN_M:
-		case MAIN_RACE_ASSASSIN_W:
+		case NRaceData::MAIN_RACE_ASSASSIN_M:
+		case NRaceData::MAIN_RACE_ASSASSIN_W:
 			return GetStatus(POINT_DX);
 			break;
-		case MAIN_RACE_SURA_M:
-		case MAIN_RACE_SURA_W:
+		case NRaceData::MAIN_RACE_SURA_M:
+		case NRaceData::MAIN_RACE_SURA_W:
 			return GetStatus(POINT_ST);
 			break;
-		case MAIN_RACE_SHAMAN_M:
-		case MAIN_RACE_SHAMAN_W:
+		case NRaceData::MAIN_RACE_SHAMAN_M:
+		case NRaceData::MAIN_RACE_SHAMAN_W:
 			return GetStatus(POINT_IQ);
+			break;
+		case NRaceData::MAIN_RACE_WOLFMAN_M:
+			return GetStatus(POINT_HT);
 			break;
 	}	
 	return GetStatus(POINT_ST);

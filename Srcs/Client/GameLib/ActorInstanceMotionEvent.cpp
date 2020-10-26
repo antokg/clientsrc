@@ -78,6 +78,14 @@ void CActorInstance::MotionEventProcess(DWORD dwcurFrame, int iIndex, const CRac
 			ProcessMotionEventWarp(c_pData);
 #endif
 			break;
+
+		case CRaceMotionData::MOTION_EVENT_TYPE_NEW_1:
+			ProcessMotionEventNew1(c_pData);
+			break;
+
+		case CRaceMotionData::MOTION_EVENT_TYPE_NEW_2:
+			ProcessMotionEventNew2(c_pData);
+			break;
 	}
 }
 
@@ -329,3 +337,42 @@ void CActorInstance::ProcessMotionEventWarp(const CRaceMotionData::TMotionEventD
 		//TraceError("ActorInstance::ProcessMotionEventFly No Target");
 	}
 }
+
+
+void CActorInstance::ProcessMotionEventNew1(const CRaceMotionData::TMotionEventData* c_pData)
+{
+	if (CRaceMotionData::MOTION_EVENT_TYPE_NEW_1 != c_pData->iType)
+		return;
+
+	static const float sc_fDistanceFromTarget = 450.0f;
+
+	if (m_kFlyTarget.IsValidTarget())
+	{
+		D3DXVECTOR3 v3MainPosition(m_x, m_y, m_z);
+		const D3DXVECTOR3& c_rv3TargetPosition = __GetFlyTargetPosition();
+
+		D3DXVECTOR3 v3Distance = c_rv3TargetPosition - v3MainPosition;
+		D3DXVec3Normalize(&v3Distance, &v3Distance);
+		TPixelPosition DestPixelPosition = c_rv3TargetPosition - (v3Distance * sc_fDistanceFromTarget);
+
+		IBackground& rkBG = GetBackground();
+		if (!rkBG.IsBlock(DestPixelPosition.x, -DestPixelPosition.y))
+			SetPixelPosition(DestPixelPosition);
+
+		LookAt(c_rv3TargetPosition.x, c_rv3TargetPosition.y);
+
+		//__OnMoving();
+		__OnWarp();
+	}
+	else
+	{
+		//TraceError("ActorInstance::ProcessMotionEventFly No Target");
+	}
+}
+
+void CActorInstance::ProcessMotionEventNew2(const CRaceMotionData::TMotionEventData* c_pData)
+{
+	if (CRaceMotionData::MOTION_EVENT_TYPE_NEW_2 != c_pData->iType)
+		return;
+}
+

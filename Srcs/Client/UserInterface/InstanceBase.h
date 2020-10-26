@@ -2,6 +2,7 @@
 
 #include "../gamelib/RaceData.h"
 #include "../gamelib/ActorInstance.h"
+#include "../gamelib/GameType.h"
 
 #include "AffectFlagContainer.h"
 
@@ -115,6 +116,9 @@ class CInstanceBase
 			AFFECT_PREMIUM_SILVER,
 			AFFECT_PREMIUM_GOLD,
 			AFFECT_RAMADAN_RING,			// 41 ÃÊ½Â´Þ ¹ÝÁö Âø¿ë Affect
+			AFFECT_BLEEDING,
+			AFFECT_RED_POSSESSION,
+			AFFECT_BLUE_POSSESSION,
 
 			AFFECT_NUM = 64,
 
@@ -756,6 +760,8 @@ class CInstanceBase
 		void					BlendDirection(int dir, float blendTime);
 		float					GetDegreeFromDirection(int dir);
 
+		void					SetScale(float fScaleX, float fScaleY, float fScaleZ);
+
 		// Motion
 		//	Motion Deque
 		BOOL					isLock();
@@ -1137,24 +1143,43 @@ class CInstanceBase
 
 inline int RaceToJob(int race)
 {
-	const int JOB_NUM = 4;
-	return race % JOB_NUM;
+	switch (race)
+	{
+	case NRaceData::MAIN_RACE_WARRIOR_M:
+	case NRaceData::MAIN_RACE_WARRIOR_W:
+		return NRaceData::JOB_WARRIOR;
+	case NRaceData::MAIN_RACE_ASSASSIN_M:
+	case NRaceData::MAIN_RACE_ASSASSIN_W:
+		return NRaceData::JOB_ASSASSIN;
+	case NRaceData::MAIN_RACE_SURA_M:
+	case NRaceData::MAIN_RACE_SURA_W:
+		return NRaceData::JOB_SURA;
+	case NRaceData::MAIN_RACE_SHAMAN_M:
+	case NRaceData::MAIN_RACE_SHAMAN_W:
+		return NRaceData::JOB_SHAMAN;
+	case NRaceData::MAIN_RACE_WOLFMAN_M:
+		return NRaceData::JOB_WOLFMAN;
+
+	}
+	TraceError("unknown race type %d", race);
+	return 0;
 }
 
 inline int RaceToSex(int race)
 {
 	switch (race)
 	{
-		case 0:
-		case 2:
-		case 5:
-		case 7:
-			return 1;
-		case 1:
-		case 3:
-		case 4:
-		case 6:
-			return 0;
+	case NRaceData::MAIN_RACE_WARRIOR_M:
+	case NRaceData::MAIN_RACE_ASSASSIN_M:
+	case NRaceData::MAIN_RACE_SURA_M:
+	case NRaceData::MAIN_RACE_SHAMAN_M:
+	case NRaceData::MAIN_RACE_WOLFMAN_M:
+		return 1;
+	case NRaceData::MAIN_RACE_WARRIOR_W:
+	case NRaceData::MAIN_RACE_ASSASSIN_W:
+	case NRaceData::MAIN_RACE_SURA_W:
+	case NRaceData::MAIN_RACE_SHAMAN_W:
+		return 0;
 
 	}
 	return 0;
